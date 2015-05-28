@@ -1,0 +1,23 @@
+development:
+  adapter:  mysql2
+  encoding: utf8
+  database: zhengsheng_database
+  host:     140.134.26.63
+  username: shadow3x3x3
+  password:
+
+test:
+  adapter:  mysql2
+  encoding: utf8
+  database: zhengsheng_database
+  host:     140.134.26.63
+  username: shadow3x3x3
+  password:
+
+production:
+  adapter:  mysql2
+  encoding: utf8
+  database: zhengsheng_database
+  host:     140.134.26.63
+  username: shadow3x3x3
+  password:

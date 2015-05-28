@@ -1,0 +1,26 @@
+<ul>
+<table  border="1">
+    <tr>
+        <th>醫院名稱</th>
+        <th>醫院住址</th>
+        <th>是否有健保碼</th>
+    </tr>
+    
+    <% @hospitals.each do |hospital| %> 
+    <tr>           
+            <td><%= hospital.name %></td>
+            <td><%= hospital.address %></td>
+            <td><%= hospital.isDrugID == true ? "有健保碼":"無健保碼" %></td>
+        <td><%= link_to '顯示', :controller => 'events', :action => 'show', :id => hospital %></td>
+        <td><%= link_to '編輯', :controller => 'events', :action => 'edit', :id => hospital %></td>
+        <td><%= link_to '刪除', :controller => 'events', :action => 'destroy', :id => hospital %></td>
+        
+    </tr>
+    <% end %> 
+           
+</table>
+      
+  
+
+</ul>
+<%= link_to '新增醫院', :controller => 'hospitals', :action => 'new' %>
