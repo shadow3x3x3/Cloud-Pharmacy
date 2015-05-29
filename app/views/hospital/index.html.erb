@@ -1,5 +1,5 @@
 <ul>
-<table  border="1">
+<table class="table table-bordered">
     <tr>
         <th>醫院名稱</th>
         <th>醫院住址</th>
@@ -11,9 +11,9 @@
             <td><%= hospital.name %></td>
             <td><%= hospital.address %></td>
             <td><%= hospital.isDrugID == true ? "有健保碼":"無健保碼" %></td>
-        <td><%= link_to '顯示', :controller => 'events', :action => 'show', :id => hospital %></td>
-        <td><%= link_to '編輯', :controller => 'events', :action => 'edit', :id => hospital %></td>
-        <td><%= link_to '刪除', :controller => 'events', :action => 'destroy', :id => hospital %></td>
+        <td><%= link_to '顯示', :controller => 'hospital', :action => 'show', :id => hospital %></td>
+        <td><%= link_to '編輯', :controller => 'hospital', :action => 'edit', :id => hospital %></td>
+        <td><%= link_to '刪除', :controller => 'hospital', :action => 'destroy', :id => hospital %></td>
         
     </tr>
     <% end %> 
