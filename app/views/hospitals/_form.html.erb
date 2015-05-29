@@ -1,0 +1,32 @@
+<div class="control-group">
+  <%= f.label :name, "名稱", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :address, "住址", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :address %>
+  </div>
+</div>
+
+<br />
+
+<div class="control-group">
+  <div class="controls">
+    <%= f.radio_button :isDrugID, 'true', :checked => true %> 有藥品健保碼
+    <br />
+    <%= f.radio_button :isDrugID, 'false', :checked => false %> 沒有藥品健保碼
+  </div>
+</div>
+<br />
+
+<% if @hospital.errors.any? %>
+  <ul>
+  <% @hospital.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>

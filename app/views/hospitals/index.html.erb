@@ -1,3 +1,5 @@
+
+
 <h1>管理醫院</h1>
 <ul>
 <table class="table table-bordered ">
@@ -6,19 +8,25 @@
       <th>醫院住址</th>
       <th>是否有健保碼</th>
   </tr>
-  
-  <% @hospitals.each do |hospital| %> 
-  <tr>           
+
+  <% @hospitals.each do |hospital| %>
+  <tr>
           <td><%= hospital.name %></td>
           <td><%= hospital.address %></td>
           <td><%= hospital.isDrugID == true ? "有健保碼":"無健保碼" %></td>
-      <td><%= link_to '顯示', :controller => 'hospitals', :action => 'show', :id => hospital %></td>
-      <td><%= link_to '編輯', :controller => 'hospitals', :action => 'edit', :id => hospital %></td>
-      <td><%= link_to '刪除', :controller => 'hospitals', :action => 'destroy', :id => hospital %></td>
+      <td>
+        <%= link_to '編輯', :controller => 'hospitals', :action => 'edit', :id => hospital,
+        :class => 'btn-primary' %>
+      </td>
+      <td>
+        <%= link_to '刪除', :controller => 'hospitals', :action => 'destroy', :id => hospital, :class => 'btn btn-danger' %>
+      </td>
   </tr>
-  <% end %> 
-         
+  <% end %>
+
 </table>
 </ul>
 
 <%= link_to '新增醫院', :controller => 'hospitals', :action => 'new' %>
+<br \>
+<%= paginate @hospitals %>
