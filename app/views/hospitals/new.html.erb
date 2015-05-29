@@ -1,0 +1,33 @@
+
+
+<%= form_for @hospital, :url  => { :controller => 'hospitals', :action => 'create' },
+                        :html => { :class      => 'form-horizontal'                } do |f| %>
+  <h1>新增醫院資料</h1>
+  
+  <div class="control-group">
+    <%= f.label :name, "名稱", class: "control-label text-center" %>
+    <div class="controls">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :address, "住址", class: "control-label text-center" %>
+    <div class="controls">
+      <%= f.text_field :address %>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.radio_button :isDrugID, 'true', :checked => true %> 有藥品健保碼
+      <br />
+      <%= f.radio_button :isDrugID, 'false', :checked => false %> 沒有藥品健保碼
+    </div>
+  </div>
+  <br />
+  <%= f.submit "Create", class: "btn btn-default btn-primary" %>
+
+<% end %>
