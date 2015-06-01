@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :hospitals
+  resources :hospitals, :pharmacists
   root :to => "welcome#index"
 
   get "welcome/say_hello" => "welcome#say"

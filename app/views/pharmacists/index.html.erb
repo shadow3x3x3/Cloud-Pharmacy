@@ -1,0 +1,30 @@
+<h1>管理藥師</h1>
+<ul>
+<table class="table table-bordered ">
+  <tr>
+    <th>藥師姓名</th>
+    <th>藥師薪水</th>
+    <th>外送次數</th>
+    <th>備註</th>
+  </tr>
+  <% @pharmacists.each do |pharmacist| %>
+  <tr>
+      <td><%= pharmacist.name %></td>
+      <td><%= pharmacist.salary %></td>
+      <td><%= pharmacist.deliveryTimes %></td>
+      <td><%= pharmacist.remark %></td>
+    <td>
+      <%= link_to '編輯', edit_pharmacist_path(pharmacist) %>
+    </td>
+    <td>
+      <%= link_to '刪除', pharmacist_path(pharmacist), :method => :delete %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+
+<%= link_to '新增藥師', new_pharmacist_path %>
+<br \>
+<%= paginate @pharmacists %>
