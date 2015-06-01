@@ -1,8 +1,7 @@
 
 
-<%= form_for @hospital, :url  => { :controller => 'hospitals', :action => 'update',
-                                   :id => @hospital                                },
-                        :html => { :class      => 'form-horizontal'                } do |f| %>
+<%= form_for @hospital, :url => hospital_path(@hospital), :method => :patch,
+                        :html => { :class => 'form-horizontal' } do |f| %>
   <h1>編輯醫院資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

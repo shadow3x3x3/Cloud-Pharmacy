@@ -13,7 +13,7 @@ class HospitalsController < ApplicationController
   def create
     @hospital = Hospital.new(hospital_params)
     if @hospital.save
-      redirect_to :action => :index
+      redirect_to hospitals_url
       flash[:notice] = "已成功新增醫院資料"
     else
       render :action => :new
@@ -28,7 +28,7 @@ class HospitalsController < ApplicationController
 
   def update
     if @hospital.update(hospital_params)
-      redirect_to :action => :index
+      redirect_to hospitals_url
       flash[:notice] = "已成功更新醫院資料"
     else
       render :action => :edit
