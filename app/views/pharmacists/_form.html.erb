@@ -8,31 +8,29 @@
 <div class="control-group">
   <%= f.label :salary, "薪水", class: "control-label text-center" %>
   <div class="controls">
-    <%= f.number_field :salary %>
+    <%= f.number_field :salary, :min => 0 %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :deliveryTimes, "外送次數", class: "control-label text-center" %>
   <div class="controls">
-    <%= f.number_field :deliveryTimes %>
+    <%= f.number_field :deliveryTimes, :min => 0 %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :remark, "備註", class: "control-label text-center" %>
   <div class="controls">
-    <textarea rows="3">
-      <%= f.text_field :remark %>
-    </textarea>
+    <%= f.text_field :remark, :row => 6 %>
   </div>
 </div>
 
 <br />
 
-<% if @hospital.errors.any? %>
+<% if @pharmacist.errors.any? %>
   <ul>
-  <% @hospital.errors.full_messages.each do |msg| %>
+  <% @pharmacist.errors.full_messages.each do |msg| %>
     <li> <%= msg %> </li>
   <% end %>
   </ul>
