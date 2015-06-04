@@ -1,0 +1,67 @@
+<div class="control-group">
+  <%= f.label :name, "名稱", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :abbreviation, "簡稱", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :abbreviation %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :phone, "電話", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :phone %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :fax, "傳真", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :fax %>
+  </div>
+</div>
+
+<br />
+
+<div class="control-group">
+  <p>所屬藥師</p>
+  <div class="controls">
+    <%= f.collection_select :pharmacistID, Pharmacist.all, :id, :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :address, "住址", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :address %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :color, "代表顏色", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.color_field :color %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :lastDeliveryDay, "最後外送日", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.date_select :lastDeliveryDay %>
+  </div>
+</div>
+
+<br />
+
+<% if @agency.errors.any? %>
+  <ul>
+  <% @agency.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,38 @@
+<h1>管理機構</h1>
+<ul>
+<table class="table table-bordered ">
+  <tr>
+    <th>機構名稱</th>
+    <th>機構簡稱</th>
+    <th>機構電話</th>
+    <th>機構傳真</th>
+    <th>所屬藥師</th>
+    <th>機構住址</th>
+    <th>代表顏色</th>
+    <th>上次外送日</th>
+  </tr>
+  <% @agencies.each do |agency| %>
+  <tr>
+      <td><%= agency.name %></td>
+      <td><%= agency.abbreviation %></td>
+      <td><%= agency.phone %></td>
+      <td><%= agency.fax %></td>
+      <td><%= Pharmacist.find(agency.pharmacistID).name %></td>
+      <td><%= agency.address%></td>
+      <td style="background-color:<%= agency.color %>"></td>
+      <td><%= agency.lastDeliveryDay %></td>
+    <td>
+      <%= link_to '編輯', edit_agency_path(agency) %>
+    </td>
+    <td>
+      <%= link_to '刪除', agency_path(agency), :method => :delete %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+
+<%= link_to '新增醫院', new_agency_path %>
+<br \>
+<%= paginate @agencies %>
