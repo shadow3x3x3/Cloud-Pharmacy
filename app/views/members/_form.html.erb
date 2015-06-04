@@ -1,0 +1,44 @@
+<div class="control-group">
+  <%= f.label :memberIdNumber, "身分證字號", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :memberIdNumber %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :password, "密碼", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.password_field :password %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :email, "Email", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.email_field :email%>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :name, "姓名", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :phone, "電話", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :phone, :min => "0" %>
+  </div>
+</div>
+
+<br />
+
+<% if @member.errors.any? %>
+  <ul>
+  <% @member.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>

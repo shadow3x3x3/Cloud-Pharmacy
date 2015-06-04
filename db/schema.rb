@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150602031657) do
 
   create_table "af_nurse_handing", primary_key: "nurseHandlingID", force: :cascade do |t|
     t.string "mode",           limit: 17,  null: false
@@ -121,11 +121,12 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "member", primary_key: "memberID", force: :cascade do |t|
-    t.string "memberIdNumber", limit: 16, null: false
-    t.string "email",          limit: 64, null: false
-    t.string "name",           limit: 64, null: false
-    t.string "phone",          limit: 16, null: false
-    t.string "password",       limit: 16, null: false
+    t.string "memberIdNumber",  limit: 16,  null: false
+    t.string "email",           limit: 64,  null: false
+    t.string "name",            limit: 64,  null: false
+    t.string "phone",           limit: 16,  null: false
+    t.string "password",        limit: 16,  null: false
+    t.string "password_digest", limit: 255
   end
 
   create_table "pharmacist", primary_key: "pharmacistID", force: :cascade do |t|

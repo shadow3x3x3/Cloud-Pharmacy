@@ -37,7 +37,7 @@ class HospitalsController < ApplicationController
     @hospital.destroy
 
     redirect_to :action => :index
-    flash[:alert] = "已成功刪除藥師醫院資料"
+    flash[:alert] = "已成功刪除醫院資料"
   end
 
   private
@@ -49,4 +49,5 @@ class HospitalsController < ApplicationController
   def hospital_params
     params.require(:hospital).permit(:name, :address, :isDrugID)
   end
+
 end
