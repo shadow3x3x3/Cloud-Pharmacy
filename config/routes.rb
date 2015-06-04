@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :hospitals, :pharmacists, :except => [:show]
   resources :members, :agencies, :except => [:show]
+  resources :fits, :except => [:show]
 
   root :to => "welcome#index"
 

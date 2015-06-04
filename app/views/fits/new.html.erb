@@ -1,0 +1,8 @@
+<%= form_for @fit, :url  => fits_path,
+                   :html => { :class => 'form-horizontal' } do |f| %>
+  <h1>新增散客資料</h1>
+
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit "Create", class: "btn btn-default btn-primary" %>
+
+<% end %>

@@ -1,0 +1,58 @@
+<div class="control-group">
+  <%= f.label :fitIdNumber, "身分證字號", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :fitIdNumber %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :name, "姓名", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :phoneOffice, "電話(O)", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :phoneOffice %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :phoneHome, "電話(H)", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :phoneHome %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :cellphone, "手機", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.telephone_field :cellphone %>
+  </div>
+</div
+
+<div class="control-group">
+  <%= f.label :address, "住址", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.text_field :address %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :birthday, "出生日期", class: "control-label text-center" %>
+  <div class="controls">
+    <%= f.date_select :birthday, :start_year => 1900, :end_year => Date.today.year %>
+  </div>
+</div>
+
+<br />
+
+<% if @fit.errors.any? %>
+  <ul>
+  <% @fit.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>
