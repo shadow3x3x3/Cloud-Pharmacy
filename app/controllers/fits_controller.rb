@@ -24,9 +24,6 @@ class FitsController < ApplicationController
   end
 
   def update
-    @fit.prescriptionID = null if @fit.prescriptionID
-    @fit.deliveryID = null if @fit.deliveryID
-
     if @fit.update(fit_params)
       redirect_to fits_url
       flash[:notice] = "已成功更新散客資料"

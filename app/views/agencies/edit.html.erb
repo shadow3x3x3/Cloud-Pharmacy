@@ -1,5 +1,5 @@
 <%= form_for @agency, :url => agency_path(@agency), :method => :patch,
-                        :html => { :class => 'form-horizontal' } do |f| %>
+                      :html => { :class => 'form-horizontal' } do |f| %>
   <h1>編輯機構資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
