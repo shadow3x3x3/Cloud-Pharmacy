@@ -50,3 +50,9 @@ group :development, :test do
   gem 'spring'
 end
 
+
+group :development do
+  # Use better errors to show detail of errors
+  gem "better_errors"
+end
+

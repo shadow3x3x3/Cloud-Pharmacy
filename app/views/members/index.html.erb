@@ -1,6 +1,7 @@
 <h1>管理會員</h1>
+<br \>
 <ul>
-<table class="table table-bordered ">
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>會員姓名</th>
     <th>身分證字號</th>
@@ -14,10 +15,10 @@
       <td><%= member.email %></td>
       <td><%= member.phone %></td>
     <td>
-      <%= link_to '編輯', edit_member_path(member) %>
+      <%= link_to '編輯', edit_member_path(member), :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= link_to '刪除', member_path(member), :method => :delete %>
+      <%= link_to '刪除', member_path(member), :method => :delete, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>
@@ -25,6 +26,6 @@
 </table>
 </ul>
 
-<%= link_to '新增會員', new_member_path %>
+<%= link_to '新增會員', new_member_path, :class => "btn btn-info"  %>
 <br \>
 <%= paginate @members %>

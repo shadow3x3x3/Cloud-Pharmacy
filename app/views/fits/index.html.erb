@@ -1,6 +1,6 @@
 <h1>管理散客</h1>
 <ul>
-<table class="table table-bordered ">
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>散客身分證字號</th>
     <th>散客姓名</th>
@@ -24,10 +24,10 @@
       <td><%= fit.prescriptionId %></td>
       <td><%= fit.deliveryID %></td>
     <td>
-      <%= link_to '編輯', edit_fit_path(fit) %>
+      <%= link_to '編輯', edit_fit_path(fit), :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= link_to '刪除', fit_path(fit), :method => :delete %>
+      <%= link_to '刪除', fit_path(fit), :method => :delete, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>

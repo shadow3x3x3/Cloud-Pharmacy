@@ -1,6 +1,7 @@
 <h1>管理機構</h1>
+<br \>
 <ul>
-<table class="table table-bordered ">
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>機構名稱</th>
     <th>機構簡稱</th>
@@ -22,10 +23,10 @@
       <td style="background-color:<%= agency.color %>"></td>
       <td><%= agency.lastDeliveryDay %></td>
     <td>
-      <%= link_to '編輯', edit_agency_path(agency) %>
+      <%= link_to '編輯', edit_agency_path(agency), :class => "btn btn-primary"%>
     </td>
     <td>
-      <%= link_to '刪除', agency_path(agency), :method => :delete %>
+      <%= link_to '刪除', agency_path(agency), :method => :delete, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>
@@ -33,6 +34,6 @@
 </table>
 </ul>
 
-<%= link_to '新增機構', new_agency_path %>
+<%= link_to '新增機構', new_agency_path, :class => "btn btn-info" %>
 <br \>
 <%= paginate @agencies %>

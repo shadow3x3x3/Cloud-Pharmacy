@@ -1,6 +1,7 @@
 <h1>管理藥師</h1>
+<br \>
 <ul>
-<table class="table table-bordered ">
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>藥師姓名</th>
     <th>藥師薪水</th>
@@ -14,10 +15,10 @@
       <td><%= pharmacist.deliveryTimes %></td>
       <td><%= pharmacist.remark %></td>
     <td>
-      <%= link_to '編輯', edit_pharmacist_path(pharmacist) %>
+      <%= link_to '編輯', edit_pharmacist_path(pharmacist), :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= link_to '刪除', pharmacist_path(pharmacist), :method => :delete %>
+      <%= link_to '刪除', pharmacist_path(pharmacist), :method => :delete, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>
@@ -25,6 +26,6 @@
 </table>
 </ul>
 
-<%= link_to '新增藥師', new_pharmacist_path %>
+<%= link_to '新增藥師', new_pharmacist_path, :class => "btn btn-info" %>
 <br \>
 <%= paginate @pharmacists %>

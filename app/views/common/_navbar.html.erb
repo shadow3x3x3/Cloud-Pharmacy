@@ -4,10 +4,12 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">政昇藥局</a>
       <ul class="nav navbar-nav pull-right">
-        <li>
-          <%= link_to "後台管理", hospitals_path %>
-        </li>
-    </ul>
+        <li><%= link_to "醫院管理", hospitals_path %></li>
+        <li><%= link_to "機構管理", agencies_path %></li>
+        <li><%= link_to "會員管理", members_path %></li>
+        <li><%= link_to "散客管理", fits_path %></li>
+        <li><%= link_to "藥師管理", pharmacists_path %></li>
+      </ul>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

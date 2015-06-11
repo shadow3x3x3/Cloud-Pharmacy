@@ -1,8 +1,8 @@
-<%= form_for @pharmacist, :url  => pharmacists_path,
-                          :html => { :class => 'form-horizontal' } do |f| %>
+<%= bootstrap_form_for @pharmacist, :url  => pharmacists_path do |f| %>
   <h1>新增藥師資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-  <%= f.submit "Create", class: "btn btn-default btn-primary" %>
+  <%= f.submit "建立", class: "btn btn-default btn-primary" %>
+  <%= link_to "取消", pharmacists_path, :class => "btn btn-default" %>
 
 <% end %>

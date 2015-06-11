@@ -1,6 +1,7 @@
 <h1>管理醫院</h1>
+<br \>
 <ul>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>醫院名稱</th>
     <th>醫院住址</th>
@@ -23,6 +24,6 @@
 </table>
 </ul>
 
-<%= link_to "新增醫院", new_hospital_path %>
+<%= link_to "新增醫院", new_hospital_path, :class => "btn btn-info" %>
 <br \>
 <%= paginate @hospitals %>

@@ -1,30 +1,7 @@
-<div class="control-group">
-  <%= f.label :name, "姓名", class: "control-label text-center" %>
-  <div class="controls">
-    <%= f.text_field :name %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :salary, "薪水", class: "control-label text-center" %>
-  <div class="controls">
-    <%= f.number_field :salary, :min => 0 %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :deliveryTimes, "外送次數", class: "control-label text-center" %>
-  <div class="controls">
-    <%= f.number_field :deliveryTimes, :min => 0 %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :remark, "備註", class: "control-label text-center" %>
-  <div class="controls">
-    <%= f.text_area :remark, :size => "20x5" %>
-  </div>
-</div>
+<%= f.text_field :name, label: "名字" %>
+<%= f.number_field :salary, :min => 0, label: "薪水" %>
+<%= f.number_field :deliveryTimes, :min => 0, label: "外送次數" %>
+<%= f.text_area :remark, :size => "20x5", label: "備註" %>
 
 <br />
 

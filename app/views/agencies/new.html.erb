@@ -1,8 +1,8 @@
-<%= form_for @agency, :url  => agencies_path,
-                        :html => { :class => 'form-horizontal' } do |f| %>
+<%= bootstrap_form_for @agency, :url  => agencies_path do |f| %>
   <h1>新增機構資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-  <%= f.submit "Create", class: "btn btn-default btn-primary" %>
+  <%= f.submit "建立", class: "btn btn-primary" %>
+  <%= link_to "取消", agencies_path, :class => "btn btn-default" %>
 
 <% end %>
