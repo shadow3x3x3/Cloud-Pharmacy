@@ -1,0 +1,35 @@
+<h1>管理住民</h1>
+<br \>
+<ul>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>住民身分證字號</th>
+    <th>住民姓名</th>
+    <th>住民生日</th>
+    <th>住民床號</th>
+    <th>居住樓層</th>
+    <th>所屬機構</th>
+  </tr>
+  <% @residents.each do |resident| %>
+  <tr>
+      <td><%= resident.name %></td>
+      <td><%= resident.residentIdNumber %></td>
+      <td><%= resident.birthday %></td>
+      <td><%= resident.bedNumber %></td>
+      <td><%= resident.liveFloor %></td>
+      <td><%= Agency.find(resident.agencyID).name %></td>
+    <td>
+      <%= link_to "編輯", edit_resident_path(resident), :class => "btn btn-primary" %>
+    </td>
+    <td>
+      <%= link_to "刪除", resident_path(resident), :method => :delete, :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+
+<%= link_to "新增住民", new_resident_path, :class => "btn btn-info" %>
+<br \>
+<%= paginate @residents %>

@@ -1,0 +1,37 @@
+<h1>管理藥品</h1>
+<br \>
+<ul>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>藥品原名</th>
+    <th>藥品譯名</th>
+    <th>存貨數量</th>
+    <th>價錢</th>
+    <th>是否有健保碼</th>
+  </tr>
+  <% @drugs.each do |drug| %>
+  <tr>
+      <td><%= drug.oriName %></td>
+      <td><%= drug.chiName %></td>
+      <td><%= drug.stock %></td>
+      <td><%= drug.price %></td>
+      <td><%= drug.isChronic == true ? "有健保碼":"無健保碼" %></td>
+
+    <td>
+      <%= link_to "圖片", drugs_path, :class => "btn btn-default" %>
+    </td>
+    <td>
+      <%= link_to "編輯", edit_drug_path(drug), :class => "btn btn-primary" %>
+    </td>
+    <td>
+      <%= link_to "刪除", drug_path(drug), :method => :delete, :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+
+<%= link_to "新增藥品", new_drug_path, :class => "btn btn-info" %>
+<br \>
+<%= paginate @drugs %>

@@ -1,0 +1,17 @@
+<%= f.text_field :oriName, label: "藥品原名", placeholder: "英文原名" %>
+<%= f.text_field :chiName, label: "藥品譯名", placeholder: "中文譯名" %>
+<%= f.number_field :stock, :min => 0, label: "存貨數量" %>
+<%= f.number_field :price, :min => 0, label: "藥品價格" %>
+
+<%= f.radio_button :isChronic, 'true', :checked => true, inline: true, label: "是慢性病" %>
+<%= f.radio_button :isChronic, 'false', :checked => false, inline: true, label: "非慢性病" %>
+
+<br /><br />
+
+<% if @drug.errors.any? %>
+  <ul>
+  <% @drug.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>

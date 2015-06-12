@@ -1,0 +1,8 @@
+<%= bootstrap_form_for @drug, :url  => drugs_path do |f| %>
+  <h1>新增藥品資料</h1>
+
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit "建立", class: "btn btn-primary" %>
+  <%= link_to "取消", drugs_path, :class => "btn btn-default" %>
+
+<% end %>
