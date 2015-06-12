@@ -1,0 +1,50 @@
+<h1>管理處方箋</h1>
+<br \>
+<ul>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>處方箋編號</th>
+    <th>分類</th>
+    <th>姓名</th>
+    <th></th>
+    <th>第一次看診日期</th>
+    <th>第二次看診日期</th>
+    <th>新增人</th>
+    <th>最後修改人</th>
+    <th>開立醫院</th>
+    <th>電聯狀態</th>
+    <th>取得狀態</th>
+  </tr>
+  <% @prescriptions.each do |prescription| %>
+  <tr>
+      <td><%= prescription.prescriptionID %></td>
+      <td><%= identityCheck(prescription) %></td>
+      <td><%=  %></td>
+      <td><%= prescription.days %></td>
+      <td><%= prescription.deliveryTimes %></td>
+      <td><%= prescription.doctorDate %></td>
+      <td><%= prescription.compoundingTimes %></td>
+      <td><%= prescription.firstDate %></td>
+      <td><%= prescription.secondDate %></td>
+      <td><%= prescription.personAdded %></td>
+      <td><%= prescription.lastModifier %></td>
+      <td><%= Hospital.find(prescription.hospitalID).name %></td>
+      <td><%= prescription.phoneStatus == true ? "有電聯":"未電聯" %></td>
+      <td><%= prescription.obtainStatus == true ? "已取得":"未取得" %></td>
+
+
+    <td>
+      <%= link_to "編輯", edit_prescription_path(prescription), :class => "btn btn-primary" %>
+    </td>
+    <td>
+      <%= link_to "刪除", prescription_path(prescription), :method => :delete, :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+
+<%= link_to "新增醫院", new_prescription_path, :class => "btn btn-info" %>
+<br \>
+<%= paginate @prescriptions %>
