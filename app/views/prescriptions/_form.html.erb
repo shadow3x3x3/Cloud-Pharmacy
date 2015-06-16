@@ -1,13 +1,24 @@
-<%= f.text_field :name, label: "名稱" %>
-<%= f.text_field :address, label: "住址" %>
-<%= f.radio_button :isDrugID, 'true', :checked => true, inline: true, label: "有藥品健保碼" %>
-<%= f.radio_button :isDrugID, 'false', :checked => false, inline: true, label: "沒有藥品健保碼" %>
+<div class="form-group"><label class="control-label required">姓名</label>
+<input placeholder=<%= identityCheckName(@prescription) %> disabled="disabled" class="form-control" /></div>
+
+<div class="form-group"><label class="control-label required">分類</label>
+<input placeholder=<%= identityCheck(@prescription) %> disabled="disabled" class="form-control" /></div>
+
+<%= f.number_field :days, :min => 0, label: "天數" %>
+<%= f.number_field :deliveryTimes, :min => 0, label: "外送次數" %>
+<%= f.date_select :doctorDate, label: "就醫日期" %>
+<%= f.number_field :compoundingTimes, :min => 0, label: "調配次數" %>
+<%= f.date_select :firstDate, label: "第一次看診日期" %>
+<%= f.date_select :secondDate, label: "第二次看診日期" %>
+<%= f.text_field :personAdded, label: "新增人" %>
+<%= f.text_field :lastModifier, label: "最後修改人" %>
+<%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: "所屬醫院" %>
 
 <br /><br />
 
-<% if @hospital.errors.any? %>
+<% if @prescription.errors.any? %>
   <ul>
-  <% @hospital.errors.full_messages.each do |msg| %>
+  <% @prescription.errors.full_messages.each do |msg| %>
     <li> <%= msg %> </li>
   <% end %>
   </ul>

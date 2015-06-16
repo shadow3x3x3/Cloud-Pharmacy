@@ -1,5 +1,5 @@
 <%= bootstrap_form_for @prescription, :url => prescription_path(@prescription),
-                                  :method => :patch do |f| %>
+                                      :method => :patch do |f| %>
   <h1>編輯處方箋資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

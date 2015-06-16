@@ -4,10 +4,10 @@
 <table class="table table-bordered table-striped table-hover">
   <tr>
     <th>處方箋編號</th>
-    <th>處方箋分類</th>
+    <th>分類</th>
     <th>姓名</th>
     <th>天數</th>
-    <th>外送天數</th>
+    <th>外送次數</th>
     <th>就醫日期</th>
     <th>調配次數</th>
     <th>第一次看診日期</th>
@@ -22,12 +22,7 @@
   <tr>
       <td><%= prescription.prescriptionID %></td>
       <td><%= identityCheck(prescription) %></td>
-      <td><%= if identityCheck(prescription) == "散客"
-                Fit.find(prescription.prescriptionID).name
-              else
-                Resident.find(prescription.prescriptionID).name
-              end
-                  %></td>
+      <td><%= identityCheckName(prescription) %></td>
       <td><%= prescription.days %></td>
       <td><%= prescription.deliveryTimes %></td>
       <td><%= prescription.doctorDate %></td>

@@ -47,7 +47,10 @@ class PrescriptionsController < ApplicationController
   end
 
   def prescription_params
-    params.require(:prescription).permit(:name, :address, :isDrugID)
+    params.require(:prescription).permit(:days, :deliveryTimes, :doctorDate,
+                                         :compoundingTimes, :firstDate, :secondDate,
+                                         :personAdded, :lastModifier, :hospitalID,
+                                         :phoneStatus, :obtainStatus)
   end
 
 end
