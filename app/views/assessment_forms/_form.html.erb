@@ -1,0 +1,14 @@
+<%= f.text_field :name, label: "名稱" %>
+<%= f.text_field :address, label: "住址" %>
+<%= f.radio_button :isDrugID, 'true', :checked => true, inline: true, label: "有藥品健保碼" %>
+<%= f.radio_button :isDrugID, 'false', :checked => false, inline: true, label: "沒有藥品健保碼" %>
+
+<br /><br />
+
+<% if @hospital.errors.any? %>
+  <ul>
+  <% @hospital.errors.full_messages.each do |msg| %>
+    <li> <%= msg %> </li>
+  <% end %>
+  </ul>
+<% end %>
