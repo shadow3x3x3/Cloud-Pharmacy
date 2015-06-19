@@ -13,7 +13,8 @@
       <td><%= residentName(assessmentForm.residentID) %></td>
       <td><%= assessmentForm.timestamp %></td>
     <td>
-      <%= link_to "PDF", assessment_forms_path, :class => "btn btn-default" %>
+      <%= link_to "PDF", assessment_form_path(assessmentForm.afID, :format => "pdf"),
+                       :class => "btn btn-default" %>
     </td>
     <td>
       <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>

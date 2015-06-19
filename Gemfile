@@ -34,7 +34,8 @@ gem "kaminari"
 gem 'bcrypt', '~> 3.1.7'
 
 # Use prawn to creat PDF
-gem 'prawn-rails'
+gem 'prawn'
+gem 'prawn-table'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

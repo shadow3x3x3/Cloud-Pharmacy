@@ -25,6 +25,16 @@ class AssessmentFormsController < ApplicationController
 
   # show PDF here
   def show
+    @assessmentForm = AssessmentForm.find(params[:id])
+    # redirect_to assessment_form_url + ".pdf"
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = AfPdf.new(@assessmentForm, view_context)
+        send_data pdf.render, filename: "af.pdf",
+        type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def update

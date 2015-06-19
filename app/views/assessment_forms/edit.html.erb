@@ -1,9 +1,9 @@
-<%= bootstrap_form_for @assessmentForm, :url => assessmentForm_path(@assessmentForm),
+<%= bootstrap_form_for @assessmentForm, :url => assessment_form_path(@assessmentForm),
                                   :method => :patch do |f| %>
   <h1>編輯評估記錄表</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.submit "更新", class: "btn btn-default btn-primary" %>
-  <%= link_to "取消", assessmentForms_path, :class => "btn btn-default" %>
+  <%= link_to "取消", assessment_forms_path, :class => "btn btn-default" %>
 
 <% end %>
