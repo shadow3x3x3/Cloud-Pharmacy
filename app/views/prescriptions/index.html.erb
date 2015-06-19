@@ -31,9 +31,9 @@
       <td><%= prescription.secondDate %></td>
       <td><%= prescription.personAdded %></td>
       <td><%= prescription.lastModifier %></td>
-      <td><%= Hospital.find(prescription.hospitalID).name %></td>
-      <td><%= prescription.phoneStatus == true ? "有電聯":"未電聯" %></td>
-      <td><%= prescription.obtainStatus == true ? "已取得":"未取得" %></td>
+      <td><%= hospitalName(prescription.hospitalID) %></td>
+      <td><%= phoneStatus(prescription) %></td>
+      <td><%= obtainStatus(prescription) %></td>
 
 
     <td>

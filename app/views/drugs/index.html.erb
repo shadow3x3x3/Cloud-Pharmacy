@@ -7,7 +7,7 @@
     <th>藥品譯名</th>
     <th>存貨數量</th>
     <th>價錢</th>
-    <th>是否有健保碼</th>
+    <th>是否為慢性病用藥</th>
   </tr>
   <% @drugs.each do |drug| %>
   <tr>
@@ -15,7 +15,7 @@
       <td><%= drug.chiName %></td>
       <td><%= drug.stock %></td>
       <td><%= drug.price %></td>
-      <td><%= drug.isChronic == true ? "有健保碼":"無健保碼" %></td>
+      <td><%= isChronic(drug) %></td>
 
     <td>
       <%= link_to "圖片", drugs_path, :class => "btn btn-default" %>

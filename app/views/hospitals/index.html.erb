@@ -11,7 +11,7 @@
   <tr>
       <td><%= hospital.name %></td>
       <td><%= hospital.address %></td>
-      <td><%= hospital.isDrugID == true ? "有健保碼":"無健保碼" %></td>
+      <td><%= isDrugID(hospital) %></td>
     <td>
       <%= link_to "編輯", edit_hospital_path(hospital), :class => "btn btn-primary" %>
     </td>
