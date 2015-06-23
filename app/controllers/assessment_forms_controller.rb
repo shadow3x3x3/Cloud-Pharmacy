@@ -26,15 +26,25 @@ class AssessmentFormsController < ApplicationController
   # show PDF here
   def show
     @assessmentForm = AssessmentForm.find(params[:id])
-    # redirect_to assessment_form_url + ".pdf"
+    # image_path = "#{Rails.root}/app/assets/images/post.png"
+    # pdff = Prawn::Document.new
+    # y_position = pdff.cursor
+
+
+
+    # send_data pdff.render, :filename => "af.pdf", :type => "application/pdf",
+    #                        :disposition => "inline", :pagesize => "A4"
+
     respond_to do |format|
       format.html
       format.pdf do
         pdf = AfPdf.new(@assessmentForm, view_context)
         send_data pdf.render, filename: "af.pdf",
-        type: "application/pdf", disposition: "inline"
+        type: "application/pdf", disposition: "inline",
+        pagesize: "A4"
       end
     end
+
   end
 
   def update

@@ -3,12 +3,13 @@ class AfPdf < Prawn::Document
     super()
     @assessmentForm = assessmentForm
     @view = view
-    # background_image
-    text "中文可以嗎"
+
+    background_image cursor
+
   end
 
-  def background_image
+  def background_image y_position
     image_path = "#{Rails.root}/app/assets/images/post.png"
-
+    image image_path, :at => [-22, y_position+30], :fit => [590, 830]
   end
 end
