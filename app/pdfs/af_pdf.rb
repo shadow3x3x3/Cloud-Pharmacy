@@ -1,5 +1,6 @@
 class AfPdf < Prawn::Document
 
+  # 藥師評估結果對照表
   Result_hash_table = {
                         無特殊情形:[20, 393],
                         禁忌症或注意事項:[20, 376],
@@ -35,22 +36,9 @@ class AfPdf < Prawn::Document
     fill_resident_info assessmentForm
     fill_prescription_content assessmentForm.prescriptionContentID
     fill_pharmacist_assess assessmentForm.pharmacistAssessID
+    fill_nurse_handling assessmentForm.nurseHandlingID
 
-    # 藥師建議內容
-    draw_text "test", :at => [25, 300]
-    # 參考資料
-    fill_blank(70, 221) # 仿單
-    fill_blank(114, 221) # 藥物治療手冊
-    # 參考書籍
-    fill_blank(114, 204) # Micromedex
-    fill_blank(197, 204) # PudMed
-    fill_blank(261, 204) # UpToDate
-    fill_blank(332, 204) # 其他
 
-    fill_blank(35, 100) # 醫師接受藥師建議
-    fill_blank(35, 82) # 醫師未接受建議
-
-    # draw_text Resident.find(assessmentForm.residentID).name, :at => [20, 530] # 第一個備註
 
   end
 
@@ -68,26 +56,31 @@ class AfPdf < Prawn::Document
     draw_text resident.name, :at => [50, 665]
     # 年齡
     draw_text resident.age,  :at => [200, 665]
+
     # 性別 - 依照身分證字號判斷
     if resident.residentIdNumber.slice(1) == "1"
       fill_blank(318, 672) # 男性
     else
       fill_blank(367, 672) # 女性
     end
+
     # 床號
     draw_text resident.bedNumber, :at => [450, 665]
+
     # 肝功能
     if assessmentForm.afLiverFunction == "正常"
       fill_blank(60, 654) # 肝功能正常
     else
       fill_blank(99, 654) # 肝功能異常
     end
+
     # 腎功能
     if assessmentForm.afKidneyFunction == "正常"
       fill_blank(189, 654) # 腎功能正常
     else
       fill_blank(228, 654) # 腎功能異常
     end
+
     # 用藥狀況
     case assessmentForm.afDruguse
     when "需管灌"
@@ -99,14 +92,16 @@ class AfPdf < Prawn::Document
     end
 
     # 無過敏
-    if !(assessmentForm.allergyDrug && assessmentForm.allergyFood)
+    unless assessmentForm.allergyDrug && assessmentForm.allergyFood
       fill_blank(60, 637) # 無過敏
     end
+
     # 過敏食物
     if assessmentForm.allergyFood
       fill_blank(84, 637) # 有食物過敏
       draw_text assessmentForm.allergyFood, :at => [220, 630]
     end
+
     # 過敏藥物
     if assessmentForm.allergyDrug
       fill_blank(307, 637) # 有藥品過敏
@@ -126,10 +121,9 @@ class AfPdf < Prawn::Document
     when "其他"
       fill_blank(416, 619) # 其他
     end
-
   end
 
-  # 填入處方箋資料
+  # 填入處方資料
   def fill_prescription_content prescriptionContentID
     afPrescriptionContent = AfPrescriptionContent.find(prescriptionContentID)
 
@@ -187,7 +181,59 @@ class AfPdf < Prawn::Document
       fill_blank(result_array[0], result_array[1])
     end
 
+    # 藥師建議內容
+    draw_text afPharmacistAssess.suggestion, :at => [25, 300]
 
+    # 參考資料
+    case afPharmacistAssess.referenceData
+    when "仿單"
+      fill_blank(70, 221) # 仿單
+    when "藥物治療手冊"
+      fill_blank(114, 221) # 藥物治療手冊
+    end
+
+    # 參考書籍
+    case afPharmacistAssess.referenceBooks
+    when "Micromedex"
+      fill_blank(114, 204) # Micromedex
+    when "PudMed"
+      fill_blank(197, 204) # PudMed
+    when "UpToDate"
+      fill_blank(261, 204) # UpToDate
+    when "其他"
+      fill_blank(332, 204) # 其他
+    end
+
+  end
+
+  # 填入醫護人員處置方式
+  def fill_nurse_handling nurseHandlingID
+    afNurseHandling = AfNurseHandling.find(nurseHandlingID)
+
+    # 填入處置方式
+    case afNurseHandling.mode
+    when "持續觀察住民臨床症狀"
+      fill_blank(20, 151) # 藥師用藥，觀察臨床
+    when "持續觀察住民是否有藥物引發之副作用"
+      fill_blank(20, 134) # 藥師用藥，藥物之副作用
+    when "照會醫師"
+      fill_blank(20, 117) # 藥師建議內容
+      doctor_handling afNurseHandling
+    when "其他"
+      fill_blank(20, 65) # 其他處置
+    end
+
+    # 填入住民療效追蹤
+    draw_text afNurseHandling.residentFollow, :at => [30, 27]
+  end
+
+  # 照會醫師處理
+  def doctor_handling afNurseHandling
+    if afNurseHandling.doctorDo  == "醫師接受藥師建議"
+      fill_blank(35, 100) # 醫師接受藥師建議
+    else
+      fill_blank(35, 82) # 醫師未接受建議
+    end
   end
 
   # 填框框
