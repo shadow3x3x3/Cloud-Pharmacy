@@ -1,8 +1,4 @@
-<div class="form-group"><label class="control-label required">姓名</label>
-<input placeholder=<%= identityCheckName(@prescription) %> disabled="disabled" class="form-control" /></div>
 
-<div class="form-group"><label class="control-label required">分類</label>
-<input placeholder=<%= identityCheck(@prescription) %> disabled="disabled" class="form-control" /></div>
 
 <%= f.number_field :days, :min => 0, label: "天數" %>
 <%= f.number_field :deliveryTimes, :min => 0, label: "外送次數" %>

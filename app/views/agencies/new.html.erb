@@ -1,4 +1,4 @@
-<%= bootstrap_form_for @agency, :url  => agencies_path do |f| %>
+<%= bootstrap_form_for(@agency, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <h1>新增機構資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

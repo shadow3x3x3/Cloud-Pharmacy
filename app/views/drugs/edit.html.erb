@@ -1,5 +1,4 @@
-<%= bootstrap_form_for @drug, :url => drug_path(@drug),
-                                  :method => :patch do |f| %>
+<%= bootstrap_form_for(@drug, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <h1>編輯藥品資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

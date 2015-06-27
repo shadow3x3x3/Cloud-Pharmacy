@@ -1,5 +1,4 @@
-<%= bootstrap_form_for @fit, :url => fit_path(@fit),
-                             :method => :patch do |f| %>
+<%= bootstrap_form_for(@fit, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <h1>編輯散客資料</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
