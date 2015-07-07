@@ -33,6 +33,9 @@ gem "kaminari"
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Use devise to make Authentication
+gem 'devise'
+
 # Use prawn to creat PDF
 gem 'prawn'
 gem 'prawn-table'
@@ -43,6 +46,9 @@ gem 'prawn-table'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# use awesome pint for friendly test
+gem "awesome_print", :require => false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -52,6 +58,10 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Use hirb for awsome table in irb
+  gem "hirb", :require => false
+  gem "hirb-unicode", :require => false
 end
 
 

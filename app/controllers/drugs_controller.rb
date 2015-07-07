@@ -1,6 +1,7 @@
 class DrugsController < ApplicationController
 
   before_action :set_drug, :only => [ :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @drugs = Drug.page(params[:page]).per(5)

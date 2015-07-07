@@ -1,4 +1,5 @@
 module DrugsHelper
+
   # 是否為慢性病用藥
   # @param  drug
   # @return 已取得 or 未取得

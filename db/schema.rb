@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602031657) do
+ActiveRecord::Schema.define(version: 20150707102612) do
 
-  create_table "af_nurse_handing", primary_key: "nurseHandlingID", force: :cascade do |t|
+  create_table "af_nurse_handling", primary_key: "nurseHandlingID", force: :cascade do |t|
     t.string "mode",           limit: 17,  null: false
     t.string "doctorDo",       limit: 8
     t.string "doctorReson",    limit: 255
@@ -31,11 +31,21 @@ ActiveRecord::Schema.define(version: 20150602031657) do
   end
 
   create_table "af_prescription_content", primary_key: "prescriptionContentID", force: :cascade do |t|
-    t.string  "hospitalName", limit: 64,  null: false
-    t.string  "division",     limit: 64,  null: false
-    t.date    "doctorDate",               null: false
-    t.integer "days",         limit: 4,   null: false
-    t.string  "remark",       limit: 255, null: false
+    t.string  "hospitalName1", limit: 64
+    t.string  "division1",     limit: 64
+    t.date    "doctorDate1"
+    t.integer "days1",         limit: 4
+    t.string  "remark1",       limit: 255
+    t.string  "hospitalName2", limit: 64
+    t.string  "division2",     limit: 64
+    t.date    "doctorDate2"
+    t.integer "days2",         limit: 4
+    t.string  "remark2",       limit: 255
+    t.string  "hospitalName3", limit: 64
+    t.string  "division3",     limit: 64
+    t.date    "doctorDate3"
+    t.integer "days3",         limit: 4
+    t.string  "remark3",       limit: 255
   end
 
   create_table "agency", primary_key: "agencyID", force: :cascade do |t|
@@ -46,34 +56,30 @@ ActiveRecord::Schema.define(version: 20150602031657) do
     t.integer "pharmacistID",    limit: 4,   null: false
     t.string  "address",         limit: 255, null: false
     t.string  "color",           limit: 64
-    t.string  "lastDeliveryDay", limit: 64
+    t.date    "lastDeliveryDay"
   end
 
   add_index "agency", ["pharmacistID"], name: "agency_pharmacist_id", using: :btree
 
   create_table "assessment_form", id: false, force: :cascade do |t|
-    t.integer  "afID",                 limit: 4,   null: false
-    t.integer  "residentID",           limit: 4,   null: false
-    t.date     "fillOutDate",                      null: false
-    t.string   "afDruguse",            limit: 7,   null: false
-    t.string   "afLiverFunction",      limit: 2,   null: false
-    t.string   "kidneyFunction",       limit: 2,   null: false
-    t.string   "allergyDrug",          limit: 255
-    t.string   "allergyFood",          limit: 255
-    t.string   "referenceAccessories", limit: 7,   null: false
-    t.integer  "prescriptionContent1", limit: 4,   null: false
-    t.integer  "prescriptionContent2", limit: 4,   null: false
-    t.integer  "prescriptionContent3", limit: 4,   null: false
-    t.integer  "pharmacistAssessID",   limit: 4,   null: false
-    t.integer  "nurseHandingID",       limit: 4,   null: false
-    t.datetime "timestamp",                        null: false
+    t.integer  "afID",                  limit: 4,   null: false
+    t.integer  "residentID",            limit: 4,   null: false
+    t.date     "fillOutDate",                       null: false
+    t.string   "afDruguse",             limit: 7,   null: false
+    t.string   "afLiverFunction",       limit: 2,   null: false
+    t.string   "afKidneyFunction",      limit: 2,   null: false
+    t.string   "allergyDrug",           limit: 255
+    t.string   "allergyFood",           limit: 255
+    t.string   "referenceAccessories",  limit: 7,   null: false
+    t.integer  "prescriptionContentID", limit: 4,   null: false
+    t.integer  "pharmacistAssessID",    limit: 4,   null: false
+    t.integer  "nurseHandlingID",       limit: 4,   null: false
+    t.datetime "timestamp",                         null: false
   end
 
-  add_index "assessment_form", ["nurseHandingID"], name: "af_nurse_handing_id", using: :btree
+  add_index "assessment_form", ["nurseHandlingID"], name: "af_nurse_handing_id", using: :btree
   add_index "assessment_form", ["pharmacistAssessID"], name: "af_pharmacist_assess_id", using: :btree
-  add_index "assessment_form", ["prescriptionContent1"], name: "af_prescription_content_1", using: :btree
-  add_index "assessment_form", ["prescriptionContent2"], name: "af_prescription_content_2", using: :btree
-  add_index "assessment_form", ["prescriptionContent3"], name: "af_prescription_content_3", using: :btree
+  add_index "assessment_form", ["prescriptionContentID"], name: "af_prescription_content_1", using: :btree
 
   create_table "delivery", primary_key: "deliveryID", force: :cascade do |t|
     t.string  "address",        limit: 255, null: false
@@ -104,8 +110,8 @@ ActiveRecord::Schema.define(version: 20150602031657) do
     t.string  "cellphone",      limit: 16,  null: false
     t.string  "address",        limit: 255, null: false
     t.date    "birthday",                   null: false
-    t.integer "prescriptionId", limit: 4,   null: false
-    t.integer "deliveryID",     limit: 4,   null: false
+    t.integer "prescriptionId", limit: 4
+    t.integer "deliveryID",     limit: 4
   end
 
   create_table "fit_of_member", primary_key: "fitID", force: :cascade do |t|
@@ -168,18 +174,10 @@ ActiveRecord::Schema.define(version: 20150602031657) do
   end
 
   create_table "prescription_of_all", primary_key: "prescriptionID", force: :cascade do |t|
-    t.integer  "fitID",         limit: 4, null: false
+    t.integer  "userID",        limit: 4, null: false
     t.string   "identityCheck", limit: 8, null: false
     t.datetime "timestamp",               null: false
   end
-
-  create_table "prescription_of_resident", id: false, force: :cascade do |t|
-    t.integer  "residentID",     limit: 4, null: false
-    t.integer  "prescriptionID", limit: 4, null: false
-    t.datetime "timestamp",                null: false
-  end
-
-  add_index "prescription_of_resident", ["prescriptionID"], name: "prescription_id", using: :btree
 
   create_table "resident", primary_key: "residentID", force: :cascade do |t|
     t.string  "residentIdNumber", limit: 16, null: false
@@ -192,12 +190,29 @@ ActiveRecord::Schema.define(version: 20150602031657) do
 
   add_index "resident", ["agencyID"], name: "resident_agency_id", using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
   add_foreign_key "agency", "pharmacist", column: "pharmacistID", primary_key: "pharmacistID", name: "agency_ibfk_1"
-  add_foreign_key "assessment_form", "af_nurse_handing", column: "nurseHandingID", primary_key: "nurseHandlingID", name: "assessment_form_ibfk_2"
+  add_foreign_key "assessment_form", "af_nurse_handling", column: "nurseHandlingID", primary_key: "nurseHandlingID", name: "assessment_form_ibfk_8"
   add_foreign_key "assessment_form", "af_pharmacist_assess", column: "pharmacistAssessID", primary_key: "pharmacistAssessID", name: "assessment_form_ibfk_1"
-  add_foreign_key "assessment_form", "af_prescription_content", column: "prescriptionContent1", primary_key: "prescriptionContentID", name: "assessment_form_ibfk_3"
-  add_foreign_key "assessment_form", "af_prescription_content", column: "prescriptionContent2", primary_key: "prescriptionContentID", name: "assessment_form_ibfk_4"
-  add_foreign_key "assessment_form", "af_prescription_content", column: "prescriptionContent3", primary_key: "prescriptionContentID", name: "assessment_form_ibfk_5"
+  add_foreign_key "assessment_form", "af_prescription_content", column: "prescriptionContentID", primary_key: "prescriptionContentID", name: "assessment_form_ibfk_7"
+  add_foreign_key "assessment_form", "resident", column: "residentID", primary_key: "residentID", name: "assessment_form_ibfk_6"
   add_foreign_key "delivery", "pharmacist", column: "pharmacistID", primary_key: "pharmacistID", name: "delivery_ibfk_1"
   add_foreign_key "delivery", "prescription", column: "prescriptionID", primary_key: "prescriptionID", name: "delivery_ibfk_2"
   add_foreign_key "fit", "fit_of_member", column: "fitID", primary_key: "fitID", name: "fit_ibfk_1"
@@ -206,6 +221,6 @@ ActiveRecord::Schema.define(version: 20150602031657) do
   add_foreign_key "prescription", "prescription_of_all", column: "prescriptionID", primary_key: "prescriptionID", name: "prescription_ibfk_2"
   add_foreign_key "prescription_drug_id", "drug", column: "drugID", primary_key: "drugID", name: "prescription_drug_id_ibfk_2"
   add_foreign_key "prescription_drug_id", "prescription", column: "prescriptionID", primary_key: "prescriptionID", name: "prescription_drug_id_ibfk_1"
-  add_foreign_key "prescription_of_resident", "resident", column: "residentID", primary_key: "residentID", name: "prescription_of_resident_ibfk_1"
+  add_foreign_key "prescription_file", "prescription", column: "prescriptionID", primary_key: "prescriptionID", name: "prescription_file_ibfk_1"
   add_foreign_key "resident", "agency", column: "agencyID", primary_key: "agencyID", name: "resident_ibfk_1"
 end

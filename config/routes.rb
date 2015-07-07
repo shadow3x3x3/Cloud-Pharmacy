@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :hospitals, :pharmacists, :except => [:show]
   resources :members, :agencies, :except => [:show]
   resources :fits, :drugs, :except => [:show]
