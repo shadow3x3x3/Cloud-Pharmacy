@@ -40,6 +40,9 @@ gem 'devise'
 gem 'prawn'
 gem 'prawn-table'
 
+# Localization
+gem "rails-i18n"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
