@@ -1,29 +1,18 @@
-<h2>Sign up</h2>
+<h2>註冊帳號</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
+
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+  <%= f.email_field :email, autofocus: true, label: "Email" %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+  <%= f.password_field :password, autocomplete: "off", label: "密碼",
+                       help: "至少需要 #{@minimum_password_length.to_s} 個字元"  %>
+  <%= f.password_field :password_confirmation, autocomplete: "off", label: "確認密碼" %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  <%= f.submit "註冊", class: "btn btn-primary btn-lg" %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
 <% end %>
+<br />
 
 <%= render "devise/shared/links" %>
