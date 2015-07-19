@@ -11,11 +11,3 @@
 <%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: "所屬醫院" %>
 
 <br /><br />
-
-<% if @prescription.errors.any? %>
-  <ul>
-  <% @prescription.errors.full_messages.each do |msg| %>
-    <li> <%= msg %> </li>
-  <% end %>
-  </ul>
-<% end %>

@@ -4,11 +4,3 @@
 <%= f.text_area :remark, :size => "20x5", label: "備註" %>
 
 <br />
-
-<% if @pharmacist.errors.any? %>
-  <ul>
-  <% @pharmacist.errors.full_messages.each do |msg| %>
-    <li> <%= msg %> </li>
-  <% end %>
-  </ul>
-<% end %>

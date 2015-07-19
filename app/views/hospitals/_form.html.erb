@@ -4,11 +4,3 @@
 <%= f.radio_button :isDrugID, 'false', :checked => false, inline: true, label: "沒有藥品健保碼" %>
 
 <br /><br />
-
-<% if @hospital.errors.any? %>
-  <ul>
-  <% @hospital.errors.full_messages.each do |msg| %>
-    <li> <%= msg %> </li>
-  <% end %>
-  </ul>
-<% end %>

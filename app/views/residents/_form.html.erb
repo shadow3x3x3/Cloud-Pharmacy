@@ -6,11 +6,3 @@
 <%= f.collection_select :agencyID, Agency.all, :id, :name, label: "所屬機構" %>
 
 <br /><br />
-
-<% if @resident.errors.any? %>
-  <ul>
-  <% @resident.errors.full_messages.each do |msg| %>
-    <li> <%= msg %> </li>
-  <% end %>
-  </ul>
-<% end %>

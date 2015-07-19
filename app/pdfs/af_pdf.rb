@@ -38,8 +38,6 @@ class AfPdf < Prawn::Document
     fill_pharmacist_assess assessmentForm.pharmacistAssessID
     fill_nurse_handling assessmentForm.nurseHandlingID
 
-
-
   end
 
   # 設定背景
@@ -173,12 +171,12 @@ class AfPdf < Prawn::Document
 
     # 藥師評估結果
     result.each do |result|
-      temp = Result_hash_table[result.to_sym]
+      temp = Result_hash_table[result.to_sym] # 查詢result table去找要勾選的選項
       result_array << temp
     end
 
     result_array.each do |result_array|
-      fill_blank(result_array[0], result_array[1])
+      fill_blank(result_array[0], result_array[1]) # 勾選被找到的result
     end
 
     # 藥師建議內容

@@ -8,11 +8,3 @@
 <%= f.date_select :lastDeliveryDay, label: "最後外送日" %>
 
 <br /><br />
-
-<% if @agency.errors.any? %>
-  <ul>
-  <% @agency.errors.full_messages.each do |msg| %>
-    <li> <%= msg %> </li>
-  <% end %>
-  </ul>
-<% end %>

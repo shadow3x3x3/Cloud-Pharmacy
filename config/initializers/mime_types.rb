@@ -4,4 +4,4 @@
 # Mime::Type.register "text/richtext", :rtf
 
 # pdf requset can respond to it
-Mime::Type.register"application/pdf", :pdf
+# Mime::Type.register"application/pdf", :pdf
