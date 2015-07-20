@@ -1,5 +1,5 @@
 <%= bootstrap_form_for @assessmentForm, :url => assessment_form_path(@assessmentForm),
-                                  :method => :patch do |f| %>
+                                        :method => :patch do |f| %>
   <h1>編輯評估記錄表</h1>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

@@ -2,6 +2,7 @@ class DrugsController < ApplicationController
 
   before_action :set_drug, :only => [ :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :admin_only
 
   def index
     @drugs = Drug.page(params[:page]).per(5)
@@ -49,6 +50,10 @@ class DrugsController < ApplicationController
 
   def drug_params
     params.require(:drug).permit(:oriName, :chiName, :stock, :price, :picture, :isChronic)
+  end
+
+  def admin_only
+    current_user.admin?
   end
 
 end

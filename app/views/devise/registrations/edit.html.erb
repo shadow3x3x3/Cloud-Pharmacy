@@ -1,39 +1,32 @@
-<h2>編輯 <%= resource_name.to_s.humanize %></h2>
+<h2>編輯用戶 </h2>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+  <%= f.email_field :email, autofocus: true, label: "Email" %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+  <%= f.password_field :password, autocomplete: "off", label: "密碼",
+                       help: "(若您不想變更密碼請留空)" %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  <%= f.password_field :password_confirmation, autocomplete: "off",
+                       label: "確認密碼" %>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
+  <%= f.password_field :current_password, autocomplete: "off", label: "現在的密碼",
+                       help: "我們需要您現在的密碼確認您的變更" %>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+  <%= f.text_field :name, label: "姓名" %>
+  <%= f.text_field :phone, label: "電話" %>
+  <%= f.text_field :idNumber, label: "身分證字號" %>
+
+  <%= f.submit "更新我的資料", class: "btn btn-primary" %>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>注銷我的帳戶</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>不滿意我們的服務嗎? <%= button_to "注銷我的帳戶", registration_path(resource_name), data: { confirm: "您確定要注銷您的帳戶?" }, method: :delete, class: "btn btn-danger" %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", :back, class: "btn btn-default" %>
