@@ -1,6 +1,10 @@
 class ResidentsController < ApplicationController
 
   before_action :set_resident, :only => [ :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action do
+    redirect_to root_path unless current_user && admin_only
+  end
 
   def index
     @residents = Resident.page(params[:page]).per(5)

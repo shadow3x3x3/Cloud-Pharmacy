@@ -1,6 +1,10 @@
 class PrescriptionsController < ApplicationController
 
   before_action :set_prescription, :only => [ :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action do
+    redirect_to root_path unless current_user && admin_only
+  end
 
   def index
     @prescriptions = Prescription.page(params[:page]).per(5)
