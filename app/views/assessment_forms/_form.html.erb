@@ -1,7 +1,107 @@
-<%= f.text_field :name, label: "名稱" %>
-<%= f.text_field :address, label: "住址" %>
-<%= f.radio_button :isDrugID, 'true', :checked => true, inline: true, label: "有藥品健保碼" %>
-<%= f.radio_button :isDrugID, 'false', :checked => false, inline: true, label: "沒有藥品健保碼" %>
+<blockquote>
+  <h2>基本資料</h2>
+
+  <%= f.collection_select :residentID, Resident.all, :id, :name, label: "住民" %>
+  <%= f.select :afLiverFunction, [["正常", "正常"], ["異常", "異常"]], label: "肝功能" %>
+  <%= f.select :afKidneyFunction, [["正常", "正常"], ["異常", "異常"]], label: "腎功能" %>
+  <%= f.select :afDruguse, [["需管灌", "需管灌"], ["需磨碎", "需磨碎"], ["可直接吞服固體", "可直接吞服固體"]], label: "用藥狀況" %>
+  <%= f.text_field :allergyFood, label: "過敏食物種類", placeholder: "無過敏食物請留空" %>
+  <%= f.text_field :allergyDrug, label: "過敏藥物種類", placeholder: "無過敏藥物請留空" %>
+  <%= f.select :referenceAccessories, [["生命徵象記錄表", "生命徵象記錄表"], ["檢驗數據", "檢驗數據"], ["護理紀錄", "護理紀錄"], ["醫囑", "醫囑"], ["其他", "其他"]], label: "交付藥物治療評估參考附件" %>
+</blockquote>
+
+
+<blockquote>
+  <%= f.fields_for :af_prescription_content do |content_form| %>
+  <h2>處方內容或保健食品</h2>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          處方內容一
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <%= content_form.text_field :hospitalName1, label: "醫院名稱" %>
+        <%= content_form.text_field :division1, label: "科別" %>
+        <%= content_form.date_select :doctorDate1, label: "看診日" %>
+        <%= content_form.number_field :days1, :min => 0, label: "天數" %>
+        <%= content_form.text_area :remark1, :size => "20x5", label: "備註" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          處方內容二
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <%= content_form.text_field :hospitalName2, label: "醫院名稱" %>
+        <%= content_form.text_field :division2, label: "科別" %>
+        <%= content_form.date_select :doctorDate2, label: "看診日" %>
+        <%= content_form.number_field :days2, :min => 0, label: "天數" %>
+        <%= content_form.text_area :remark2, :size => "20x5", label: "備註" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          處方內容三
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <%= content_form.text_field :hospitalName3, label: "醫院名稱" %>
+        <%= content_form.text_field :division3, label: "科別" %>
+        <%= content_form.date_select :doctorDate3, label: "看診日" %>
+        <%= content_form.number_field :days3, :min => 0, label: "天數" %>
+        <%= content_form.text_area :remark3, :size => "20x5", label: "備註" %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+</blockquote>
+
+
+<blockquote>
+  <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
+  <h2>藥師評估結果</h2>
+    <%= assess_form.form_group :assessmentResults do %>
+      <%= assess_form.check_box :assessmentResults, value: "無特殊情形",label: "無特殊情形", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Intermediate", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+    <% end %>
+  <% end %>
+</blockquote>
+
+<blockquote>
+  <h2>護理人員處置方式</h2>
+
+</blockquote>
+
+
+
+
 
 <br /><br />
 

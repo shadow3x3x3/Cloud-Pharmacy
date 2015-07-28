@@ -1,24 +1,15 @@
-<h2>Change your password</h2>
+<h2>更改您的密碼</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  <%= f.password_field :password, autocomplete: "off", label: "密碼",
+                       help: "至少需要 #{@minimum_password_length.to_s} 個字元"  %>
+  <%= f.password_field :password_confirmation, autocomplete: "off", label: "確認密碼" %>
 
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit "更改我的密碼", class: "btn btn-primary" %>
   </div>
 <% end %>
 

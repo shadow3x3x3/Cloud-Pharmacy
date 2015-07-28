@@ -66,7 +66,10 @@ class AssessmentFormsController < ApplicationController
   end
 
   def assessmentForm_params
-    params.require(:assessmentForm).permit(:name, :address, :isDrugID)
+    params.require(:assessmentForm).permit(
+      :afDruguse, :afLiverFunction, :afKidneyFunction,
+      :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
+      :pharmacistAssessID, :nurseHandlingID)
   end
 
 end

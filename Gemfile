@@ -6,7 +6,7 @@ gem 'rails', '4.2.1'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 # Use bootstrap for stylesheets
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'bootstrap-sass'
 # Use bootstrap Form for stylesheets
 gem 'bootstrap_form'
 # Use SCSS for stylesheets
@@ -26,6 +26,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 
 # Use kaminari for data pages
 gem "kaminari"
