@@ -36,7 +36,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseTwo">
           處方內容二
         </a>
       </h4>
@@ -54,7 +54,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-controls="collapseThree">
           處方內容三
         </a>
       </h4>
@@ -76,21 +76,21 @@
 
 <blockquote>
   <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
-  <h2>藥師評估結果</h2>
-    <%= assess_form.form_group :assessmentResults do %>
-      <%= assess_form.check_box :assessmentResults, value: "無特殊情形",label: "無特殊情形", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Intermediate", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
-      <%= assess_form.check_box :assessmentResult, label: "Advanced", inline: true %>
+    <h2>藥師評估結果</h2>
+    <% br_flag = 1 %>
+
+    <% @result_array.each do |result| %>
+      <%= render :partial => 'result_checkbox', :locals => { :result => result } %>
+      <% br_flag += 1 %>
+
+      <% if br_flag % 4 == 1 %>
+        <br ><br >
+      <% end %>
     <% end %>
+
+    <%= assess_form.text_area :suggestion, :size => "20x5", label: "藥師建議內容" %>
+    <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], label: "參考資料" %>
+    <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], label: "參考書籍" %>
   <% end %>
 </blockquote>
 

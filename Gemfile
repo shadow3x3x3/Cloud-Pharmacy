@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 # Use kaminari for data pages
-gem "kaminari"
+gem 'kaminari'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -42,7 +42,7 @@ gem 'prawn'
 gem 'prawn-table'
 
 # Localization
-gem "rails-i18n"
+gem 'rails-i18n'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -51,7 +51,7 @@ gem "rails-i18n"
 # gem 'capistrano-rails', group: :development
 
 # use awesome pint for friendly test
-gem "awesome_print", :require => false
+gem 'awesome_print', :require => false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,13 +64,15 @@ group :development, :test do
   gem 'spring'
 
   # Use hirb for awsome table in irb
-  gem "hirb", :require => false
-  gem "hirb-unicode", :require => false
+  gem 'hirb', :require => false
+  gem 'hirb-unicode', :require => false
 end
 
 
 group :development do
-  # Use better errors to show detail of errors
-  gem "better_errors"
+  gem 'better_errors'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-nav'
 end
 
