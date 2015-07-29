@@ -7,7 +7,7 @@
   <%= f.select :afDruguse, [["需管灌", "需管灌"], ["需磨碎", "需磨碎"], ["可直接吞服固體", "可直接吞服固體"]], label: "用藥狀況" %>
   <%= f.text_field :allergyFood, label: "過敏食物種類", placeholder: "無過敏食物請留空" %>
   <%= f.text_field :allergyDrug, label: "過敏藥物種類", placeholder: "無過敏藥物請留空" %>
-  <%= f.select :referenceAccessories, [["生命徵象記錄表", "生命徵象記錄表"], ["檢驗數據", "檢驗數據"], ["護理紀錄", "護理紀錄"], ["醫囑", "醫囑"], ["其他", "其他"]], label: "交付藥物治療評估參考附件" %>
+  <%= f.select :referenceAccessories, [["生命徵象紀錄表", "生命徵象紀錄表"], ["檢驗數據", "檢驗數據"], ["護理紀錄", "護理紀錄"], ["醫囑", "醫囑"], ["其他", "其他"]], label: "交付藥物治療評估參考附件" %>
 </blockquote>
 
 
@@ -95,8 +95,14 @@
 </blockquote>
 
 <blockquote>
-  <h2>護理人員處置方式</h2>
+  <%= f.fields_for :af_nurse_handling do |handling_form| %>
+    <h2>護理人員處置方式</h2>
+    <%= handling_form.select :mode, [["持續觀察住民臨床症狀", "持續觀察住民臨床症狀"], ["持續觀察住民是否有藥物引發之副作用", "持續觀察住民是否有藥物引發之副作用"], ["照會醫師", "照會醫師"], ["其他", "其他"]], label: "處置方式" %>
+    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式" %>
 
+    <%= handling_form.text_field :residentFollow, label: "住民療效追蹤" %>
+
+  <% end %>
 </blockquote>
 
 

@@ -4,6 +4,4 @@ class Member < ActiveRecord::Base
 
   validates_format_of :phone, :with => /[0-9]*/
 
-  has_secure_password
-
 end

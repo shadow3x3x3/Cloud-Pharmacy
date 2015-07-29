@@ -77,10 +77,10 @@ class AssessmentFormsController < ApplicationController
 
     @result = params[:assessmentResult_ids].join(",")
 
-    @afPharmacistAssess.assessmentResult = @result
-    @assessmentForm.pharmacistAssessID   = @afPharmacistAssess.pharmacistAssessID
+    params[:prescriptionContentID] = AfPrescriptionContent.find(@assessmentForm.prescriptionContentID).prescriptionContentID
+    params[:assessmentResult]      = @result
 
-    if @assessmentForm.update(assessmentForm_params)
+    if @assessmentForm.update_attributes(assessmentForm_params)
       redirect_to assessment_forms_url
       flash[:notice] = "已成功更新評估記錄表"
     else
@@ -102,10 +102,24 @@ class AssessmentFormsController < ApplicationController
   end
 
   def assessmentForm_params
-    params.require(:assessmentForm).permit(
-      :afDruguse, :afLiverFunction, :afKidneyFunction,
+    params.require(:assessment_form).permit(
+      :afDruguse, :afLiverFunction, :afKidneyFunction, :residentID,
       :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
-      :pharmacistAssessID, :nurseHandlingID)
+      :pharmacistAssessID, :nurseHandlingID,
+      :af_prescription_content_attributes => [
+                                              :hospitalName1, :division1, :doctorDate1, :days1, :remark1,
+                                              :hospitalName2, :division2, :doctorDate2, :days2, :remark2,
+                                              :hospitalName3, :division3, :doctorDate3, :days3, :remark3
+                                           ],
+      :af_pharmacist_assess_attributes    => [
+                                              :assessmentResult, :suggestion, :referenceData, :referenceBooks
+                                           ],
+      :af_nurse_handling_attributes       => [
+                                              :mode, :doctorDo, :residentFollow
+                                           ]
+
+      )
+
   end
 
 end
