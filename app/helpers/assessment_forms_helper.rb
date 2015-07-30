@@ -8,6 +8,6 @@ module AssessmentFormsHelper
   end
 
   def result_check ori_result, check_result
-    ori_result.include?(check_result)
+    ori_result.include?(check_result) if ori_result
   end
 end

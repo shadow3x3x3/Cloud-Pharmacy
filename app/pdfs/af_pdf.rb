@@ -2,7 +2,7 @@ class AfPdf < Prawn::Document
 
   # 藥師評估結果對照表
   Result_hash_table = {
-                        無特殊情形:[20, 393],
+                        無特殊狀況:[20, 393],
                         禁忌症或注意事項:[20, 376],
                         藥物不良反應:[20, 359],
                         服藥順從性不佳:[20, 342],
@@ -13,7 +13,7 @@ class AfPdf < Prawn::Document
                         有疾病未治療:[149, 342],
 
                         藥物交互作用:[278, 393],
-                        重複同藥理作用或成分:[278, 376],
+                        重複同藥理作用或成份:[278, 376],
                         醫師處方過敏性藥物:[278, 359],
                         不符合健保使用規範:[278, 342],
 
@@ -176,6 +176,7 @@ class AfPdf < Prawn::Document
     end
 
     result_array.each do |result_array|
+      # binding.pry
       fill_blank(result_array[0], result_array[1]) # 勾選被找到的result
     end
 

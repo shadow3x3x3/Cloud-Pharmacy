@@ -18,7 +18,7 @@ class AssessmentFormsController < ApplicationController
     "有疾病未治療",
 
     "藥物交互作用",
-    "重複同藥理作用或成分",
+    "重複同藥理作用或成份",
     "醫師處方過敏性藥物",
     "不符合健保使用規範",
 
@@ -34,6 +34,7 @@ class AssessmentFormsController < ApplicationController
 
   def new
     @assessmentForm = AssessmentForm.new
+    @result_array   = Result_array
   end
 
   def create
@@ -77,13 +78,12 @@ class AssessmentFormsController < ApplicationController
   end
 
   def update
-    @assessmentForm     = AssessmentForm.find(params[:id])
-    @afPharmacistAssess = AfPharmacistAssess.find(@assessmentForm.pharmacistAssessID)
+    @assessmentForm = AssessmentForm.find(params[:id])
+    @result         = params[:assessmentResult_ids].join(",")
 
-    @result = params[:assessmentResult_ids].join(",")
-
-    params[:assessmentResult] = @result
-
+    # assessmentForm_params[:assessmentResult] = @result
+    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
+    # binding.pry
 
 
     if @assessmentForm.update_attributes(assessmentForm_params)
