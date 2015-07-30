@@ -38,6 +38,11 @@ class AssessmentFormsController < ApplicationController
 
   def create
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
+
+    @assessmentForm.prescriptionContentID = AfPrescriptionContent.maximum(:prescriptionContentID) + 1
+    @assessmentForm.pharmacistAssessID = AfPharmacistAssess.maximum(:pharmacistAssessID) + 1
+    @assessmentForm.nurseHandlingID = AfNurseHandling.maximum(:nurseHandlingID) + 1
+
     if @assessmentForm.save
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
@@ -77,10 +82,12 @@ class AssessmentFormsController < ApplicationController
 
     @result = params[:assessmentResult_ids].join(",")
 
-    params[:prescriptionContentID] = AfPrescriptionContent.find(@assessmentForm.prescriptionContentID).prescriptionContentID
-    params[:assessmentResult]      = @result
+    params[:assessmentResult] = @result
+
+
 
     if @assessmentForm.update_attributes(assessmentForm_params)
+      # binding.pry
       redirect_to assessment_forms_url
       flash[:notice] = "已成功更新評估記錄表"
     else
@@ -103,20 +110,20 @@ class AssessmentFormsController < ApplicationController
 
   def assessmentForm_params
     params.require(:assessment_form).permit(
-      :afDruguse, :afLiverFunction, :afKidneyFunction, :residentID,
+      :afDruguse, :afLiverFunction, :afKidneyFunction, :residentID, :id,
       :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
       :pharmacistAssessID, :nurseHandlingID,
-      :af_prescription_content_attributes => [
+      :af_prescription_content_attributes => [:id,
                                               :hospitalName1, :division1, :doctorDate1, :days1, :remark1,
                                               :hospitalName2, :division2, :doctorDate2, :days2, :remark2,
                                               :hospitalName3, :division3, :doctorDate3, :days3, :remark3
-                                           ],
-      :af_pharmacist_assess_attributes    => [
+                                             ],
+      :af_pharmacist_assess_attributes    => [ :id,
                                               :assessmentResult, :suggestion, :referenceData, :referenceBooks
-                                           ],
-      :af_nurse_handling_attributes       => [
+                                             ],
+      :af_nurse_handling_attributes       => [ :id,
                                               :mode, :doctorDo, :residentFollow
-                                           ]
+                                             ]
 
       )
 

@@ -103,7 +103,7 @@ class AfPdf < Prawn::Document
     # 過敏藥物
     if assessmentForm.allergyDrug
       fill_blank(307, 637) # 有藥品過敏
-      draw_text assessmentForm.allergyFood, :at => [445, 630]
+      draw_text assessmentForm.allergyDrug, :at => [445, 630]
     end
 
     # 參考附件
@@ -112,8 +112,8 @@ class AfPdf < Prawn::Document
       fill_blank(149, 619) # 生命徵象紀錄表
     when "檢驗數據"
       fill_blank(243, 619) # 檢驗數據
-    when "護理記錄"
-      fill_blank(307, 619) # 護理記錄
+    when "護理紀錄"
+      fill_blank(307, 619) # 護理紀錄
     when "醫囑"
       fill_blank(371, 619) # 醫囑
     when "其他"
@@ -194,7 +194,7 @@ class AfPdf < Prawn::Document
     case afPharmacistAssess.referenceBooks
     when "Micromedex"
       fill_blank(114, 204) # Micromedex
-    when "PudMed"
+    when "PubMed"
       fill_blank(197, 204) # PudMed
     when "UpToDate"
       fill_blank(261, 204) # UpToDate
