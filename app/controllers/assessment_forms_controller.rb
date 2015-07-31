@@ -93,6 +93,7 @@ class AssessmentFormsController < ApplicationController
 
 
   def destroy
+    @assessmentForm = AssessmentForm.find(params[:id])
     @assessmentForm.destroy
     redirect_to :action => :index
     flash[:alert] = "已成功刪除評估記錄表"

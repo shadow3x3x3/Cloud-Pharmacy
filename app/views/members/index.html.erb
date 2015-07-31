@@ -18,7 +18,7 @@
       <%= link_to '編輯', edit_member_path(member), :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= link_to '刪除', member_path(member), :method => :delete, :class => "btn btn-danger" %>
+      <%= link_to '刪除', member_path(member), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" %>
     </td>
   </tr>
   <% end %>
