@@ -34,9 +34,9 @@ class AfPdf < Prawn::Document
     background_image cursor
 
     fill_resident_info assessmentForm
-    fill_prescription_content assessmentForm.prescriptionContentID
-    fill_pharmacist_assess assessmentForm.pharmacistAssessID
-    fill_nurse_handling assessmentForm.nurseHandlingID
+    fill_prescription_content assessmentForm.afID
+    fill_pharmacist_assess assessmentForm.afID
+    fill_nurse_handling assessmentForm.afID
 
   end
 
@@ -167,17 +167,20 @@ class AfPdf < Prawn::Document
     result_array = []
 
     afPharmacistAssess = AfPharmacistAssess.find(pharmacistAssessID)
-    result = afPharmacistAssess.assessmentResult.split(',')
 
-    # 藥師評估結果
-    result.each do |result|
-      temp = Result_hash_table[result.to_sym] # 查詢result table去找要勾選的選項
-      result_array << temp
-    end
+    if afPharmacistAssess.assessmentResult
+      result = afPharmacistAssess.assessmentResult.split(',')
 
-    result_array.each do |result_array|
-      # binding.pry
-      fill_blank(result_array[0], result_array[1]) # 勾選被找到的result
+      # 藥師評估結果
+      result.each do |result|
+        temp = Result_hash_table[result.to_sym] # 查詢result table去找要勾選的選項
+        result_array << temp
+      end
+
+      result_array.each do |result_array|
+        # binding.pry
+        fill_blank(result_array[0], result_array[1]) # 勾選被找到的result
+      end
     end
 
     # 藥師建議內容

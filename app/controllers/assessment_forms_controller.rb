@@ -40,10 +40,6 @@ class AssessmentFormsController < ApplicationController
   def create
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
 
-    @assessmentForm.prescriptionContentID = AfPrescriptionContent.maximum(:prescriptionContentID) + 1
-    @assessmentForm.pharmacistAssessID = AfPharmacistAssess.maximum(:pharmacistAssessID) + 1
-    @assessmentForm.nurseHandlingID = AfNurseHandling.maximum(:nurseHandlingID) + 1
-
     if @assessmentForm.save
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
@@ -54,7 +50,7 @@ class AssessmentFormsController < ApplicationController
 
   def edit
     @assessmentForm  = AssessmentForm.find(params[:id])
-    assessmentResult = AfPharmacistAssess.find(@assessmentForm.pharmacistAssessID).assessmentResult.to_s
+    assessmentResult = AfPharmacistAssess.find(@assessmentForm.afID).assessmentResult.to_s
 
     # 傳入結果
     @assessmentResult_ids = assessmentResult.split(",")

@@ -7,6 +7,6 @@ class AssessmentForm < ActiveRecord::Base
   has_one :af_nurse_handling,       :foreign_key => "nurseHandlingID"
 
   accepts_nested_attributes_for :af_prescription_content, :af_pharmacist_assess, :af_nurse_handling,
-                                :allow_destroy => true, :reject_if => :all_blank, :update_only => true
+                                :allow_destroy => true, :reject_if => :all_blank
 end
 
