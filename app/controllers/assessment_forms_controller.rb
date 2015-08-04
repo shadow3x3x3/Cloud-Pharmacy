@@ -70,7 +70,6 @@ class AssessmentFormsController < ApplicationController
         pagesize: "A4"
       end
     end
-
   end
 
   def update
