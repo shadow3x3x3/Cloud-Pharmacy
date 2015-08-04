@@ -77,13 +77,9 @@ class AssessmentFormsController < ApplicationController
     @assessmentForm = AssessmentForm.find(params[:id])
     @result         = params[:assessmentResult_ids].join(",")
 
-    # assessmentForm_params[:assessmentResult] = @result
     params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
-    # binding.pry
-
 
     if @assessmentForm.update_attributes(assessmentForm_params)
-      # binding.pry
       redirect_to assessment_forms_url
       flash[:notice] = "已成功更新評估記錄表"
     else

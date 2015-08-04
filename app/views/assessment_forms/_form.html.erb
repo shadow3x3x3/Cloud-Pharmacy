@@ -99,16 +99,28 @@
   <%= f.fields_for :af_nurse_handling do |handling_form| %>
     <h2>護理人員處置方式</h2>
     <%= handling_form.select :mode, [["持續觀察住民臨床症狀", "持續觀察住民臨床症狀"], ["持續觀察住民是否有藥物引發之副作用", "持續觀察住民是否有藥物引發之副作用"], ["照會醫師", "照會醫師"], ["其他", "其他"]], label: "處置方式" %>
-    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式" %>
+    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式", :disabled => true %>
 
     <%= handling_form.text_field :residentFollow, label: "住民療效追蹤" %>
 
   <% end %>
 </blockquote>
 
+<script type="text/javascript">
+  $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', true);
+  doctorDo_able();
 
+  $('#assessment_form_af_nurse_handling_attributes_mode').change(function() {
+    doctorDo_able();
+  });
 
-
+  function doctorDo_able() {
+    if ($('#assessment_form_af_nurse_handling_attributes_mode').val() != "照會醫師")  {
+      $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', true);
+    } else {
+      $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', false);
+    }
+  }
+</script>
 
 <br /><br />
-
