@@ -1,6 +1,6 @@
 <%= f.text_field :name, label: "姓名" %>
 <%= f.text_field :residentIdNumber, label: "身分證字號" %>
-<%= f.date_select :birthday, label: "出生年月日" %>
+<%= f.date_select :birthday, :start_year => 1900, :end_year => Date.today.year, label: "出生年月日" %>
 <%= f.number_field :bedNumber, :min => 0, label: "床號" %>
 <%= f.number_field :liveFloor, :min => 0, label: "居住樓層" %>
 <%= f.collection_select :agencyID, Agency.all, :id, :name, label: "所屬機構" %>

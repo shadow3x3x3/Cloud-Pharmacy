@@ -17,6 +17,8 @@
             <li><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% else %>
             <!-- normal users -->
+            <li><%= link_to "申請處方箋", assessment_forms_path %></li>
+            <li><%= link_to "處方箋管理", assessment_forms_path %></li>
           <% end %>
         <% end %>
       </ul>

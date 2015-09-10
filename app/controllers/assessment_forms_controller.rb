@@ -38,8 +38,12 @@ class AssessmentFormsController < ApplicationController
   end
 
   def create
-    @assessmentForm = AssessmentForm.new(assessmentForm_params)
+    @result = params[:assessmentResult_ids].join(",")
 
+    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
+
+    @assessmentForm = AssessmentForm.new(assessmentForm_params)
+    binding.pry
     if @assessmentForm.save
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
@@ -111,13 +115,11 @@ class AssessmentFormsController < ApplicationController
                                               :hospitalName3, :division3, :doctorDate3, :days3, :remark3
                                              ],
       :af_pharmacist_assess_attributes    => [ :id,
-                                              :assessmentResult, :suggestion, :referenceData, :referenceBooks
+                                               :assessmentResult, :suggestion, :referenceData, :referenceBooks
                                              ],
       :af_nurse_handling_attributes       => [ :id,
                                               :mode, :doctorDo, :residentFollow
-                                             ]
-
-      )
+                                             ])
 
   end
 

@@ -90,18 +90,18 @@ class AfPdf < Prawn::Document
     end
 
     # 無過敏
-    unless assessmentForm.allergyDrug && assessmentForm.allergyFood
+    if assessmentForm.allergyDrug.empty? && assessmentForm.allergyFood.empty?
       fill_blank(60, 637) # 無過敏
     end
 
     # 過敏食物
-    if assessmentForm.allergyFood
+    unless assessmentForm.allergyFood.empty?
       fill_blank(84, 637) # 有食物過敏
       draw_text assessmentForm.allergyFood, :at => [220, 630]
     end
 
     # 過敏藥物
-    if assessmentForm.allergyDrug
+    unless assessmentForm.allergyDrug.empty?
       fill_blank(307, 637) # 有藥品過敏
       draw_text assessmentForm.allergyDrug, :at => [445, 630]
     end

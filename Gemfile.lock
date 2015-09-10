@@ -36,7 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.2)
+    arel (6.0.3)
     autoprefixer-rails (5.2.1.1)
       execjs
       json
@@ -74,7 +74,7 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.5.2)
-    globalid (0.3.5)
+    globalid (0.3.6)
       activesupport (>= 4.1.0)
     hirb (0.7.3)
     hirb-unicode (0.0.5)
@@ -101,7 +101,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.7.0)
     multi_json (1.11.2)
-    mysql2 (0.3.18)
+    mysql2 (0.3.19)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
