@@ -1,7 +1,7 @@
 <blockquote>
   <h2>基本資料</h2>
 
-  <%= f.collection_select :residentID, Resident.all, :id, :floor_with_resident, label: "住民" %>
+  <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, label: "住民" %>
   <%= f.select :afLiverFunction, [["正常", "正常"], ["異常", "異常"]], label: "肝功能" %>
   <%= f.select :afKidneyFunction, [["正常", "正常"], ["異常", "異常"]], label: "腎功能" %>
   <%= f.select :afDruguse, [["需管灌", "需管灌"], ["需磨碎", "需磨碎"], ["可直接吞服固體", "可直接吞服固體"]], label: "用藥狀況" %>

@@ -8,7 +8,7 @@ class Resident < ActiveRecord::Base
     Time.now.year - self.birthday.year
   end
 
-  def floor_with_resident
-    self.liveFloor.to_s + " - " + self.name.to_s
+  def bedNumber_with_resident
+    self.bedNumber.to_s + " - " + self.name.to_s
   end
 end
