@@ -1,7 +1,7 @@
 <blockquote>
   <h2>基本資料</h2>
 
-  <%= f.collection_select :residentID, Resident.all, :id, :name, label: "住民" %>
+  <%= f.collection_select :residentID, Resident.all, :id, :floor_with_resident, label: "住民" %>
   <%= f.select :afLiverFunction, [["正常", "正常"], ["異常", "異常"]], label: "肝功能" %>
   <%= f.select :afKidneyFunction, [["正常", "正常"], ["異常", "異常"]], label: "腎功能" %>
   <%= f.select :afDruguse, [["需管灌", "需管灌"], ["需磨碎", "需磨碎"], ["可直接吞服固體", "可直接吞服固體"]], label: "用藥狀況" %>
@@ -27,7 +27,7 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName1, label: "醫院名稱" %>
         <%= content_form.text_field :division1, label: "科別" %>
-        <%= content_form.date_select :doctorDate1, label: "看診日" %>
+        <%= content_form.date_select :doctorDate1, label: "看診日", :include_blank => true, :default => nil %>
         <%= content_form.number_field :days1, :min => 0, label: "天數" %>
         <%= content_form.text_area :remark1, :size => "20x5", label: "備註" %>
       </div>
@@ -45,8 +45,8 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName2, label: "醫院名稱" %>
         <%= content_form.text_field :division2, label: "科別" %>
-        <%= content_form.date_select :doctorDate2, label: "看診日" %>
-        <%= content_form.number_field :days2, :min => 0, label: "天數" %>
+        <%= content_form.date_select :doctorDate2, label: "看診日", :include_blank => true, :default => nil %>
+        <%= content_form.number_field :days2, :min => 0, label: "天數"%>
         <%= content_form.text_area :remark2, :size => "20x5", label: "備註" %>
       </div>
     </div>
@@ -63,7 +63,7 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName3, label: "醫院名稱" %>
         <%= content_form.text_field :division3, label: "科別" %>
-        <%= content_form.date_select :doctorDate3, label: "看診日" %>
+        <%= content_form.date_select :doctorDate3, label: "看診日", :include_blank => true, :default => nil %>
         <%= content_form.number_field :days3, :min => 0, label: "天數" %>
         <%= content_form.text_area :remark3, :size => "20x5", label: "備註" %>
       </div>

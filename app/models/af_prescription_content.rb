@@ -3,5 +3,8 @@ class AfPrescriptionContent < ActiveRecord::Base
   self.primary_key  = "prescriptionContentID"
 
   belongs_to :assessment_form, :dependent => :destroy
+
+  # validates_presence_of :hospitalName1
+
 end
 

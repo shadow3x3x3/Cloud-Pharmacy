@@ -38,12 +38,12 @@ class AssessmentFormsController < ApplicationController
   end
 
   def create
-    @result = params[:assessmentResult_ids].join(",")
+    @result = params[:assessmentResult_ids].join(",") unless params[:assessmentResult_ids].nil?
 
     params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
 
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
-    binding.pry
+    # binding.pry
     if @assessmentForm.save
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
