@@ -1,11 +1,16 @@
 <h1>管理藥品</h1>
-<br \>
+<br>
+<%= form_tag drugs_path, method: :get do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search..." %>
+  <%= submit_tag "Search", name: nil, :class => "btn" %>
+<% end %>
+<br>
 <ul>
 <table class="table table-bordered table-striped table-hover">
   <tr>
     <th>藥品原名</th>
     <th>藥品譯名</th>
-    <th>存貨數量</th>
+    <th class="stock_header"><%= link_to "存貨數量", drugs_path(:by => 'stock'), :id => 'stock_header'%></th>
     <th>價錢</th>
     <th>是否為慢性病用藥</th>
   </tr>
@@ -34,4 +39,3 @@
 
 <%= link_to "新增藥品", new_drug_path, :class => "btn btn-info" %>
 <br \>
-<%= paginate @drugs %>

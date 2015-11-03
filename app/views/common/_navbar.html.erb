@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-          <li> <%= link_to("Hi!, #{current_user.name}", edit_user_registration_path) %><li>
+          <li><%= link_to("Hi!, #{current_user.name}", edit_user_registration_path) %><li>
           <li><%= link_to("登出", destroy_user_session_path, method: :delete) %></li>
         <% else %>
           <li><%= link_to('註冊', new_registration_path(:user)) %></li>
@@ -37,4 +37,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-

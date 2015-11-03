@@ -7,7 +7,12 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = Drug.page(params[:page]).per(5)
+    if params[:search]
+      @drugs = Drug.where('oriName LIKE ? OR chiName LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+    else
+      @drugs = Drug.page(params[:page]).per(5)
+    end
+
   end
 
   def new

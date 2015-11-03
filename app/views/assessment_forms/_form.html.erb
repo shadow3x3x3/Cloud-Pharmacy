@@ -107,6 +107,22 @@
 </blockquote>
 
 <script type="text/javascript">
+  $("value").css("color", "darkgray");
+  $("label").css("color", "darkgray");
+  $("blockquote").css("color", "darkgray");
+
+  $("label").click(function () {
+    $(this).css("color", "black");
+  });
+
+  $("input").click(function() {
+    if (this.checked) {
+        var response = $('label[for="' + this.id + '"]').html();
+        response.css("color", "black");
+    }
+  });
+
+
   $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', true);
   doctorDo_able();
 
@@ -121,6 +137,8 @@
       $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', false);
     }
   }
+
+
 </script>
 
 <br /><br />
