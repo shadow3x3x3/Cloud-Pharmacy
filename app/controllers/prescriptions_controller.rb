@@ -7,7 +7,19 @@ class PrescriptionsController < ApplicationController
   end
 
   def index
-    @prescriptions = Prescription.page(params[:page]).per(5)
+    classification ||= params[:classification]
+    case classification
+    when nil, "all"
+      @prescriptions = Prescription.page(params[:page]).per(5)
+    when "fit"
+      prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "fit" ).pluck(:prescriptionID)
+      @prescriptions = Prescription.find(prescriptionIDs)
+      @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
+    when "resident"
+      prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "resident" ).pluck(:prescriptionID)
+      @prescriptions = Prescription.find(prescriptionIDs)
+      @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
+    end
   end
 
   def new

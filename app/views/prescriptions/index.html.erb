@@ -1,7 +1,12 @@
 <h1>管理處方箋</h1>
 <br \>
+<%= link_to "全部", prescriptions_path(:classification => "all"), :class => "btn btn-default" %>
+<%= link_to "住民", prescriptions_path(:classification => "resident"), :class => "btn btn-default" %>
+<%= link_to "散客", prescriptions_path(:classification => "fit"), :class => "btn btn-default" %>
+<br \>
+<br \>
 <ul>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-condensed table-hover">
   <tr>
     <th>編號</th>
     <th>分類</th>
@@ -50,4 +55,4 @@
 
 <%= link_to "新增處方箋", new_prescription_path, :class => "btn btn-info" %>
 <br \>
-<%= paginate @prescriptions %>
+<%= paginate @prescriptions, :remote => true %>

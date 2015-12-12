@@ -10,17 +10,15 @@
   <tr>
     <th>藥品原名</th>
     <th>藥品譯名</th>
-    <th class="stock_header"><%= link_to "存貨數量", drugs_path(:by => 'stock'), :id => 'stock_header'%></th>
-    <th>價錢</th>
-    <th>是否為慢性病用藥</th>
+    <th>適應症</th>
+    <th>顏色</th>
   </tr>
   <% @drugs.each do |drug| %>
   <tr>
       <td><%= drug.oriName %></td>
       <td><%= drug.chiName %></td>
-      <td><%= drug.stock %></td>
-      <td><%= drug.price %></td>
-      <td><%= isChronic(drug) %></td>
+      <td><%= drug.indication %></td>
+      <td><%= drug.color %></td>
 
     <td>
       <%= link_to "圖片", drugs_path, :class => "btn btn-default" %>
