@@ -56,7 +56,7 @@ class DrugsController < ApplicationController
   end
 
   def drug_params
-    params.require(:drug).permit(:oriName, :chiName, :stock, :price, :picture, :isChronic)
+    params.require(:drug).permit(:oriName, :chiName, :indication, :color, :picture)
   end
 
 
