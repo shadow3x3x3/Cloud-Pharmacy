@@ -48,6 +48,11 @@ class PrescriptionsController < ApplicationController
     end
   end
 
+  def show
+    @prescription = Prescription.find(params[:id])
+    @prescriptionOfDrugs = PrescriptionOfDrug.where( :prescriptionID => params[:id])
+  end
+
   def destroy
 
     @prescription.destroy
