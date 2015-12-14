@@ -122,6 +122,9 @@ GEM
       pry (>= 0.9.10, < 0.11.0)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -218,6 +221,7 @@ DEPENDENCIES
   pry
   pry-nav
   pry-rails
+  pry-remote
   rails (= 4.2.1)
   rails-i18n
   sass-rails (~> 5.0)
