@@ -9,11 +9,10 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <%= f.password_field :password, autocomplete: "off", label: "密碼",
-                       help: "(若您不想變更密碼請留空)" %>
+  <%= f.password_field :password, autocomplete: "off", label: "密碼" %>
 
   <%= f.password_field :password_confirmation, autocomplete: "off",
-                       label: "確認密碼" %>
+                       label: "確認密碼", help: "(若您不想變更密碼以上兩格請留空)" %>
 
   <%= f.password_field :current_password, autocomplete: "off", label: "現在的密碼",
                        help: "我們需要您現在的密碼確認您的變更" %>
