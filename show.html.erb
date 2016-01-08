@@ -1,0 +1,59 @@
+<h1> <%= @drug.oriName %> <%= @drug.chiName %> </h1>
+
+</br>
+<ul>
+<table class="table table-condensed table-hover">
+  <tr>
+    <th>藥品編號</th>
+    <th>分類</th>
+    <th>姓名</th>
+    <th>天數</th>
+    <th>外送次數</th>
+    <th>就醫日期</th>
+    <th>調配次數</th>
+    <th>第一次看診日</th>
+    <th>第二次看診日</th>
+    <th>新增人</th>
+    <th>最後修改人</th>
+    <th>開立醫院</th>
+    <th>電聯狀態</th>
+    <th>取得期限</th>
+  </tr>
+  <tr>
+    <td><%= @prescription.prescriptionID %></td>
+    <td><%= identityCheck(@prescription) %></td>
+    <td><%= identityCheckName(@prescription) %></td>
+    <td><%= @prescription.days %></td>
+    <td><%= @prescription.deliveryTimes %></td>
+    <td><%= @prescription.doctorDate %></td>
+    <td><%= @prescription.compoundingTimes %></td>
+    <td><%= @prescription.firstDate %></td>
+    <td><%= @prescription.secondDate %></td>
+    <td><%= @prescription.personAdded %></td>
+    <td><%= @prescription.lastModifier %></td>
+    <td><%= hospitalName(@prescription.hospitalID) %></td>
+    <td><%= phoneStatus(@prescription) %></td>
+    <td><%= @prescription.drug_range %></td>
+</table>
+
+<h2>處方箋藥品</h2>
+<table class="table table-condensed table-hover">
+  <tr>
+    <th>藥品原名</th>
+    <th>藥品譯名</th>
+    <th>藥品劑量</th>
+    <th>一天幾次</th>
+  </tr>
+  <% @prescriptionOfDrugs.each do |prescriptionOfDrug| %>
+  <tr>
+    <td><%= prescriptionOfDrug.drugOriName %></td>
+    <td><%= prescriptionOfDrug.drugChiName %></td>
+    <td><%= prescriptionOfDrug.measure %></td>
+    <td><%= prescriptionOfDrug.perDay %></td>
+  </tr>
+  <% end %>
+</table>
+</ul>
+
+<%= link_to "返回處方箋", prescriptions_path, :class => "btn btn-info" %>
+<br \>

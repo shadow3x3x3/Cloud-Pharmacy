@@ -8,7 +8,8 @@ class DrugsController < ApplicationController
 
   def index
     if params[:search]
-      @drugs = Drug.where('oriName LIKE ? OR chiName LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+      @drugs = Drug.where('drugID LIKE ? OR oriName LIKE ? OR chiName LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @drugs = @drugs.page(params[:page]).per(5)
     else
       @drugs = Drug.page(params[:page]).per(5)
     end
@@ -56,9 +57,10 @@ class DrugsController < ApplicationController
   end
 
   def drug_params
-    params.require(:drug).permit(:oriName, :chiName, :indication, :color, :picture)
+    params.require(:drug).permit(:drugID, :oriName, :chiName,
+                                 :specificationsAmount, :ingredient,
+                                 :indication, :shape, :color,
+                                 :sideEffect, :notes, :picture)
   end
-
-
 
 end

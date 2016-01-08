@@ -23,4 +23,4 @@ production:
   host:     140.134.26.63
   port:     3306
   username: shadow3x3x3
-  password:
+  password: 

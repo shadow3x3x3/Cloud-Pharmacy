@@ -1,4 +1,4 @@
-<h1>管理藥品</h1>
+<h1><%= link_to "管理藥品", drugs_path %></h1>
 <br>
 <%= form_tag drugs_path, method: :get do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search..." %>
@@ -8,23 +8,31 @@
 <ul>
 <table class="table table-bordered table-striped table-hover sortable">
   <tr>
+    <th>藥品編號</th>
     <th>藥品原名</th>
     <th>藥品譯名</th>
+    <th>規格量</th>
+    <th>成分名字</th>
     <th>適應症</th>
+    <th>形狀</th>
     <th>顏色</th>
+    <th>副作用</th>
+    <th>注意事項</th>
   </tr>
   <% @drugs.each do |drug| %>
   <tr>
+      <td><%= drug.drugID %></td>
       <td><%= drug.oriName %></td>
       <td><%= drug.chiName %></td>
+      <td><%= drug.specificationsAmount %></td>
+      <td><%= drug.ingredient %></td>
       <td><%= drug.indication %></td>
+      <td><%= drug.shape %></td>
       <td><%= drug.color %></td>
-
+      <td><%= drug.sideEffect %></td>
+      <td><%= drug.notes %></td>
     <td>
-      <%= link_to "圖片", drugs_path, :class => "btn btn-default" %>
-    </td>
-    <td>
-      <%= link_to "編輯", edit_drug_path(drug), :class => "btn btn-primary" %>
+      <%= link_to "查看", drug_path(drug), :class => "btn btn-primary" %>
     </td>
     <td>
       <%= link_to "刪除", drug_path(drug), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
@@ -35,5 +43,5 @@
 </table>
 </ul>
 
-<%= link_to "新增藥品", new_drug_path, :class => "btn btn-info" %>
 <br \>
+<%= paginate @drugs %>

@@ -46,6 +46,7 @@
 <h2>處方箋藥品</h2>
 <table class="table table-condensed table-hover">
   <tr>
+    <th>藥品編號</th>
     <th>藥品原名</th>
     <th>藥品譯名</th>
     <th>藥品劑量</th>
@@ -53,6 +54,7 @@
   </tr>
   <% @prescriptionOfDrugs.each do |prescriptionOfDrug| %>
   <tr>
+    <td><%= prescriptionOfDrug.drugID %></td>
     <td><%= prescriptionOfDrug.drugOriName %></td>
     <td><%= prescriptionOfDrug.drugChiName %></td>
     <td><%= prescriptionOfDrug.measure %></td>
