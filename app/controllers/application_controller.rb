@@ -12,9 +12,5 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def admin_only
-    current_user.admin?
-  end
-
 
 end

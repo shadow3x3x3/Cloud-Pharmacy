@@ -6,8 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :fits
 
-  # confirm admin
-  def admin?
-    self == User.first ? true : false
-  end
+  
 end

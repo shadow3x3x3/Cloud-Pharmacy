@@ -5,7 +5,8 @@
       <a class="navbar-brand" href="/">台灣照護藥局</a>
       <ul class="nav navbar-nav pull-right">
         <% if current_user %>
-          <% if current_user.admin? %>
+          <% case current_user.auth %>
+          <% when "pharmacist" %>
             <li><%= link_to "醫院管理", hospitals_path %></li>
             <li><%= link_to "機構管理", agencies_path %></li>
             <li><%= link_to "會員管理", members_path %></li>
@@ -15,8 +16,14 @@
             <li><%= link_to "住民管理", residents_path %></li>
             <li><%= link_to "處方箋管理", prescriptions_path %></li>
             <li><%= link_to "評估記錄表管理", assessment_forms_path %></li>
-          <% else %>
-            <!-- normal users -->
+          <% when "nurse" %>
+            <li><%= link_to "住民管理", residents_path %></li>
+            <li><%= link_to "處方箋管理", prescriptions_path %></li>
+            <li><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+          <% when "doctor" %>
+            <li><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+          <% when "customer" %>
+            <!-- customers -->
             <li><%= link_to "申請處方箋", assessment_forms_path %></li>
             <li><%= link_to "處方箋管理", assessment_forms_path %></li>
           <% end %>

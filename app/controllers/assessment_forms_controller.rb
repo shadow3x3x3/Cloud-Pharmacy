@@ -3,7 +3,7 @@ class AssessmentFormsController < ApplicationController
   before_action :set_assessmentForm, :only => [ :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user && admin_only
+    redirect_to root_path unless current_user &.auth != "customer"
   end
 
   Result_array = [

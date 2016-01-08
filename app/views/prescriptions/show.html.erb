@@ -34,13 +34,6 @@
       <td><%= hospitalName(@prescription.hospitalID) %></td>
       <td><%= phoneStatus(@prescription) %></td>
       <td><%= @prescription.drug_range %></td>
-
-    <td>
-      <%= link_to "修改", prescription_path(@prescription), :class => "btn btn-primary" %>
-    </td>
-    <td>
-      <%= link_to "刪除", prescription_path(@prescription), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
-    </td>
 </table>
 
 <h2>處方箋藥品</h2>
