@@ -12,12 +12,12 @@
   </tr>
   <% @residents.each do |resident| %>
   <tr>
-      <td><%= resident.name %></td>
-      <td><%= resident.residentIdNumber %></td>
-      <td><%= resident.birthday %></td>
-      <td><%= resident.bedNumber %></td>
-      <td><%= resident.liveFloor %></td>
-      <td><%= agencyName(resident.agencyID) %></td>
+    <td><%= resident.residentIdNumber %></td>
+    <td><%= resident.name %></td>
+    <td><%= resident.birthday %></td>
+    <td><%= resident.bedNumber %></td>
+    <td><%= resident.liveFloor %></td>
+    <td><%= agencyName(resident.agencyID) %></td>
     <td>
       <%= link_to "編輯", edit_resident_path(resident), :class => "btn btn-primary" %>
     </td>
