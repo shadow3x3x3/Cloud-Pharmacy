@@ -31,23 +31,23 @@ class AfPdf < Prawn::Document
     # 設定中文字型
     font "#{Rails.root}/app/pdfs/font/msyh.ttf"
 
-    background_image cursor
+    background_image(cursor)
 
-    fill_resident_info assessmentForm
-    fill_prescription_content assessmentForm.afID
-    fill_pharmacist_assess assessmentForm.afID
-    fill_nurse_handling assessmentForm.afID
+    fill_resident_info(assessmentForm)
+    fill_prescription_content(assessmentForm.afID)
+    fill_pharmacist_assess(assessmentForm.afID)
+    fill_nurse_handling(assessmentForm.afID)
 
   end
 
   # 設定背景
-  def background_image y_position
+  def background_image(y_position)
     image_path = "#{Rails.root}/app/assets/images/post.png"
     image image_path, :at => [-22, y_position+30], :fit => [590, 830]
   end
 
   # 填入住民基本資料
-  def fill_resident_info assessmentForm
+  def fill_resident_info(assessmentForm)
     resident = Resident.find(assessmentForm.residentID)
 
     # 姓名
@@ -122,7 +122,7 @@ class AfPdf < Prawn::Document
   end
 
   # 填入處方資料
-  def fill_prescription_content prescriptionContentID
+  def fill_prescription_content(prescriptionContentID)
     afPrescriptionContent = AfPrescriptionContent.find(prescriptionContentID)
 
     # 第一個處方內容
@@ -163,7 +163,7 @@ class AfPdf < Prawn::Document
   end
 
   # 填入藥師評估結果
-  def fill_pharmacist_assess pharmacistAssessID
+  def fill_pharmacist_assess(pharmacistAssessID)
     result_array = []
 
     afPharmacistAssess = AfPharmacistAssess.find(pharmacistAssessID)
@@ -209,7 +209,7 @@ class AfPdf < Prawn::Document
   end
 
   # 填入醫護人員處置方式
-  def fill_nurse_handling nurseHandlingID
+  def fill_nurse_handling(nurseHandlingID)
     afNurseHandling = AfNurseHandling.find(nurseHandlingID)
 
     # 填入處置方式
