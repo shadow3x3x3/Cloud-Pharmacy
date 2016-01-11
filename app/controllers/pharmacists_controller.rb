@@ -3,7 +3,7 @@ class PharmacistsController < ApplicationController
   before_action :set_pharmacist, :only => [ :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth == "pharmacists"
+    redirect_to root_path unless current_user &.auth == "pharmacist"
   end
 
   def index
