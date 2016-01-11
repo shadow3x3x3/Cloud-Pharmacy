@@ -43,8 +43,9 @@ class AssessmentFormsController < ApplicationController
     params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
 
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
-    # binding.pry
     if @assessmentForm.save
+      pdf = AfPdf.new(@assessmentForm, view_context)
+      pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
     else
@@ -65,13 +66,22 @@ class AssessmentFormsController < ApplicationController
   # show PDF here
   def show
     @assessmentForm = AssessmentForm.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = AfPdf.new(@assessmentForm, view_context)
-        send_data pdf.render, filename: "af.pdf",
-        type: "application/pdf", disposition: "inline",
-        pagesize: "A4"
+    path = Rails.root + "app/assets/assessmentPDF/#{params[:id].to_i}.pdf"
+
+    if File.exist?(path)
+      send_file( path,
+      :disposition => 'inline',
+      :type => 'application/pdf',
+      :x_sendfile => true )
+    else
+      respond_to do |format|
+        format.pdf do
+          pdf = AfPdf.new(@assessmentForm, view_context)
+          send_data pdf.render, filename: "#{params[:id]}.pdf",
+          type: "application/pdf", disposition: "inline",
+          pagesize: "A4"
+          pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
+        end
       end
     end
   end
@@ -83,6 +93,8 @@ class AssessmentFormsController < ApplicationController
     params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
 
     if @assessmentForm.update_attributes(assessmentForm_params)
+      pdf = AfPdf.new(@assessmentForm, view_context)
+      pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
       redirect_to assessment_forms_url
       flash[:notice] = "已成功更新評估記錄表"
     else
