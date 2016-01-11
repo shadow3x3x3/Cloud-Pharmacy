@@ -73,16 +73,6 @@ class AssessmentFormsController < ApplicationController
       :disposition => 'inline',
       :type => 'application/pdf',
       :x_sendfile => true )
-    else
-      respond_to do |format|
-        format.pdf do
-          pdf = AfPdf.new(@assessmentForm, view_context)
-          send_data pdf.render, filename: "#{params[:id]}.pdf",
-          type: "application/pdf", disposition: "inline",
-          pagesize: "A4"
-          pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
-        end
-      end
     end
   end
 
