@@ -7,7 +7,11 @@ module AssessmentFormsHelper
     assessmentForm
   end
 
-  def result_check ori_result, check_result
+  def result_check(ori_result, check_result)
     ori_result.include?(check_result) if ori_result
+  end
+
+  def auth_of_form
+    current_user.auth
   end
 end
