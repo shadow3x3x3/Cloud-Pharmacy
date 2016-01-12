@@ -1,0 +1,51 @@
+<h1><%= link_to "管理藥品", drugs_path %></h1>
+<ul>
+  <div class="row">
+    <font size="4.5">
+    <dl class="dl-horizontal">
+      <dt>藥品編號</dt>
+      <dd><%= @drug.drugID %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>藥品原名</dt>
+      <dd><%= @drug.oriName %>></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>藥品譯名</dt>
+      <dd><%= @drug.chiName %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>規格量</dt>
+      <dd><%= @drug.specificationsAmount %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>成分名字</dt>
+      <dd><%= @drug.ingredient %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>適應症</dt>
+      <dd><%= @drug.indication %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>形狀</dt>
+      <dd><%= @drug.shape %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>顏色</dt>
+      <dd><%= @drug.color %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>副作用</dt>
+      <dd><%= @drug.sideEffect %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>注意事項</dt>
+      <dd><%= @drug.notes %></dd>
+    </dl>
+    </font>
+  </div>
+<br \>
+
+<td>
+  <%= link_to "返回", drugs_path, :class => "btn btn-info" %>
+</td>

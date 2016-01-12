@@ -42,6 +42,10 @@ class DrugsController < ApplicationController
     end
   end
 
+  def show
+    @drug = Drug.find(params[:id])
+  end
+
   def destroy
 
     @drug.destroy
