@@ -91,7 +91,7 @@
 
 
     <% @result_array.each do |result| %>
-      <%= render :partial => 'result_checkbox', :locals => { :result => result } %>
+      <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
       <% br_flag += 1 %>
 
       <% if br_flag % 4 == 1 %>
