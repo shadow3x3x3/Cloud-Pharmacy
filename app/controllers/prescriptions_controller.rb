@@ -7,17 +7,26 @@ class PrescriptionsController < ApplicationController
   end
 
   def index
-    classification ||= params[:classification]
-    case classification
-    when nil, "all"
-      @prescriptions = Prescription.page(params[:page]).per(5)
-    when "fit"
-      prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "fit" ).pluck(:prescriptionID)
-      @prescriptions = Prescription.find(prescriptionIDs)
-      @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
-    when "resident"
-      prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "resident" ).pluck(:prescriptionID)
-      @prescriptions = Prescription.find(prescriptionIDs)
+    if current_user.auth == "pharmacist"
+      classification ||= params[:classification]
+      case classification
+      when nil, "all"
+        @prescriptions = Prescription.page(params[:page]).per(5)
+      when "fit"
+        prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "fit" ).pluck(:prescriptionID)
+        @prescriptions = Prescription.find(prescriptionIDs)
+        @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
+      when "resident"
+        prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "resident" ).pluck(:prescriptionID)
+        @prescriptions = Prescription.find(prescriptionIDs)
+        @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
+      end
+    else
+      agencyID = Agency.find_by_name(current_user.name).id
+      residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
+      prescription_of_resident_id = PrescriptionOfAll.where(:identityCheck => "resident").pluck(:prescriptionID)
+      rescriptionIDs = prescription_of_resident_id & residents
+      @prescriptions = Prescription.find(rescriptionIDs)
       @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
     end
   end
