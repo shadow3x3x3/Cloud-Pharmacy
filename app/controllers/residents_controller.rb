@@ -7,7 +7,14 @@ class ResidentsController < ApplicationController
   end
 
   def index
-    @residents = Resident.page(params[:page]).per(5)
+    if current_user.auth == "nurse"
+      agencyID = Agency.find_by_name(current_user.name).id
+      @residents = Resident.where(:agencyID => agencyID)
+      @residents = @residents.page(params[:page]).per(5)
+
+    else
+      @residents = Resident.page(params[:page]).per(5)
+    end
   end
 
   def new
