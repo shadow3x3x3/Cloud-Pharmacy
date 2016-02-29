@@ -29,7 +29,15 @@ class AssessmentFormsController < ApplicationController
   ]
 
   def index
-    @assessmentForms = AssessmentForm.page(params[:page]).per(5)
+    if current_user.auth == "nurse"
+      agencyID = Agency.find_by_name(current_user.name).id
+      residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
+      @assessmentForms = AssessmentForm.where(:residentID => residents)
+      # binding.pry
+      @assessmentForms = @assessmentForms.page(params[:page]).per(5)
+    else
+      @assessmentForms = AssessmentForm.page(params[:page]).per(5)
+    end
   end
 
   def new
@@ -38,10 +46,11 @@ class AssessmentFormsController < ApplicationController
   end
 
   def create
-    @result = params[:assessmentResult_ids].join(",") unless params[:assessmentResult_ids].nil?
+    if current_user.auth == "pharmacist"
+      @result = params[:assessmentResult_ids].join(",") unless params[:assessmentResult_ids].nil?
 
-    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
-
+      params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result unless @result.nil?
+    end
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
     if @assessmentForm.save
       pdf = AfPdf.new(@assessmentForm, view_context)
@@ -77,10 +86,14 @@ class AssessmentFormsController < ApplicationController
   end
 
   def update
-    @assessmentForm = AssessmentForm.find(params[:id])
-    @result         = params[:assessmentResult_ids].join(",")
 
-    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
+    if current_user.auth == "pharmacist"
+      @assessmentForm = AssessmentForm.find(params[:id])
+      @result         = params[:assessmentResult_ids].join(",")
+
+      params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
+
+    end
 
     if @assessmentForm.update_attributes(assessmentForm_params)
       pdf = AfPdf.new(@assessmentForm, view_context)

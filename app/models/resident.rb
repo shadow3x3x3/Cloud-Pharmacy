@@ -2,6 +2,8 @@ class Resident < ActiveRecord::Base
   self.table_name   = 'resident'
   self.primary_key  = 'residentID'
 
+  has_many :assessment_form, :foreign_key => "residentID"
+
   attr_accessor :age
 
   def age
