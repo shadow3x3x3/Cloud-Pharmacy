@@ -11,7 +11,7 @@
   %>
   <h2>基本資料</h2>
   <% if auth_of_form == "nurse" %>
-    <%= f.collection_select :residentID, residentsOfAgency(current_user.name), :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>  
+    <%= f.collection_select :residentID, residentsOfAgency(current_user.name), :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% else %>
     <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% end %>
@@ -121,7 +121,7 @@
   <% end %>
 </blockquote>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $("value").css("color", "darkgray");
   $("label").css("color", "darkgray");
   $("blockquote").css("color", "darkgray");
@@ -154,6 +154,6 @@
   }
 
 
-</script>
+</script> -->
 
 <br /><br />

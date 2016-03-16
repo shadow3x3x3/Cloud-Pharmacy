@@ -16,9 +16,11 @@
       <%= link_to "PDF", assessment_form_path(assessmentForm.afID, :format => "pdf"),
                        :class => "btn btn-default", :target => "_blank" %>
     </td>
-    <td>
-      <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
-    </td>
+    <% unless current_user.auth == "doctor" %>
+      <td>
+        <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
+      </td>
+    <% end %>
     <td>
       <%= link_to "刪除", assessment_form_path(assessmentForm), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
     </td>
@@ -27,7 +29,8 @@
 
 </table>
 </ul>
-
-<%= link_to "新增評估記錄表", new_assessment_form_path, :class => "btn btn-info" %>
+<% unless current_user.auth == "doctor" %>
+  <%= link_to "新增評估記錄表", new_assessment_form_path, :class => "btn btn-info" %>
+<% end %>
 <br \>
 <%= paginate @assessmentForms %>

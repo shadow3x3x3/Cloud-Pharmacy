@@ -123,6 +123,7 @@ class AfPdf < Prawn::Document
 
   # 填入處方資料
   def fill_prescription_content(prescriptionContentID)
+    binding.pry
     afPrescriptionContent = AfPrescriptionContent.find(prescriptionContentID)
 
     # 第一個處方內容

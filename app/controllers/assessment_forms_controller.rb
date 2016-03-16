@@ -33,7 +33,6 @@ class AssessmentFormsController < ApplicationController
       agencyID = Agency.find_by_name(current_user.name).id
       residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
       @assessmentForms = AssessmentForm.where(:residentID => residents)
-      # binding.pry
       @assessmentForms = @assessmentForms.page(params[:page]).per(5)
     else
       @assessmentForms = AssessmentForm.page(params[:page]).per(5)
@@ -48,7 +47,6 @@ class AssessmentFormsController < ApplicationController
   def create
     if current_user.auth == "pharmacist"
       @result = params[:assessmentResult_ids].join(",") unless params[:assessmentResult_ids].nil?
-
       params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result unless @result.nil?
     end
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
@@ -86,7 +84,6 @@ class AssessmentFormsController < ApplicationController
   end
 
   def update
-
     if current_user.auth == "pharmacist"
       @assessmentForm = AssessmentForm.find(params[:id])
       @result         = params[:assessmentResult_ids].join(",")
