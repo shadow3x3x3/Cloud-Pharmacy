@@ -123,7 +123,6 @@ class AfPdf < Prawn::Document
 
   # 填入處方資料
   def fill_prescription_content(prescriptionContentID)
-    binding.pry
     afPrescriptionContent = AfPrescriptionContent.find(prescriptionContentID)
 
     # 第一個處方內容
@@ -165,7 +164,7 @@ class AfPdf < Prawn::Document
 
   # 填入藥師評估結果
   def fill_pharmacist_assess(pharmacistAssessID)
-    result_array = []
+    results_array = []
 
     afPharmacistAssess = AfPharmacistAssess.find(pharmacistAssessID)
 
@@ -175,12 +174,12 @@ class AfPdf < Prawn::Document
       # 藥師評估結果
       result.each do |result|
         temp = Result_hash_table[result.to_sym] # 查詢result table去找要勾選的選項
-        result_array << temp
+        results_array << temp
       end
 
-      result_array.each do |result_array|
+      results_array.each do |result_array|
         # binding.pry
-        fill_blank(result_array[0], result_array[1]) # 勾選被找到的result
+        fill_blank(result_array[0], result_array[1]) unless result_array.nil? # 勾選被找到的result
       end
     end
 

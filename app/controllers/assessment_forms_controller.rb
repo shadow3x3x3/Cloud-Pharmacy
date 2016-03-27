@@ -50,7 +50,10 @@ class AssessmentFormsController < ApplicationController
       params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result unless @result.nil?
     end
     @assessmentForm = AssessmentForm.new(assessmentForm_params)
+    af_pharmacist_assess = AfPharmacistAssess.new
     if @assessmentForm.save
+      af_pharmacist_assess = AfPharmacistAssess.new( :pharmacistAssessID => @assessmentForm.afID)
+      af_pharmacist_assess.save
       pdf = AfPdf.new(@assessmentForm, view_context)
       pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
       redirect_to assessment_forms_url
@@ -76,10 +79,13 @@ class AssessmentFormsController < ApplicationController
     path = Rails.root + "app/assets/assessmentPDF/#{params[:id].to_i}.pdf"
 
     if File.exist?(path)
-      send_file( path,
+      send_file(path,
       :disposition => 'inline',
       :type => 'application/pdf',
-      :x_sendfile => true )
+      :x_sendfile => true)
+    else
+      df = AfPdf.new(@assessmentForm, view_context)
+      pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
     end
   end
 
@@ -120,7 +126,7 @@ class AssessmentFormsController < ApplicationController
     params.require(:assessment_form).permit(
       :afDruguse, :afLiverFunction, :afKidneyFunction, :residentID, :id,
       :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
-      :pharmacistAssessID, :nurseHandlingID,
+      :pharmacistAssessID, :nurseHandlingID, :status,
       :af_prescription_content_attributes => [:id,
                                               :hospitalName1, :division1, :doctorDate1, :days1, :remark1,
                                               :hospitalName2, :division2, :doctorDate2, :days2, :remark2,

@@ -89,24 +89,27 @@
 
 
 <blockquote>
-  <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
-    <h2>藥師評估結果</h2>
-    <% br_flag = 1 %>
+  <div disabled="true">
+    <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
+      <h2>藥師評估結果</h2>
+      <% br_flag = 1 %>
 
+      
+      <% @result_array.each do |result| %>
+        <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
+        <% br_flag += 1 %>
 
-    <% @result_array.each do |result| %>
-      <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
-      <% br_flag += 1 %>
-
-      <% if br_flag % 4 == 1 %>
-        <br ><br >
+        <% if br_flag % 4 == 1 %>
+          <br ><br >
+        <% end %>
       <% end %>
-    <% end %>
 
-    <%= assess_form.text_area :suggestion, :size => "20x5", label: "藥師建議內容", disabled: pharmacist_auth %>
-    <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], {label: "參考資料"}, {disabled: pharmacist_auth} %>
-    <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], {label: "參考書籍"}, {disabled: pharmacist_auth} %>
-  <% end %>
+      <%= assess_form.text_area :suggestion, :size => "20x5", label: "藥師建議內容", disabled: pharmacist_auth, value: "藥師請填寫建議" %>
+      <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], {label: "參考資料"}, {disabled: pharmacist_auth} %>
+      <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], {label: "參考書籍"}, {disabled: pharmacist_auth} %>
+    <% end %>
+  </div>
+
 </blockquote>
 
 <blockquote>
@@ -120,6 +123,9 @@
 
   <% end %>
 </blockquote>
+
+<%= f.select :status, [["送往藥師", "pharmacist"], ["送往護士", "nurse"]], {label: "處理流程"} %>
+
 
 <!-- <script type="text/javascript">
   $("value").css("color", "darkgray");

@@ -6,12 +6,14 @@
     <th>評估記錄表編號</th>
     <th>住民姓名</th>
     <th>建立時間</th>
+    <th>處理狀態</th>
   </tr>
   <% @assessmentForms.each do |assessmentForm| %>
   <tr>
       <td><%= assessmentForm.afID %></td>
       <td><%= residentName(assessmentForm.residentID) %></td>
       <td><%= assessmentForm.timestamp %></td>
+      <td><%= assessmentForm.status %></td>
     <td>
       <%= link_to "PDF", assessment_form_path(assessmentForm.afID, :format => "pdf"),
                        :class => "btn btn-default", :target => "_blank" %>
