@@ -13,16 +13,15 @@
       <td><%= assessmentForm.afID %></td>
       <td><%= residentName(assessmentForm.residentID) %></td>
       <td><%= assessmentForm.timestamp %></td>
-      <td><%= assessmentForm.status %></td>
+      <td><%= assessmentForm.process %></td>
     <td>
       <%= link_to "PDF", assessment_form_path(assessmentForm.afID, :format => "pdf"),
                        :class => "btn btn-default", :target => "_blank" %>
     </td>
-    <% unless current_user.auth == "doctor" %>
-      <td>
-        <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
-      </td>
-    <% end %>
+
+    <td>
+      <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
+    </td>
     <td>
       <%= link_to "刪除", assessment_form_path(assessmentForm), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
     </td>
