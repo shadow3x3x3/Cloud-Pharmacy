@@ -20,7 +20,9 @@
     </td>
 
     <td>
+      <%  if assessmentForm.process?(current_user.auth)%>
       <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
+      <% end %>
     </td>
     <td>
       <%= link_to "刪除", assessment_form_path(assessmentForm), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>

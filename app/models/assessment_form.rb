@@ -19,4 +19,13 @@ class AssessmentForm < ActiveRecord::Base
       "藥師處理中"
     end
   end
+
+  # true => 與目前權限相符
+  def process?(current_user_auth)
+    who = self.status
+    if who == current_user_auth # 需要處理
+      return true
+    end
+    return false
+  end
 end
