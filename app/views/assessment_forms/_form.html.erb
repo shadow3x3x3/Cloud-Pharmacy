@@ -11,7 +11,7 @@
   %>
   <h2>基本資料</h2>
   <% if auth_of_form == "nurse" %>
-    <%= f.collection_select :residentID, residentsOfAgency(current_user.name), :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
+    <%= f.collection_select :residentID, current_user.residentsOfAgency, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% else %>
     <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% end %>
@@ -94,7 +94,7 @@
       <h2>藥師評估結果</h2>
       <% br_flag = 1 %>
 
-      
+
       <% @result_array.each do |result| %>
         <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
         <% br_flag += 1 %>

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :fits
 
+  # 回傳護士的評估表
   def nurse_af
     agencyID = Agency.find_by_name(self.name).id
     residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
@@ -21,6 +22,12 @@ class User < ActiveRecord::Base
       afs = AssessmentForm.all.select("status").uniq
     end
     !(afs.where(:status => self.auth).empty?)
+  end
+
+  # 回傳有哪些住民
+  def residentsOfAgency
+    agency_id = Agency.find_by_name(self.name)
+    Resident.where(:agencyID => agency_id)
   end
 
 end

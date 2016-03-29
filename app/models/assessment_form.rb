@@ -28,4 +28,11 @@ class AssessmentForm < ActiveRecord::Base
     end
     return false
   end
+
+  # 回傳住民姓名
+  def residentName
+    Resident.find(self.residentID).name
+  end
+
+  
 end

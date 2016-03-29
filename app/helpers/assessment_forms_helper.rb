@@ -15,8 +15,5 @@ module AssessmentFormsHelper
     current_user.auth
   end
 
-  def residentsOfAgency(agency_name)
-    agency_id = Agency.find_by_name(agency_name)
-    Resident.where(:agencyID => agency_id)
-  end
+  
 end

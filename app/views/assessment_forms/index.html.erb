@@ -11,7 +11,7 @@
   <% @assessmentForms.each do |assessmentForm| %>
   <tr>
       <td><%= assessmentForm.afID %></td>
-      <td><%= residentName(assessmentForm.residentID) %></td>
+      <td><%= assessmentForm.residentName %></td>
       <td><%= assessmentForm.timestamp %></td>
       <td><%= assessmentForm.process %></td>
     <td>
