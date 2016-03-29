@@ -26,12 +26,6 @@ module ApplicationHelper
   # @return resident.name
   def residentName(residentID)
     Resident.find(residentID).name
-  end
-
-  # 處理狀態
-  def notification(current_user)
-    afs = AssessmentForm.all.select("status").uniq
-    !(afs.where(:status => current_user).empty?)
-  end
+  end  
 
 end

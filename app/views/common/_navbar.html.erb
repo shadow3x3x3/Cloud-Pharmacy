@@ -15,13 +15,13 @@
             <li><%= link_to "藥品管理", drugs_path %></li>
             <li><%= link_to "住民管理", residents_path %></li>
             <li><%= link_to "處方箋管理", prescriptions_path %></li>
-            <li id=<%= notification("pharmacist") %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%=  link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=<%= current_user.notification %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%=  link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "nurse" %>
             <li><%= link_to "住民管理", residents_path %></li>
             <li><%= link_to "處方箋管理", prescriptions_path %></li>
-            <li id=<%= notification("nurse") %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=<%= current_user.notification %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "doctor" %>
-            <li id=<%= notification("doctor") %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=<%= current_user.notification %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "customer" %>
             <!-- customers -->
             <li><%= link_to "申請處方箋", assessment_forms_path %></li>

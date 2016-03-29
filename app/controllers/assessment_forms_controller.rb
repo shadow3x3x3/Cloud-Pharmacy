@@ -30,9 +30,7 @@ class AssessmentFormsController < ApplicationController
 
   def index
     if current_user.auth == "nurse"
-      agencyID = Agency.find_by_name(current_user.name).id
-      residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
-      @assessmentForms = AssessmentForm.where(:residentID => residents)
+      @assessmentForms = current_user.nurse_af
       @assessmentForms = @assessmentForms.page(params[:page]).per(5)
     else
       @assessmentForms = AssessmentForm.page(params[:page]).per(5)
