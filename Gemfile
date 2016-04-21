@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use mysql2 as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 # Use bootstrap for stylesheets
 gem 'bootstrap-sass'
 # Use bootstrap Form for stylesheets
@@ -74,6 +74,7 @@ end
 
 group :development do
   gem 'better_errors'
+  gem 'thin'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-nav'
