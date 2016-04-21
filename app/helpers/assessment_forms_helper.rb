@@ -15,5 +15,5 @@ module AssessmentFormsHelper
     current_user.auth
   end
 
-  
+
 end
