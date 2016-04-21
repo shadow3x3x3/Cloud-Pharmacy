@@ -18,7 +18,7 @@
       <%= link_to "編輯", edit_fit_path(fit), :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= link_to "刪除", fit_path(fit), :class => "btn btn-danger" %>
+      <%= link_to "刪除", fit_path(fit), :method => :delete, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>

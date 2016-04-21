@@ -17,6 +17,9 @@ class FitsController < ApplicationController
   def create
     @fit = Fit.new(fit_params)
     if @fit.save
+      fom = FitOfMember.new(:fitID => @fit.id, :memberID => current_user.id)
+      fom.save
+
       redirect_to fits_url
       flash[:notice] = "已成功新增散客資料"
     else
@@ -37,8 +40,9 @@ class FitsController < ApplicationController
   end
 
   def destroy
-
     @fit.destroy
+    fom = FitOfMember.find(@fit.id)
+    fom.destroy
 
     redirect_to :action => :index
     flash[:alert] = "已成功刪除散客資料"
