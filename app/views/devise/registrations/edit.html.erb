@@ -1,6 +1,6 @@
 <h2>編輯用戶 </h2>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4") do |f| %>
   <%= devise_error_messages! %>
 
   <%= f.email_field :email, autofocus: true, label: "Email" %>
@@ -22,10 +22,10 @@
   <%= f.text_field :idNumber, label: "身分證字號" %>
 
   <%= f.submit "更新我的資料", class: "btn btn-primary" %>
+  <%= link_to "返回", :back, class: "btn btn-default" %>
 <% end %>
 
-<h3>注銷我的帳戶</h3>
-
-<p>不滿意我們的服務嗎? <%= button_to "注銷我的帳戶", registration_path(resource_name), data: { confirm: "您確定要注銷您的帳戶?" }, method: :delete, class: "btn btn-danger" %></p>
-
-<%= link_to "Back", :back, class: "btn btn-default" %>
+<!-- <div class="col-md-2">
+  <h3>注銷我的帳戶</h3>
+  <p>不滿意我們的服務嗎? <%= button_to "注銷我的帳戶", registration_path(resource_name), data: { confirm: "您確定要注銷您的帳戶?" }, method: :delete, class: "btn btn-danger" %></p>
+</div> -->
