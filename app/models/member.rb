@@ -3,4 +3,9 @@ class Member < ActiveRecord::Base
   self.primary_key  = 'memberID'
 
   has_many :fits
+
+  def fits
+    fits_id = FitOfMember.where(:memberID => self.id).pluck(:fitID)
+    Fit.find(fits_id)
+  end
 end
