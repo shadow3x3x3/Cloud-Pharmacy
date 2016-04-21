@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 
   # 找出對應的會員
-  def memeber
+  def member
     Member.find(self.id) if self.auth == 'customer'
   end
 
