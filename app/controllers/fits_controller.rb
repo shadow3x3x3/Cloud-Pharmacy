@@ -3,11 +3,11 @@ class FitsController < ApplicationController
   before_action :set_fit, :only => [ :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth == "pharmacist"
+    redirect_to root_path unless current_user &.auth == "pharmacist" || "customer"
   end
 
   def index
-    @fits = Fit.page(params[:page]).per(5)
+    @fits = current_user.member.fits
   end
 
   def new

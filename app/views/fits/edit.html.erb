@@ -1,0 +1,8 @@
+<%= bootstrap_form_for(@fit, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
+  <h1>編輯散客資料</h1>
+
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit "更新", class: "btn btn-default btn-primary" %>
+  <%= link_to "取消", fits_path, :class => "btn btn-default" %>
+
+<% end %>

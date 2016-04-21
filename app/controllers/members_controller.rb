@@ -11,13 +11,6 @@ class MembersController < ApplicationController
     @members = Member.page(params[:page]).per(5)
   end
 
-  def all_fits
-    @fits = current_user.member.fits
-  end
-
-  def add_fit
-  end
-
   private
 
   def set_member

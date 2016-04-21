@@ -1,0 +1,29 @@
+<h1>管理散客</h1>
+<br \>
+<ul>
+<table class="table table-bordered table-striped table-hover sortable">
+  <tr>
+    <th>散客姓名</th>
+    <th>電話(日)</th>
+    <th>電話（夜）</th>
+    <th>手機</th>
+  </tr>
+  <% @fits.each do |fit| %>
+  <tr>
+      <td><%= fit.name %></td>
+      <td><%= fit.phoneOffice %></td>
+      <td><%= fit.phoneHome %></td>
+      <td><%= fit.cellphone %></td>
+    <td>
+      <%= link_to "編輯", edit_fit_path(fit), :class => "btn btn-primary" %>
+    </td>
+    <td>
+      <%= link_to "刪除", fit_path(fit), :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+</ul>
+<%= link_to "新增散客", new_fit_path, :class => "btn btn-info" %>
+<br \>

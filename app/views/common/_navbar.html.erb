@@ -23,7 +23,7 @@
             <li id=<%= current_user.notification %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "customer" %>
             <!-- customers -->
-            <li><%= link_to "散客列表", all_fits_member_path(current_user.member.id) %></li>
+            <li><%= link_to "散客列表", fits_path(current_user.member.id) %></li>
             <li><%= link_to "申請處方箋", assessment_forms_path %></li>
             <li><%= link_to "處方箋管理", assessment_forms_path %></li>
           <% end %>

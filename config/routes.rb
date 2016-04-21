@@ -3,9 +3,7 @@ Rails.application.routes.draw do
 
   resources :members, :only => [:index] do
     member do
-      get :all_fits
-      get :fit
-      post :add_fit
+      resources :fits, :except => [:show]
     end
   end
   resources :hospitals, :pharmacists, :except => [:show]
