@@ -5,7 +5,7 @@ class Member < ActiveRecord::Base
   has_many :fits
 
   def fits
-    fits_id = FitOfMember.where(:memberID => self.id).pluck(:fitID)
+    fits_id = FitOfMember.where(memberID: id).pluck(:fitID)
     Fit.find(fits_id)
   end
 end
