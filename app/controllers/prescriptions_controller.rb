@@ -2,19 +2,11 @@
 class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action do
-    redirect_to root_path unless current_user &.auth == 'pharmacist' || 'nurse'
-  end
 
   def index
     page = params[:page]
-    @prescriptions =
-      if current_user.auth == 'pharmacist'
-        classification ||= params[:classification]
-        classification_action(classification, page)
-      else
-        agency_prescription(current_user, page)
-      end
+    classification ||= params[:classification]
+    @prescriptions = auth_check(current_user, classification, page)
   end
 
   def new
@@ -25,7 +17,7 @@ class PrescriptionsController < ApplicationController
     @prescription = Prescription.new(prescription_params)
     if @prescription.save
       redirect_to prescriptions_url
-      flash[:notice] = "已成功新增醫院資料"
+      flash[:notice] = "已成功處方箋資料"
     else
       render action: :new
     end
@@ -37,7 +29,7 @@ class PrescriptionsController < ApplicationController
   def update
     if @prescription.update(prescription_params)
       redirect_to prescriptions_url
-      flash[:notice] = "已成功更新醫院資料"
+      flash[:notice] = "已成功更新處方箋資料"
     else
       render action: :edit
     end
@@ -56,6 +48,17 @@ class PrescriptionsController < ApplicationController
   end
 
   private
+
+  def auth_check(current_user, classification, page)
+    case current_user.auth
+    when 'pharmacist'
+      classification_action(classification, page)
+    when 'nurse'
+      agency_prescription(current_user, page)
+    when 'customer'
+      customer_prescription(current_user, page)
+    end
+  end
 
   def classification_action(classification, page_num)
     case classification
@@ -91,6 +94,15 @@ class PrescriptionsController < ApplicationController
       PrescriptionOfAll.where(identityCheck: 'resident')
                        .pluck(:prescriptionID)
     rescription_ids = prescription_of_resident_id & residents
+    prescriptions = Prescription.find(rescription_ids)
+    kaminari_array(prescriptions, page_num)
+  end
+
+  def customer_prescription(current_user, page_num)
+    rescription_ids =
+      PrescriptionOfAll.where(userID: current_user.id, identityCheck: 'fit')
+                       .pluck(:prescriptionID)
+
     prescriptions = Prescription.find(rescription_ids)
     kaminari_array(prescriptions, page_num)
   end
