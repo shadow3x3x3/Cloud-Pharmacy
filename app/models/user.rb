@@ -1,3 +1,4 @@
+# User Model
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,34 +6,29 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   # validates_presence_of :name, :email, :phone, :idNumber
 
-
-
-  # 找出對應的會員
   def member
-    Member.find(self.id) if self.auth == 'customer'
+    Member.find(id) if auth == 'customer'
   end
 
-  # 回傳護士的評估表
   def nurse_af
-    agencyID = Agency.find_by_name(self.name).id
-    residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
-    assessmentForms = AssessmentForm.where(:residentID => residents)
+    agency_id = Agency.find_by_name(name).id
+    residents = Resident.where(agencyID: agency_id).pluck(:residentID)
+    AssessmentForm.where(residentID: residents)
   end
 
-  # 處理狀態
+  # process status
   def notification
-    if self.auth == 'nurse'
-      afs = self.nurse_af
-    else
-      afs = AssessmentForm.all.select('status').uniq
-    end
-    !(afs.where(:status => self.auth).empty?)
+    afs =
+      if auth == 'nurse'
+        nurse_af
+      else
+        AssessmentForm.all.select('status').uniq
+      end
+    !afs.where(status: auth).empty?
   end
 
-  # 回傳有哪些住民
-  def residentsOfAgency
-    agency_id = Agency.find_by_name(self.name)
-    Resident.where(:agencyID => agency_id)
+  def residents_of_agency
+    agency_id = Agency.find_by_name(name)
+    Resident.where(agencyID: agency_id)
   end
-
 end

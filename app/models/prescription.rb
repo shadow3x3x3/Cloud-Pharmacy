@@ -2,38 +2,35 @@ class Prescription < ActiveRecord::Base
   self.table_name   = 'prescription'
   self.primary_key  = 'prescriptionID'
 
-  # 領藥範圍
+  belongs_to :fit
+  belongs_to :resident
+
   def drug_range
     doctorDate + 7.days
   end
 
-  # 辨別是散客還是住民
-  def identityCheck_text
-    PrescriptionOfAll.find(self.prescriptionID).identityCheck == "fit" ? "散客" : "住民"
+  def identity_check_text
+    PrescriptionOfAll.find(prescriptionID).identityCheck == 'fit' ? "散客" : "住民"
   end
 
-  # 目前身分的姓名
-  def identityCheckName
-    if self.identityCheck_text == "散客"
-      Fit.find(self.prescriptionID).name
+  def identity_check_name
+    if identity_check_text == '散客'
+      Fit.find(prescriptionID).name
     else
-      Resident.find(self.prescriptionID).name
+      Resident.find(prescriptionID).name
     end
   end
 
-  # 處方箋電聯狀態
-  def phoneStatus_text
-    self.phoneStatus == true ? "有電聯":"未電聯"
+  def phone_status_text
+    phoneStatus == true ? '有電聯' : '未電聯'
   end
 
-  # 處方箋取得狀態
-  def obtainStatus_text
-    self.obtainStatus == true ? "已取得":"未取得"
+  def obtain_status_text
+    obtainStatus == true ? '已取得' : '未取得'
   end
 
-  # 回傳醫院名稱
-  def hospitalName
-    Hospital.find(self.hospitalID).name
+  def hospital_name
+    Hospital.find(hospitalID).name
   end
 
 end

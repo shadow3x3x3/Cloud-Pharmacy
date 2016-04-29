@@ -1,23 +1,23 @@
+# Redisent Model
 class Resident < ActiveRecord::Base
   self.table_name   = 'resident'
   self.primary_key  = 'residentID'
 
-  has_many :assessment_form, :foreign_key => "residentID"
+  has_many :assessment_form, foreign_key: 'residentID'
+  has_many :prescription
 
   attr_accessor :age
 
-  # 住民姓名
+  # resident Name
   def age
-    Time.now.year - self.birthday.year
+    Time.now.year - birthday.year
   end
 
-  # 床號 - 住民
-  def bedNumber_with_resident
-    self.bedNumber.to_s + " - " + self.name.to_s
+  def bednumber_with_resident
+    bedNumber.to_s + ' - ' + name.to_s
   end
 
-  # 回傳機構名稱
-  def agencyName
-    Agency.find(self.agencyID).name
+  def agency_name
+    Agency.find(agencyID).name
   end
 end

@@ -1,4 +1,4 @@
-<h1>處方箋 - <%= identityCheck(@prescription) %>- <%= identityCheckName(@prescription) %>  </h1>
+<h1>處方箋 - <%= @prescription.identity_check_text %>- <%= @prescription.identity_check_name %>  </h1>
 
 </br>
 <ul>
@@ -21,8 +21,8 @@
   </tr>
   <tr>
       <td><%= @prescription.prescriptionID %></td>
-      <td><%= @prescription.identityCheck_text %></td>
-      <td><%= @prescription.identityCheckName %></td>
+      <td><%= @prescription.identity_check_text %></td>
+      <td><%= @prescription.identity_check_name %></td>
       <td><%= @prescription.days %></td>
       <td><%= @prescription.deliveryTimes %></td>
       <td><%= @prescription.doctorDate %></td>
@@ -31,8 +31,8 @@
       <td><%= @prescription.secondDate %></td>
       <td><%= @prescription.personAdded %></td>
       <td><%= @prescription.lastModifier %></td>
-      <td><%= @prescription.hospitalName %></td>
-      <td><%= @prescription.phoneStatus_text %></td>
+      <td><%= @prescription.hospital_name %></td>
+      <td><%= @prescription.phone_status_text %></td>
       <td><%= @prescription.drug_range %></td>
 </table>
 

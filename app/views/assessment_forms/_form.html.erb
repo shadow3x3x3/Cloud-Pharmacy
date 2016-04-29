@@ -11,7 +11,7 @@
   %>
   <h2>基本資料</h2>
   <% if auth_of_form == "nurse" %>
-    <%= f.collection_select :residentID, current_user.residentsOfAgency, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
+    <%= f.collection_select :residentID, current_user.residents_of_agency, :id, :bednumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% else %>
     <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% end %>
