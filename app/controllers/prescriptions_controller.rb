@@ -1,34 +1,20 @@
+# Prescriptions Controller
 class PrescriptionsController < ApplicationController
-
-  before_action :set_prescription, :only => [ :edit, :update, :destroy]
+  before_action :set_prescription, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth == "pharmacist" || "nurse"
+    redirect_to root_path unless current_user &.auth == 'pharmacist' || 'nurse'
   end
 
   def index
-    if current_user.auth == "pharmacist"
-      classification ||= params[:classification]
-      case classification
-      when nil, "all"
-        @prescriptions = Prescription.page(params[:page]).per(5)
-      when "fit"
-        prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "fit" ).pluck(:prescriptionID)
-        @prescriptions = Prescription.find(prescriptionIDs)
-        @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
-      when "resident"
-        prescriptionIDs = PrescriptionOfAll.where( :identityCheck => "resident" ).pluck(:prescriptionID)
-        @prescriptions = Prescription.find(prescriptionIDs)
-        @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
+    page = params[:page]
+    @prescriptions =
+      if current_user.auth == 'pharmacist'
+        classification ||= params[:classification]
+        classification_action(classification, page)
+      else
+        agency_prescription(current_user, page)
       end
-    else
-      agencyID = Agency.find_by_name(current_user.name).id
-      residents = Resident.where(:agencyID => agencyID).pluck(:residentID)
-      prescription_of_resident_id = PrescriptionOfAll.where(:identityCheck => "resident").pluck(:prescriptionID)
-      rescriptionIDs = prescription_of_resident_id & residents
-      @prescriptions = Prescription.find(rescriptionIDs)
-      @prescriptions = Kaminari.paginate_array(@prescriptions).page(params[:page]).per(5)
-    end
   end
 
   def new
@@ -41,7 +27,7 @@ class PrescriptionsController < ApplicationController
       redirect_to prescriptions_url
       flash[:notice] = "已成功新增醫院資料"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -53,34 +39,71 @@ class PrescriptionsController < ApplicationController
       redirect_to prescriptions_url
       flash[:notice] = "已成功更新醫院資料"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
   def show
     @prescription = Prescription.find(params[:id])
-    @prescriptionOfDrugs = PrescriptionOfDrug.where( :prescriptionID => params[:id])
+    @prescription_of_drugs =
+      PrescriptionOfDrug.where(prescriptionID: params[:id])
   end
 
   def destroy
-
     @prescription.destroy
-
-    redirect_to :action => :index
+    redirect_to action: :index
     flash[:alert] = "已成功刪除醫院資料"
   end
 
   private
+
+  def classification_action(classification, page_num)
+    case classification
+    when nil, 'all'
+      Prescription.page(page_num).per(5)
+    when 'fit'
+      kaminari_array(fits_prescription, page_num)
+    when 'resident'
+      kaminari_array(residents_prescription, page_num)
+    end
+  end
+
+  def kaminari_array(array, page_num)
+    Kaminari.paginate_array(array).page(page_num).per(5)
+  end
+
+  def fits_prescription
+    prescription_ids =
+      PrescriptionOfAll.where(identityCheck: 'fit').pluck(:prescriptionID)
+    Prescription.find(prescription_ids)
+  end
+
+  def residents_prescription
+    prescription_ids =
+      PrescriptionOfAll.where(identityCheck: 'resident').pluck(:prescriptionID)
+    Prescription.find(prescription_ids)
+  end
+
+  def agency_prescription(current_user, page_num)
+    agency_id = Agency.find_by_name(current_user.name).id
+    residents = Resident.where(agencyID: agency_id).pluck(:residentID)
+    prescription_of_resident_id =
+      PrescriptionOfAll.where(identityCheck: 'resident')
+                       .pluck(:prescriptionID)
+    rescription_ids = prescription_of_resident_id & residents
+    prescriptions = Prescription.find(rescription_ids)
+    kaminari_array(prescriptions, page_num)
+  end
 
   def set_prescription
     @prescription = Prescription.find(params[:id])
   end
 
   def prescription_params
-    params.require(:prescription).permit(:days, :deliveryTimes, :doctorDate,
-                                         :compoundingTimes, :firstDate, :secondDate,
-                                         :personAdded, :lastModifier, :hospitalID,
-                                         :phoneStatus, :obtainStatus)
+    params.require(:prescription)
+          .permit(:days, :deliveryTimes, :doctorDate,
+                  :compoundingTimes, :firstDate, :secondDate,
+                  :personAdded, :lastModifier, :hospitalID,
+                  :phoneStatus, :obtainStatus)
   end
-
 end

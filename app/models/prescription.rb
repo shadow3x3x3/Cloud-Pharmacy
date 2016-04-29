@@ -1,3 +1,4 @@
+# Prescription Model
 class Prescription < ActiveRecord::Base
   self.table_name   = 'prescription'
   self.primary_key  = 'prescriptionID'
@@ -32,5 +33,4 @@ class Prescription < ActiveRecord::Base
   def hospital_name
     Hospital.find(hospitalID).name
   end
-
 end
