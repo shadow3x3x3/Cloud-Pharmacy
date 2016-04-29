@@ -1,9 +1,9 @@
+# Agencies Controller
 class AgenciesController < ApplicationController
-
-  before_action :set_agency, :only => [ :edit, :update, :destroy]
+  before_action :set_agency, only:  [:edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth == "pharmacist"
+    redirect_to root_path unless current_user &.auth == 'pharmacist'
   end
 
   def index
@@ -20,7 +20,7 @@ class AgenciesController < ApplicationController
       redirect_to agencies_url
       flash[:notice] = "已成功新增機構資料"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -32,15 +32,13 @@ class AgenciesController < ApplicationController
       redirect_to agencies_url
       flash[:notice] = "已成功更新機構資料"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
   def destroy
-
     @agency.destroy
-
-    redirect_to :action => :index
+    redirect_to action: :index
     flash[:alert] = "已成功刪除機構資料"
   end
 
@@ -51,7 +49,8 @@ class AgenciesController < ApplicationController
   end
 
   def agency_params
-    params.require(:agency).permit(:name, :abbreviation, :phone, :fax , :pharmacistID,
-                                   :address, :color, :lastDeliveryDay)
+    params.require(:agency)
+          .permit(:name, :abbreviation, :phone, :fax, :pharmacistID,
+                  :address, :color, :lastDeliveryDay)
   end
 end
