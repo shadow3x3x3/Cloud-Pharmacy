@@ -76,15 +76,11 @@ class PrescriptionsController < ApplicationController
   end
 
   def fits_prescription
-    prescription_ids =
-      PrescriptionOfAll.where(identityCheck: 'fit').pluck(:prescriptionID)
-    Prescription.find(prescription_ids)
+    Prescription.where(owner: 'fit')
   end
 
   def residents_prescription
-    prescription_ids =
-      PrescriptionOfAll.where(identityCheck: 'resident').pluck(:prescriptionID)
-    Prescription.find(prescription_ids)
+    Prescription.where(owner: 'resident')
   end
 
   def agency_prescription(current_user, page_num)

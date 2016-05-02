@@ -11,7 +11,7 @@ class Prescription < ActiveRecord::Base
   end
 
   def identity_check_text
-    PrescriptionOfAll.find(prescriptionID).identityCheck == 'fit' ? '散客' : '住民'
+    owner == 'fit' ? '散客' : '住民'
   end
 
   def identity_check_name

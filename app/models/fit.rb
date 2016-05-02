@@ -3,6 +3,7 @@ class Fit < ActiveRecord::Base
   self.table_name   = 'fit'
   self.primary_key  = 'fitID'
 
-  has_many :prescription
   belongs_to :member
+  has_many :prescription, -> { where(owner: 'fit') },
+           foreign_key: 'ownerID'
 end

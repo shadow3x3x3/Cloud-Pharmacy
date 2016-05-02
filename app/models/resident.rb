@@ -4,7 +4,8 @@ class Resident < ActiveRecord::Base
   self.primary_key  = 'residentID'
 
   has_many :assessment_form, foreign_key: 'residentID'
-  has_many :prescription
+  has_many :prescription, -> { where(owner: 'resident') },
+           foreign_key: 'ownerID'
 
   attr_accessor :age
 
