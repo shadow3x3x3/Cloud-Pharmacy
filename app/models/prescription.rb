@@ -5,6 +5,7 @@ class Prescription < ActiveRecord::Base
 
   belongs_to :fit
   belongs_to :resident
+  has_many :drugs, through: :prescription_of_drugs
 
   def drug_range
     doctorDate + 7.days
