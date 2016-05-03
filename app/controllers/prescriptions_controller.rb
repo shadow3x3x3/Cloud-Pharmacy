@@ -10,6 +10,7 @@ class PrescriptionsController < ApplicationController
   end
 
   def new
+    redirect_to root_path unless current_user &.auth == 'customer'
     @prescription = Prescription.new
   end
 

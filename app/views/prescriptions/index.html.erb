@@ -52,6 +52,9 @@
 </table>
 </ul>
 
-<%= link_to "新增處方箋", new_prescription_path, :class => "btn btn-info" %>
+<% if current_user.auth == 'customer' %>
+  <%= link_to "新增處方箋", new_prescription_path, :class => "btn btn-info" %>
+<% end %>
+
 <br \>
 <%= paginate @prescriptions, :remote => true %>
