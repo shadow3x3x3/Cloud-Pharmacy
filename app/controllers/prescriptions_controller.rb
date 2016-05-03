@@ -44,7 +44,7 @@ class PrescriptionsController < ApplicationController
   def destroy
     @prescription.destroy
     redirect_to action: :index
-    flash[:alert] = "已成功刪除醫院資料"
+    flash[:alert] = "已成功刪除處方箋資料"
   end
 
   private
@@ -84,22 +84,13 @@ class PrescriptionsController < ApplicationController
   end
 
   def agency_prescription(current_user, page_num)
-    agency_id = Agency.find_by_name(current_user.name).id
-    residents = Resident.where(agencyID: agency_id).pluck(:residentID)
-    prescription_of_resident_id =
-      PrescriptionOfAll.where(identityCheck: 'resident')
-                       .pluck(:prescriptionID)
-    rescription_ids = prescription_of_resident_id & residents
-    prescriptions = Prescription.find(rescription_ids)
+    agency_id = Agency.where(name: current_user.name)
+    prescriptions = Prescription.where(owner: 'resident', ownerID: agency_id)
     kaminari_array(prescriptions, page_num)
   end
 
   def customer_prescription(current_user, page_num)
-    rescription_ids =
-      PrescriptionOfAll.where(userID: current_user.id, identityCheck: 'fit')
-                       .pluck(:prescriptionID)
-
-    prescriptions = Prescription.find(rescription_ids)
+    prescriptions = Prescription.where(owner: 'fit', ownerID: current_user.id)
     kaminari_array(prescriptions, page_num)
   end
 

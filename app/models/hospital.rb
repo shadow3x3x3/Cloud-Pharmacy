@@ -5,6 +5,6 @@ class Hospital < ActiveRecord::Base
   validates_presence_of :name, :address
 
   def isDrugID_text
-    self.isDrugID == true ? "有健保碼":"無健保碼"
+    isDrugID == true ? '有健保碼' : '無健保碼'
   end
 end
