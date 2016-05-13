@@ -5,7 +5,7 @@ class Prescription < ActiveRecord::Base
 
   belongs_to :fit
   belongs_to :resident
-
+  has_many :delivery
   has_attached_file :image,
                     styles: { medium: '600x600>', thumb: '100x100>' },
                     default_url: nil,
