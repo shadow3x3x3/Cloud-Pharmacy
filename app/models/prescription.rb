@@ -5,7 +5,15 @@ class Prescription < ActiveRecord::Base
 
   belongs_to :fit
   belongs_to :resident
-  has_many :drugs, through: :prescription_of_drugs
+
+  has_attached_file :image,
+                    styles: { medium: '600x600>', thumb: '100x100>' },
+                    default_url: nil,
+                    path: ':rails_root/public/prescriptions/:id/:style/:id.:extension',
+                    url: '/prescriptions/:id/:style/:id.:extension'
+  validates_attachment_presence :image
+  validates_attachment_content_type :image,
+                                    content_type: /\Aimage\/.*\z/
 
   def drug_range
     doctorDate + 7.days

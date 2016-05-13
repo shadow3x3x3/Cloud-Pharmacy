@@ -38,8 +38,6 @@ class PrescriptionsController < ApplicationController
 
   def show
     @prescription = Prescription.find(params[:id])
-    @prescription_of_drugs =
-      PrescriptionOfDrug.where(prescriptionID: params[:id])
   end
 
   def destroy
@@ -104,6 +102,6 @@ class PrescriptionsController < ApplicationController
           .permit(:days, :deliveryTimes, :doctorDate,
                   :compoundingTimes, :firstDate, :secondDate,
                   :personAdded, :lastModifier, :hospitalID,
-                  :phoneStatus, :obtainStatus)
+                  :phoneStatus, :obtainStatus, :image)
   end
 end
