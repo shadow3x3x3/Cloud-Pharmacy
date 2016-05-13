@@ -17,5 +17,6 @@
 !/log/.keep
 /tmp
 /app/assets/assessmentPDF
-/app/assets/prescriptions
+/public/prescriptions
+Gemfile.lock
 .ruby-version
