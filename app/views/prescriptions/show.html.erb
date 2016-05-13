@@ -36,26 +36,12 @@
       <td><%= @prescription.drug_range %></td>
 </table>
 
-<h2>處方箋藥品</h2>
-<table class="table table-condensed table-hover">
-  <tr>
-    <th>藥品編號</th>
-    <th>藥品原名</th>
-    <th>藥品譯名</th>
-    <th>藥品劑量</th>
-    <th>一天幾次</th>
-  </tr>
-  <% @prescription_of_drugs.each do |prescriptionOfDrug| %>
-  <tr>
-    <td><%= prescriptionOfDrug.drugID %></td>
-    <td><%= prescriptionOfDrug.drugOriName %></td>
-    <td><%= prescriptionOfDrug.drugChiName %></td>
-    <td><%= prescriptionOfDrug.measure %></td>
-    <td><%= prescriptionOfDrug.perDay %></td>
-  </tr>
-  <% end %>
+<h2>處方箋照片</h2>
 </table>
+  <%= image_tag @prescription.image.url %>
+  <br />
 </ul>
 
-<%= link_to "返回處方箋", prescriptions_path, :class => "btn btn-info" %>
+
+<%= link_to "返回處方箋", prescriptions_path, class: "btn btn-info" %>
 <br \>
