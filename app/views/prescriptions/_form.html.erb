@@ -1,11 +1,20 @@
-<%= f.number_field :days, :min => 0, label: "天數" %>
-<%= f.number_field :deliveryTimes, :min => 0, label: "外送次數" %>
-<%= f.date_select :doctorDate, label: "就醫日期" %>
-<%= f.number_field :compoundingTimes, :min => 0, label: "調配次數" %>
-<%= f.date_select :firstDate, label: "第一次看診日期" %>
-<%= f.date_select :secondDate, label: "第二次看診日期" %>
-<%= f.text_field :personAdded, label: "新增人" %>
-<%= f.text_field :lastModifier, label: "最後修改人" %>
-<%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: "所屬醫院" %>
-
+<%= f.collection_select :ownerID, current_user.member.fits, :id, :name, label: "選擇散客" %>
+<%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: "開立醫院" %>
+<%= f.date_select :doctorDate, id: 'datetimepicker',label: "就醫日期" %>
+<%= f.number_field :compoundingTimes, min: 1, max: 3, value: 1, label: "調配次數" %>
+<%= f.number_field :deliveryTimes, min: 1, max: 3, value: 1, label: "外送次數" %>
+<%= f.number_field :days, min: 21, max: 31, value: 28, label: "給藥天數" %>
+<% if current_user.auth == 'nurse' %>
+  <%= f.date_select :firstDate, label: "第一次看診日期" %>
+  <%= f.date_select :secondDate, label: "第二次看診日期" %>
+  <%= f.text_field :personAdded, label: "新增人" %>
+  <%= f.text_field :lastModifier, label: "最後修改人" %>
+<% end %>
+<%= f.file_field :image, label: "處方箋圖片", accept: "image/*" %>
 <br /><br />
+
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker').datetimepicker();
+  });
+</script>
