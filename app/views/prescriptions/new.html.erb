@@ -1,5 +1,5 @@
 <div class="col-sm-8">
-  <%= bootstrap_form_for(@prescription, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= bootstrap_form_for(setup_prescription(@prescription), layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
     <h1>申請處方箋</h1>
     <%= render :partial => 'form', :locals => { :f => f } %>
     <%= f.submit "建立", class: "btn btn-primary" %>

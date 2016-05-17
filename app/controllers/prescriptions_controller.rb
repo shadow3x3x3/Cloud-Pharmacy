@@ -16,6 +16,7 @@ class PrescriptionsController < ApplicationController
 
   def create
     @prescription = Prescription.new(prescription_params)
+    @prescription.ownerID = current_user.id
     if @prescription.save
       redirect_to prescriptions_url
       flash[:notice] = "已成功處方箋資料"
@@ -38,6 +39,7 @@ class PrescriptionsController < ApplicationController
 
   def show
     @prescription = Prescription.find(params[:id])
+    @delivery     = @prescription.delivery
   end
 
   def destroy
@@ -102,6 +104,10 @@ class PrescriptionsController < ApplicationController
           .permit(:days, :deliveryTimes, :doctorDate,
                   :compoundingTimes, :firstDate, :secondDate,
                   :personAdded, :lastModifier, :hospitalID,
-                  :phoneStatus, :obtainStatus, :image)
+                  :phoneStatus, :obtainStatus, :image,
+                  delivery_attributes: [
+                    :contactPerson, :contactPhone, :address,
+                    :quantity, :date, :session, :paharmacistID,
+                    :prescriptionsID, :_destory])
   end
 end

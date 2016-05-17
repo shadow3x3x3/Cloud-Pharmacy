@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@prescription, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
+<%= bootstrap_form_for(setup_prescription(@prescription), layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <h1>編輯處方箋資料</h1>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.submit "更新", class: "btn btn-default btn-primary" %>
