@@ -13,7 +13,7 @@
   <% if auth_of_form == "nurse" %>
     <%= f.collection_select :residentID, current_user.residents_of_agency, :id, :bednumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% else %>
-    <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
+    <%= f.collection_select :residentID, Resident.all, :id, :bednumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <% end %>
 
   <%= f.select :afLiverFunction, [["正常", "正常"], ["異常", "異常"]], {label: "肝功能"}, {disabled: nurse_auth} %>
