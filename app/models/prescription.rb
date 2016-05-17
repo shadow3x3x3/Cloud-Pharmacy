@@ -5,7 +5,10 @@ class Prescription < ActiveRecord::Base
 
   belongs_to :fit
   belongs_to :resident
-  has_many :delivery
+  has_one :delivery, foreign_key: 'prescriptionID'
+
+  accepts_nested_attributes_for :delivery, allow_destroy: true
+
   has_attached_file :image,
                     styles: { medium: '600x600>', thumb: '100x100>' },
                     default_url: nil,
@@ -25,7 +28,7 @@ class Prescription < ActiveRecord::Base
 
   def identity_check_name
     if identity_check_text == '散客'
-      Fit.find(prescriptionID).name
+      Fit.find(ownerID).name
     else
       Resident.find(prescriptionID).name
     end
