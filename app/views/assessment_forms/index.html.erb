@@ -8,7 +8,7 @@
     <th>建立時間</th>
     <th>處理狀態</th>
   </tr>
-  <% @assessmentForms.each do |assessmentForm| %>
+  <% @assessment_forms.each do |assessmentForm| %>
   <tr>
       <td><%= assessmentForm.afID %></td>
       <td><%= assessmentForm.resident_name %></td>
@@ -34,8 +34,8 @@
 
 </table>
 </ul>
-<% unless current_user.auth == "doctor" %>
+<% if current_user.auth == 'nurse' %>
   <%= link_to "新增評估記錄表", new_assessment_form_path, :class => "btn btn-info" %>
 <% end %>
 <br \>
-<%= paginate @assessmentForms %>
+<%= paginate @assessment_forms %>

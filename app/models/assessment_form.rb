@@ -7,10 +7,10 @@ class AssessmentForm < ActiveRecord::Base
 
   has_one :af_prescription_content, foreign_key: 'prescriptionContentID',
                                     dependent: :destroy
-  has_one :af_pharmacist_assess,    foreign_key: 'pharmacistAssessID',
-                                    dependent: :destroy
-  has_one :af_nurse_handling,       foreign_key: 'nurseHandlingID',
-                                    dependent: :destroy
+  has_one :af_pharmacist_assess, foreign_key: 'pharmacistAssessID',
+                                 dependent: :destroy
+  has_one :af_nurse_handling, foreign_key: 'nurseHandlingID',
+                              dependent: :destroy
   has_many :drugs
 
   accepts_nested_attributes_for :af_prescription_content, :af_pharmacist_assess,
@@ -18,17 +18,16 @@ class AssessmentForm < ActiveRecord::Base
                                 allow_destroy: true, reject_if: :all_blank
 
   def process
-    who = status
-    if who == 'nurse'
+    case status
+    when 'nurse'
       '護士處理中'
-    elsif who == 'pharmacist'
+    when 'pharmacist'
       '藥師處理中'
     end
   end
 
   def process?(current_user_auth)
-    who = status
-    return true if who == current_user_auth
+    return true if status == current_user_auth
     false
   end
 
