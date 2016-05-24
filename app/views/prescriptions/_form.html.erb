@@ -1,4 +1,4 @@
-<%= f.collection_select :ownerID, current_user.member.fits, :id, :name, label: '選擇散客' %>
+<%= f.collection_select :ownerID, current_user.member.fits, :fitID, :name, label: '選擇散客' %>
 <%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: '開立醫院' %>
 <%= f.date_select :doctorDate, id: 'datetimepicker',label: '就醫日期' %>
 <%= f.number_field :compoundingTimes, min: 1, max: 3, value: 1, label: '調配次數' %>
