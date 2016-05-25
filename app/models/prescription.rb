@@ -39,7 +39,7 @@ class Prescription < ActiveRecord::Base
   end
 
   def obtain_status_text
-    obtainStatus == true ? '已取得' : '未取得'
+    obtainStatus == true ? '已送出' : '未處理'
   end
 
   def hospital_name

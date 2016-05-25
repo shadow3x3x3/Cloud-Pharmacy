@@ -16,7 +16,9 @@ class PrescriptionsController < ApplicationController
 
   def create
     @prescription = Prescription.new(prescription_params)
-    @prescription.ownerID = current_user.id
+    @prescription.owner = 'fit' if current_user.auth == 'customer'
+    @prescription.owner = 'resident' if current_user.auth == 'nurse'
+    @prescription.ownerID = params["prescription"]["ownerID"]
     if @prescription.save
       redirect_to prescriptions_url
       flash[:notice] = "已成功處方箋資料"
@@ -48,6 +50,18 @@ class PrescriptionsController < ApplicationController
     flash[:alert] = "已成功刪除處方箋資料"
   end
 
+  def deal
+    @prescription = Prescription.find(params[:id])
+    obtain_status = { obtainStatus: true } if @prescription.obtainStatus == false
+    obtain_status = { obtainStatus: false } if @prescription.obtainStatus == true
+    if @prescription.update(obtain_status)
+      redirect_to prescriptions_url(classification: 'undeal')
+      flash[:notice] = "已成功處理處方箋資料"
+    else
+      redirect_to prescriptions_url
+    end
+  end
+
   private
 
   def auth_check(current_user, classification, page)
@@ -64,16 +78,19 @@ class PrescriptionsController < ApplicationController
   def classification_action(classification, page_num)
     case classification
     when nil, 'all'
-      Prescription.page(page_num).per(5)
+      Prescription.page(page_num).per(10)
     when 'fit'
       kaminari_array(fits_prescription, page_num)
     when 'resident'
       kaminari_array(residents_prescription, page_num)
+    when 'undeal'
+      kaminari_array(undeal_prescription, page_num)
     end
+
   end
 
   def kaminari_array(array, page_num)
-    Kaminari.paginate_array(array).page(page_num).per(5)
+    Kaminari.paginate_array(array).page(page_num).per(10)
   end
 
   def fits_prescription
@@ -84,6 +101,10 @@ class PrescriptionsController < ApplicationController
     Prescription.where(owner: 'resident')
   end
 
+  def undeal_prescription
+    Prescription.where(obtainStatus: false)
+  end
+
   def agency_prescription(current_user, page_num)
     agency_id = Agency.where(name: current_user.name)
     prescriptions = Prescription.where(owner: 'resident', ownerID: agency_id)
@@ -91,7 +112,8 @@ class PrescriptionsController < ApplicationController
   end
 
   def customer_prescription(current_user, page_num)
-    prescriptions = Prescription.where(owner: 'fit', ownerID: current_user.id)
+    fitID = Fit.where(memberID: current_user.id)
+    prescriptions = Prescription.where(owner: 'fit', ownerID: fitID)
     kaminari_array(prescriptions, page_num)
   end
 
