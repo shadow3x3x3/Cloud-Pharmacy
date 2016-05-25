@@ -55,7 +55,7 @@ class PrescriptionsController < ApplicationController
     obtain_status = { obtainStatus: true } if @prescription.obtainStatus == false
     obtain_status = { obtainStatus: false } if @prescription.obtainStatus == true
     if @prescription.update(obtain_status)
-      redirect_to prescriptions_url(classification: 'undeal')
+      redirect_to prescriptions_url
       flash[:notice] = "已成功處理處方箋資料"
     else
       redirect_to prescriptions_url
