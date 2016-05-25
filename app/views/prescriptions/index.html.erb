@@ -35,21 +35,21 @@
       <td><%= prescription.drug_range %></td>
       <td><%= prescription.obtain_status_text %></td>
     <td>
-      <%= link_to "查看", prescription_path(prescription), :class => "btn btn-primary" %>
+      <%= link_to "查看", prescription_path(prescription), class: "btn btn-primary" %>
     </td>
     <% if current_user.auth == 'pharmacist' %>
       <% if !(prescription.obtainStatus) %>
       <td>
-        <%= link_to "處理", deal_prescription_url(prescription), method: :patch, :class => "btn btn-primary" %>
+        <%= link_to "處理", deal_prescription_url(prescription), method: :patch, class: "btn btn-primary" %>
       </td>
       <% else %>
       <td>
-        <%= link_to "已處理", deal_prescription_path(prescription, params[:classification]), method: :patch, :class => "btn btn-info" %>
+        <%= link_to "已處理", deal_prescription_path, method: :patch, class: "btn btn-info" %>
       <% end %>
       </td>
     <% end %>
     <td>
-      <%= link_to "刪除", prescription_path(prescription), method: :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
+      <%= link_to "刪除", prescription_path(prescription), method: :delete, class: "btn btn-danger", data: { confirm: "你確定要刪除嗎" } %>
     </td>
   </tr>
   <% end %>
@@ -58,7 +58,7 @@
 </ul>
 
 <% if current_user.auth == 'customer' %>
-  <%= link_to '申請處方箋', new_prescription_path, :class => "btn btn-info" %>
+  <%= link_to '申請處方箋', new_prescription_path, class: "btn btn-info" %>
 <% end %>
 
 <br \>
