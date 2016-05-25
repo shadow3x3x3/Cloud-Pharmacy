@@ -44,7 +44,7 @@
       </td>
       <% else %>
       <td>
-        <%= link_to "已處理", deal_prescription_path, method: :patch, class: "btn btn-info" %>
+        <%= link_to "已處理", deal_prescription_path(prescription), method: :patch, class: "btn btn-info" %>
       <% end %>
       </td>
     <% end %>
