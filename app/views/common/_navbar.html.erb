@@ -13,14 +13,14 @@
             <li><%= link_to "藥師管理", pharmacists_path %></li>
             <li><%= link_to "藥品管理", drugs_path %></li>
             <li><%= link_to "住民管理", residents_path %></li>
-            <li><%= link_to "處方箋管理", prescriptions_path %></li>
-            <li id=<%= current_user.notification %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%=  link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=prescription_path_<%= current_user.prescription_notification %> data-toogle="popover" data-placement="bottom" data-trigger="focus" data-content=<%= current_user.undeal_num %>><%= link_to "處方箋管理", prescriptions_path %></li>
+            <li id=af_path_<%= current_user.af_notification %> data-toogle="popover" data-placement="bottom" data-trigger="focus" data-content="有未處理" ><%=  link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "nurse" %>
             <li><%= link_to "住民管理", residents_path %></li>
             <li><%= link_to "處方箋管理", prescriptions_path %></li>
-            <li id=<%= current_user.notification %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=af_path_<%= current_user.af_notification %> data-toogle="popover" data-placement="bottom" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "doctor" %>
-            <li id=<%= current_user.notification %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=af_path_<%= current_user.af_notification %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "customer" %>
             <!-- customers -->
             <li><%= link_to "散客列表", fits_path(current_user.member.id) %></li>
@@ -45,8 +45,6 @@
   </div><!-- /.container-fluid -->
 </nav>
 <script type="text/javascript">
-  $('#true').popover('show')
-  $('#true').click(function() {
-    $('#true').popover('destroy')
-  })
+  $('#prescription_path_true').popover('show');
+  $('#af_path_true').popover('show');
 </script>

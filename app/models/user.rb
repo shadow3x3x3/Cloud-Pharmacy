@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   # process status
-  def notification
+  def af_notification
     afs =
       if auth == 'nurse'
         nurse_af
@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
         AssessmentForm.all.select('status').uniq
       end
     !afs.where(status: auth).empty?
+  end
+
+  def prescription_notification
+    !Prescription.where(obtainStatus: false).empty?
+  end
+
+  def undeal_num
+    Prescription.where(obtainStatus: false).size
   end
 
   def residents_of_agency
