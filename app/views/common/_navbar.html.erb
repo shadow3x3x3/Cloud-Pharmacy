@@ -18,7 +18,7 @@
           <% when "nurse" %>
             <li><%= link_to "住民管理", residents_path %></li>
             <li><%= link_to "處方箋管理", prescriptions_path %></li>
-            <li id=af_path_<%= current_user.af_notification %> data-toogle="popover" data-placement="bottom" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
+            <li id=af_path_<%= current_user.af_notification %> data-toogle="popover" data-trigger="focus" data-content="有未處理" ><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "doctor" %>
             <li id=af_path_<%= current_user.af_notification %>><%= link_to "評估記錄表管理", assessment_forms_path %></li>
           <% when "customer" %>
