@@ -13,7 +13,7 @@ class DrugsController < ApplicationController
     else
       @drugs = Drug.page(params[:page]).per(10)
     end
-
+    @json_drugs = Drug.select("drugID, oriName")
   end
 
   def new
