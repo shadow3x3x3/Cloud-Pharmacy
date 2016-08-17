@@ -43,7 +43,7 @@
         <%= content_form.text_field :division1, label: "科別", disabled: nurse_auth %>
         <%= content_form.date_select :doctorDate1, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
         <%= content_form.number_field :days1, min: 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :afDrug1, :size => "20x5", label: "藥品", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug1, size: "20x5", label: "藥品", disabled: nurse_auth %>
         <!-- <div class="form-group">
           <label class="control-label col-sm-2">藥品</label>
           <div class="col-sm-4">
@@ -65,9 +65,9 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName2, label: "醫院名稱", disabled: nurse_auth %>
         <%= content_form.text_field :division2, label: "科別", disabled: nurse_auth %>
-        <%= content_form.date_select :doctorDate2, label: "看診日", :include_blank => true, :default => nil, disabled: nurse_auth %>
-        <%= content_form.number_field :days2, :min => 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :afDrug2, :size => "20x5", label: "藥品", disabled: nurse_auth %>
+        <%= content_form.date_select :doctorDate2, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
+        <%= content_form.number_field :days2, min: 0, label: "天數", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug2, size: "20x5", label: "藥品", disabled: nurse_auth %>
       </div>
     </div>
   </div>
@@ -83,9 +83,9 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName3, label: "醫院名稱", disabled: nurse_auth %>
         <%= content_form.text_field :division3, label: "科別", disabled: nurse_auth %>
-        <%= content_form.date_select :doctorDate3, label: "看診日", :include_blank => true, :default => nil, disabled: nurse_auth %>
-        <%= content_form.number_field :days3, :min => 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :afDrug3, :size => "20x5", label: "備註", disabled: nurse_auth %>
+        <%= content_form.date_select :doctorDate3, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
+        <%= content_form.number_field :days3, min: 0, label: "天數", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug3, size: "20x5", label: "備註", disabled: nurse_auth %>
       </div>
     </div>
   </div>
@@ -100,17 +100,19 @@
       <h2>藥師評估結果</h2>
       <% br_flag = 1 %>
 
+      <div class="col-md-offset-2">
+        <% @result_array.each do |result| %>
+          <%= render partial: 'result_checkbox', locals: { result: result, pharmacist_auth: pharmacist_auth } %>
+          <% br_flag += 1 %>
 
-      <% @result_array.each do |result| %>
-        <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
-        <% br_flag += 1 %>
-
-        <% if br_flag % 4 == 1 %>
-          <br ><br >
+          <% if br_flag % 4 == 1 %>
+            <br ><br >
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
 
-      <%= assess_form.text_area :suggestion, :size => "20x5", label: "藥師建議內容", disabled: pharmacist_auth, value: "藥師請填寫建議" %>
+
+      <%= assess_form.text_area :suggestion, size: "20x5", label: "藥師建議內容", disabled: pharmacist_auth, value: "藥師請填寫建議" %>
       <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], {label: "參考資料"}, {disabled: pharmacist_auth} %>
       <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], {label: "參考書籍"}, {disabled: pharmacist_auth} %>
     <% end %>
@@ -123,7 +125,7 @@
     <h2>護理人員處置方式</h2>
     <%= handling_form.select :mode, [["持續觀察住民臨床症狀", "持續觀察住民臨床症狀"], ["持續觀察住民是否有藥物引發之副作用", "持續觀察住民是否有藥物引發之副作用"], ["照會醫師", "照會醫師"], ["其他", "其他"]],
         {label: "處置方式"}, {disabled: nurse_auth} %>
-    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式", :disabled => true %>
+    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式", disabled: true %>
 
     <%= handling_form.text_field :residentFollow, label: "住民療效追蹤", disabled: nurse_auth %>
 
