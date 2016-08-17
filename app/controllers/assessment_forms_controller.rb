@@ -123,9 +123,9 @@ class AssessmentFormsController < ApplicationController
       :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
       :pharmacistAssessID, :nurseHandlingID, :status,
       af_prescription_content_attributes:
-      [:id, :hospitalName1, :division1, :doctorDate1, :days1, :remark1,
-       :hospitalName2, :division2, :doctorDate2, :days2, :remark2,
-       :hospitalName3, :division3, :doctorDate3, :days3, :remark3],
+      [:id, :hospitalName1, :division1, :doctorDate1, :days1, :afDrug1,
+       :hospitalName2, :division2, :doctorDate2, :days2, :afDrug2,
+       :hospitalName3, :division3, :doctorDate3, :days3, :afDrug3],
       af_pharmacist_assess_attributes:
       [:id, :assessmentResult, :suggestion, :referenceData, :referenceBooks],
       af_nurse_handling_attributes:

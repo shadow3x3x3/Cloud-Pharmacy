@@ -140,7 +140,7 @@ class AfPdf < Prawn::Document
 
     draw_text doctorDate_and_days, at: [88, 559]
     # 備註
-    draw_text afPrescriptionContent.remark1, at: [25, 536]
+    draw_text afPrescriptionContent.afDrug1, at: [25, 536]
 
     # 第二個處方內容
     # 醫院/科別
@@ -156,7 +156,7 @@ class AfPdf < Prawn::Document
       afPrescriptionContent.days2.to_s
     draw_text doctorDate_and_days, at: [259, 559]
     # 備註
-    draw_text afPrescriptionContent.remark2, at: [200, 536]
+    draw_text afPrescriptionContent.afDrug2, at: [200, 536]
 
     # 第三個處方內容
     # 醫院/科別
@@ -172,7 +172,7 @@ class AfPdf < Prawn::Document
       afPrescriptionContent.days3.to_s
     draw_text doctorDate_and_days, at: [432, 559]
     # 備註
-    draw_text afPrescriptionContent.remark3, at: [375, 536]
+    draw_text afPrescriptionContent.afDrug3, at: [375, 536]
   end
 
   # 填入藥師評估結果
