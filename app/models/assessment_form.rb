@@ -11,7 +11,6 @@ class AssessmentForm < ActiveRecord::Base
                                  dependent: :destroy
   has_one :af_nurse_handling, foreign_key: 'nurseHandlingID',
                               dependent: :destroy
-  has_many :drugs
 
   accepts_nested_attributes_for :af_prescription_content, :af_pharmacist_assess,
                                 :af_nurse_handling,
