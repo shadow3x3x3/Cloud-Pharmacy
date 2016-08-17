@@ -44,7 +44,7 @@ class AssessmentFormsController < ApplicationController
 
   def create
     if current_user.auth == 'pharmacist'
-      @result = params[:assessment_results_ids].join(',') unless params[:assessment_results_ids].nil?
+      @result = get_result(params[:assessment_results_ids])
       params[:assessment_form]['af_pharmacist_assess_attributes']['assessmentResult'] = @result unless @result.nil?
     end
     @assessment_form = AssessmentForm.new(assessment_form_params)
@@ -85,7 +85,7 @@ class AssessmentFormsController < ApplicationController
   def update
     if current_user.auth == 'pharmacist'
       @assessment_form = AssessmentForm.find(params[:id])
-      results = params[:assessment_results_ids].join(',')
+      results = get_result(params[:assessment_results_ids])
 
       params[:assessment_form]['af_pharmacist_assess_attributes']['assessmentResult'] = results
     end
@@ -108,6 +108,10 @@ class AssessmentFormsController < ApplicationController
   end
 
   private
+
+  def get_result(params)
+    params.join(',') unless params.nil?
+  end
 
   def set_assessment_form
     @assessment_form = AssessmentForm.find(params[:id])
