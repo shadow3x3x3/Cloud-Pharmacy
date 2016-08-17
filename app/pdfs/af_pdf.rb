@@ -139,8 +139,8 @@ class AfPdf < Prawn::Document
       afPrescriptionContent.days1.to_s
 
     draw_text doctorDate_and_days, at: [88, 559]
-    # 備註
-    draw_text afPrescriptionContent.afDrug1, at: [25, 536]
+    # 藥品
+    write_drugs(1, afPrescriptionContent.afDrug1)
 
     # 第二個處方內容
     # 醫院/科別
@@ -155,8 +155,8 @@ class AfPdf < Prawn::Document
       ' / ' +
       afPrescriptionContent.days2.to_s
     draw_text doctorDate_and_days, at: [259, 559]
-    # 備註
-    draw_text afPrescriptionContent.afDrug2, at: [200, 536]
+    # 藥品
+    write_drugs(2, afPrescriptionContent.afDrug2)
 
     # 第三個處方內容
     # 醫院/科別
@@ -171,8 +171,8 @@ class AfPdf < Prawn::Document
       ' / ' +
       afPrescriptionContent.days3.to_s
     draw_text doctorDate_and_days, at: [432, 559]
-    # 備註
-    draw_text afPrescriptionContent.afDrug3, at: [375, 536]
+    # 藥品
+    write_drugs(3, afPrescriptionContent.afDrug3)
   end
 
   # 填入藥師評估結果
@@ -219,6 +219,40 @@ class AfPdf < Prawn::Document
       fill_blank(332, 204) # 其他
     end
 
+  end
+
+  # 藥品欄位分行
+  def write_drugs(postions, drugs_string)
+    x = confirm_drug_x(postions)
+    y = 536
+
+    drugs = drugs_string.split /[\r\n]+/
+
+    if drugs.size < 8
+      drugs.each do |drug|
+        size = drug.size > 20 ? 11 : 13
+        draw_text drug, at: [x, y], size: size
+        y -= 15
+      end
+    else
+      y += 5
+      drugs.each do |drug|
+        size = drug.size > 25 ? 9 : 11
+        draw_text drug, at: [x, y], size: size
+        y -= 12
+      end
+    end
+  end
+
+  def confirm_drug_x(postions)
+    case postions
+    when 1
+      20
+    when 2
+      195
+    when 3
+      370
+    end
   end
 
   # 填入醫護人員處置方式
