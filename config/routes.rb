@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :agencies, except: [:show]
   resources :residents, except: [:show]
   resources :assessment_forms, :prescriptions, :drugs
+  resources :prescriptions do
+    patch :deal, on: :member
+  end
   root to: 'welcome#index'
 
   get 'welcome/say_hello' => 'welcome#say'
