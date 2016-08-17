@@ -1,7 +1,7 @@
 class AfPdf < Prawn::Document
 
   # 藥師評估結果對照表
-  Result_hash_table = { 無特殊狀況: [20, 393],
+  Result_hash_table = { 無特殊情形: [20, 393],
                         禁忌症或注意事項: [20, 376],
                         藥物不良反應: [20, 359],
                         服藥順從性不佳: [20, 342],
