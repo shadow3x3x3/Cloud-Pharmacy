@@ -3,6 +3,8 @@
 <%= f.date_select :birthday, :start_year => 1900, :end_year => Date.today.year, label: "出生年月日" %>
 <%= f.number_field :bedNumber, :min => 0, label: "床號" %>
 <%= f.number_field :liveFloor, :min => 0, label: "居住樓層" %>
-<%= f.collection_select :agencyID, Agency.all, :id, :name, label: "所屬機構" %>
+<% if current_user.auth == 'pharmacist' %>
+  <%= f.collection_select :agencyID, Agency.all, :id, :name, label: "所屬機構" %>
+<% end %>
 
 <br /><br />

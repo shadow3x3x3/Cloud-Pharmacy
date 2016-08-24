@@ -11,7 +11,6 @@ class ResidentsController < ApplicationController
       agencyID = Agency.find_by_name(current_user.name).id
       @residents = Resident.where(:agencyID => agencyID)
       @residents = @residents.page(params[:page]).per(5)
-
     else
       @residents = Resident.page(params[:page]).per(5)
     end
@@ -22,6 +21,10 @@ class ResidentsController < ApplicationController
   end
 
   def create
+    if current_user.auth == "nurse"
+      params[:resident]['agencyID'] = Agency.find_by_name(current_user.name).id
+    end
+
     @resident = Resident.new(resident_params)
     if @resident.save
       redirect_to residents_url
