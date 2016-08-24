@@ -35,7 +35,7 @@ gem 'kaminari'
 gem 'bcrypt', '~> 3.1.7'
 
 # Use devise to make Authentication
-gem 'devise'
+gem 'devise', '4.1'
 
 # Use prawn to creat PDF
 gem 'prawn'
