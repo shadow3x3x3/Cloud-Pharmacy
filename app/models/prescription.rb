@@ -7,7 +7,7 @@ class Prescription < ActiveRecord::Base
   belongs_to :resident
   has_one :delivery, foreign_key: 'prescriptionID'
 
-  accepts_nested_attributes_for :delivery, allow_destroy: true
+  accepts_nested_attributes_for :delivery, allow_destroy: true, :reject_if => :all_blank
 
   has_attached_file :image,
                     styles: { medium: '600x600>', thumb: '100x100>' },
@@ -30,7 +30,7 @@ class Prescription < ActiveRecord::Base
     if identity_check_text == '散客'
       Fit.find(ownerID).name
     else
-      Resident.find(prescriptionID).name
+      Resident.find(ownerID).name
     end
   end
 

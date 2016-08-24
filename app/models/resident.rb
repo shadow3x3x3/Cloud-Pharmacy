@@ -9,7 +9,6 @@ class Resident < ActiveRecord::Base
 
   attr_accessor :age
 
-  # resident Name
   def age
     Time.now.year - birthday.year
   end

@@ -1,4 +1,4 @@
-<%= f.collection_select :ownerID, current_user.member.fits, :fitID, :name, label: '選擇散客' %>
+<%= f.collection_select :ownerID, current_user.residents_of_agency, :id, :bednumber_with_resident, {label: "住民"}%>
 <%= f.collection_select :hospitalID, Hospital.all, :id, :name, label: '開立醫院' %>
 <%= f.date_select :doctorDate, id: 'datetimepicker',label: '就醫日期' %>
 <%= f.number_field :compoundingTimes, min: 1, max: 3, value: 1, label: '調配次數' %>
@@ -12,12 +12,3 @@
 <% end %>
 <%= f.file_field :image, label: '處方箋圖片', accept: 'image/*' %>
 <br /><br />
-<%= f.fields_for :delivery do |df| %>
-<p>
-<%= df.text_field :contactPerson, label: '聯絡人' %>
-<%= df.text_field :contactPhone, label: '聯絡電話' %>
-<%= df.text_field :address, label: '外送地址' %>
-<%= df.date_select :date, label: '外送日期' %>
-<%= df.select :session, [['早上時段', '早上時段'], ['下午時段', '下午時段'], ['晚上時段', '晚上時段']], label: '外送時段' %>
-<% end %>
-</p>

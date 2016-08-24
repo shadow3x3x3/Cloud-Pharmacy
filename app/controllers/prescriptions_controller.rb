@@ -10,7 +10,7 @@ class PrescriptionsController < ApplicationController
   end
 
   def new
-    redirect_to root_path unless current_user &.auth == 'customer'
+    redirect_to root_path unless current_user
     @prescription = Prescription.new
   end
 
@@ -130,6 +130,6 @@ class PrescriptionsController < ApplicationController
                   delivery_attributes: [
                     :contactPerson, :contactPhone, :address,
                     :quantity, :date, :session, :paharmacistID,
-                    :prescriptionsID, :_destory])
+                    :prescriptionID, :_destory, :id, :ownerID])
   end
 end

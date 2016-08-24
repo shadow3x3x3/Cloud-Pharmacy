@@ -1,6 +1,11 @@
-<%= bootstrap_form_for(setup_prescription(@prescription), layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
+<%= bootstrap_form_for(setup_prescription(@prescription), url: prescription_path(@prescription), method: :put, layout: :horizontal, label_col: "col-sm-1", control_col: "col-sm-4") do |f| %>
   <h1>編輯處方箋資料</h1>
-  <%= render :partial => 'form', :locals => { :f => f } %>
+  <% if current_user.auth == 'nurse' %>
+    <%= render :partial => 'nurse_form', :locals => { :f => f } %>
+  <% else %>
+    <%= render :partial => 'customer_form', :locals => { :f => f } %>
+  <% end %>
+
   <%= f.submit "更新", class: "btn btn-default btn-primary" %>
   <%= link_to "取消", prescriptions_path, :class => "btn btn-default" %>
 <% end %>

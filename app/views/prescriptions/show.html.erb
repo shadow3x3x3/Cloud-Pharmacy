@@ -36,23 +36,26 @@
       <td><%= @prescription.drug_range %></td>
 </table>
 
-<table class="table table-condensed table-hover">
-  <tr>
-    <th>編號</th>
-    <th>聯絡人</th>
-    <th>聯絡電話</th>
-    <th>外送地址</th>
-    <th>外送日期</th>
-    <th>外送時段</th>
-  </tr>
-  <tr>
-      <td><%= @delivery.deliveryID %></td>
-      <td><%= @delivery.contactPerson %></td>
-      <td><%= @delivery.contactPhone %></td>
-      <td><%= @delivery.address %></td>
-      <td><%= @delivery.date %></td>
-      <td><%= @delivery.session %></td>
-</table>
+
+<% unless current_user.auth == 'nurse' %>
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>編號</th>
+      <th>聯絡人</th>
+      <th>聯絡電話</th>
+      <th>外送地址</th>
+      <th>外送日期</th>
+      <th>外送時段</th>
+    </tr>
+    <tr>
+        <td><%= @delivery.deliveryID %></td>
+        <td><%= @delivery.contactPerson %></td>
+        <td><%= @delivery.contactPhone %></td>
+        <td><%= @delivery.address %></td>
+        <td><%= @delivery.date %></td>
+        <td><%= @delivery.session %></td>
+  </table>
+<% end %>
 
 
 
