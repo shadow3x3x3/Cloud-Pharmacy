@@ -84,5 +84,4 @@ group :development do
   gem 'pry-rails'
   gem 'pry-nav'
   gem 'pry-remote'
-  gem "bullet"
 end
