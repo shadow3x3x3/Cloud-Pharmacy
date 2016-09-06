@@ -32,6 +32,8 @@ module Zhengsheng
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.web_console.whitelisted_ips = '10.0.2.2'
+
     config.i18n.default_locale = :"zh-TW"
   end
 end
