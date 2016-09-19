@@ -28,7 +28,6 @@ class HospitalsController < ApplicationController
   end
 
   def update
-    # binding().pry
     if @hospital.update(hospital_params)
       redirect_to hospitals_url
       flash[:notice] = "已成功更新醫院資料"

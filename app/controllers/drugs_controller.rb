@@ -9,11 +9,11 @@ class DrugsController < ApplicationController
   def index
     if params[:search]
       @drugs = Drug.where('drugID LIKE ? OR oriName LIKE ? OR chiName LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
-      @drugs = @drugs.page(params[:page]).per(5)
+      @drugs = @drugs.page(params[:page]).per(10)
     else
-      @drugs = Drug.page(params[:page]).per(5)
+      @drugs = Drug.page(params[:page]).per(10)
     end
-
+    @json_drugs = Drug.select("drugID, oriName")
   end
 
   def new

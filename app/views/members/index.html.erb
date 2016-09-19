@@ -10,22 +10,15 @@
   </tr>
   <% @members.each do |member| %>
   <tr>
-      <td><%= member.name %></td>
-      <td><%= member.memberIdNumber %></td>
-      <td><%= member.email %></td>
-      <td><%= member.phone %></td>
-    <td>
-      <%= link_to '編輯', edit_member_path(member), :class => "btn btn-primary" %>
-    </td>
-    <td>
-      <%= link_to '刪除', member_path(member), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
-    </td>
+    <td><%= member.name %></td>
+    <td><%= member.memberIdNumber %></td>
+    <td><%= member.email %></td>
+    <td><%= member.phone %></td>
   </tr>
   <% end %>
 
 </table>
 </ul>
 
-<%= link_to '新增會員', new_member_path, :class => "btn btn-info"  %>
 <br \>
 <%= paginate @members %>

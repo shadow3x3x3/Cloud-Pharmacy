@@ -1,12 +1,13 @@
 class AssessmentFormsController < ApplicationController
 
-  before_action :set_assessmentForm, :only => [ :edit, :update, :destroy]
+  before_action :set_assessment_form, only: [ :edit, :update, :destroy]
+  before_action :put_results, only: [ :new, :edit ]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth != "customer"
+    redirect_to root_path unless current_user &.auth != 'customer'
   end
 
-  Result_array = [
+  RESULTS = [
     "無特殊情形",
     "禁忌症或注意事項",
     "藥物不良反應",
@@ -26,103 +27,112 @@ class AssessmentFormsController < ApplicationController
     "劑型劑量或頻率需調整",
     "有該使用而未併用藥物",
     "其他"
-  ]
+  ].freeze
 
   def index
-    @assessmentForms = AssessmentForm.page(params[:page]).per(5)
+    if current_user.auth == 'nurse'
+      @assessment_forms = current_user.nurse_af
+      @assessment_forms = @assessment_forms.page(params[:page]).per(5)
+    else
+      @assessment_forms = AssessmentForm.page(params[:page]).per(5)
+    end
   end
 
   def new
-    @assessmentForm = AssessmentForm.new
-    @result_array   = Result_array
+    @assessment_form = AssessmentForm.new
   end
 
   def create
-    @result = params[:assessmentResult_ids].join(",") unless params[:assessmentResult_ids].nil?
-
-    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
-
-    @assessmentForm = AssessmentForm.new(assessmentForm_params)
-    if @assessmentForm.save
-      pdf = AfPdf.new(@assessmentForm, view_context)
+    if current_user.auth == 'pharmacist'
+      @result = get_result(params[:assessment_results_ids])
+      params[:assessment_form]['af_pharmacist_assess_attributes']['assessmentResult'] = @result unless @result.nil?
+    end
+    @assessment_form = AssessmentForm.new(assessment_form_params)
+    #  = AfPharmacistAssess.new
+    if @assessment_form.save
+      af_pharmacist_assess = AfPharmacistAssess.new(pharmacistAssessID: @assessment_form.afID)
+      af_pharmacist_assess.save
+      pdf = AfPdf.new(@assessment_form, view_context)
       pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
       redirect_to assessment_forms_url
       flash[:notice] = "已成功新增評估記錄表"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
   def edit
-    @assessmentForm  = AssessmentForm.find(params[:id])
-    assessmentResult = AfPharmacistAssess.find(@assessmentForm.afID).assessmentResult.to_s
+    @assessment_form = AssessmentForm.find(params[:id])
+    assessment_results = AfPharmacistAssess.find(@assessment_form.afID).assessmentResult.to_s
 
-    # 傳入結果
-    @assessmentResult_ids = assessmentResult.split(",")
-    @result_array         = Result_array
-
+    @assessment_results_ids = assessment_results.split(',')
   end
 
   # show PDF here
   def show
-    @assessmentForm = AssessmentForm.find(params[:id])
+    @assessment_form = AssessmentForm.find(params[:id])
     path = Rails.root + "app/assets/assessmentPDF/#{params[:id].to_i}.pdf"
 
-    if File.exist?(path)
-      send_file( path,
-      :disposition => 'inline',
-      :type => 'application/pdf',
-      :x_sendfile => true )
+    unless File.exist?(path)
+      pdf = AfPdf.new(@assessment_form, view_context)
+      pdf.render_file path
     end
+    send_file(path, disposition: 'inline',
+                    type: 'application/pdf',
+                    x_sendfile: true)
   end
 
   def update
-    @assessmentForm = AssessmentForm.find(params[:id])
-    @result         = params[:assessmentResult_ids].join(",")
+    if current_user.auth == 'pharmacist'
+      @assessment_form = AssessmentForm.find(params[:id])
+      results = get_result(params[:assessment_results_ids])
 
-    params[:assessment_form]["af_pharmacist_assess_attributes"]["assessmentResult"] = @result
+      params[:assessment_form]['af_pharmacist_assess_attributes']['assessmentResult'] = results
+    end
 
-    if @assessmentForm.update_attributes(assessmentForm_params)
-      pdf = AfPdf.new(@assessmentForm, view_context)
+    if @assessment_form.update_attributes(assessment_form_params)
+      pdf = AfPdf.new(@assessment_form, view_context)
       pdf.render_file "app/assets/assessmentPDF/#{params[:id]}.pdf"
       redirect_to assessment_forms_url
       flash[:notice] = "已成功更新評估記錄表"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
-
   def destroy
-    @assessmentForm = AssessmentForm.find(params[:id])
-    @assessmentForm.destroy
-    redirect_to :action => :index
+    @assessment_form = AssessmentForm.find(params[:id])
+    @assessment_form.destroy
+    redirect_to action: :index
     flash[:alert] = "已成功刪除評估記錄表"
   end
 
   private
 
-  def set_assessmentForm
-    @assessmentForm = AssessmentForm.find(params[:id])
+  def get_result(params)
+    params.join(',') unless params.nil?
   end
 
-  def assessmentForm_params
+  def set_assessment_form
+    @assessment_form = AssessmentForm.find(params[:id])
+  end
+
+  def put_results
+    @result_array = RESULTS
+  end
+
+  def assessment_form_params
     params.require(:assessment_form).permit(
       :afDruguse, :afLiverFunction, :afKidneyFunction, :residentID, :id,
       :allergyFood, :allergyDrug, :referenceAccessories, :prescriptionContentID,
-      :pharmacistAssessID, :nurseHandlingID,
-      :af_prescription_content_attributes => [:id,
-                                              :hospitalName1, :division1, :doctorDate1, :days1, :remark1,
-                                              :hospitalName2, :division2, :doctorDate2, :days2, :remark2,
-                                              :hospitalName3, :division3, :doctorDate3, :days3, :remark3
-                                             ],
-      :af_pharmacist_assess_attributes    => [ :id,
-                                               :assessmentResult, :suggestion, :referenceData, :referenceBooks
-                                             ],
-      :af_nurse_handling_attributes       => [ :id,
-                                              :mode, :doctorDo, :residentFollow
-                                             ])
-
+      :pharmacistAssessID, :nurseHandlingID, :status,
+      af_prescription_content_attributes:
+      [:id, :hospitalName1, :division1, :doctorDate1, :days1, :afDrug1,
+       :hospitalName2, :division2, :doctorDate2, :days2, :afDrug2,
+       :hospitalName3, :division3, :doctorDate3, :days3, :afDrug3],
+      af_pharmacist_assess_attributes:
+      [:id, :assessmentResult, :suggestion, :referenceData, :referenceBooks],
+      af_nurse_handling_attributes:
+      [:id, :mode, :doctorDo, :residentFollow])
   end
-
 end

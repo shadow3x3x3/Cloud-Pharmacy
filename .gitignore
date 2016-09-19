@@ -17,3 +17,8 @@
 !/log/.keep
 /tmp
 /app/assets/assessmentPDF
+/public/prescriptions
+Gemfile.lock
+.ruby-version
+
+.DS_Store

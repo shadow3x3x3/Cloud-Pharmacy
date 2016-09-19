@@ -1,10 +1,11 @@
 <h1>管理處方箋</h1>
 <br \>
-<%= link_to "全部", prescriptions_path(:classification => "all"), :class => "btn btn-default" %>
-<%= link_to "住民", prescriptions_path(:classification => "resident"), :class => "btn btn-default" %>
-<%= link_to "散客", prescriptions_path(:classification => "fit"), :class => "btn btn-default" %>
-<br \>
-<br \>
+<% if current_user.auth == "pharmacist" %>
+  <%= link_to "全部", prescriptions_path(classification: "all"), :class => "btn btn-default" %>
+  <%= link_to "住民", prescriptions_path(classification: "resident"), :class => "btn btn-default" %>
+  <%= link_to "散客", prescriptions_path(classification: "fit"), :class => "btn btn-default" %>
+  <%= link_to "未處理", prescriptions_path(classification: "undeal"), :class => "btn btn-default" %>
+<% end %>
 <ul>
 <table class="table table-condensed table-hover sortable">
   <tr>
@@ -15,36 +16,45 @@
     <th>外送次數</th>
     <th>就醫日期</th>
     <th>調配次數</th>
-    <th>第一次看診日</th>
-    <th>第二次看診日</th>
-    <th>新增人</th>
-    <th>最後修改人</th>
     <th>開立醫院</th>
-    <th>電聯狀態</th>
     <th>取得期限</th>
+    <th>處理狀態</th>
   </tr>
   <% @prescriptions.each do |prescription| %>
   <tr>
       <td><%= prescription.prescriptionID %></td>
-      <td><%= identityCheck(prescription) %></td>
-      <td><%= identityCheckName(prescription) %></td>
+      <td><%= prescription.identity_check_text %></td>
+      <td><%= prescription.identity_check_name %></td>
       <td><%= prescription.days %></td>
       <td><%= prescription.deliveryTimes %></td>
       <td><%= prescription.doctorDate %></td>
       <td><%= prescription.compoundingTimes %></td>
-      <td><%= prescription.firstDate %></td>
-      <td><%= prescription.secondDate %></td>
-      <td><%= prescription.personAdded %></td>
-      <td><%= prescription.lastModifier %></td>
-      <td><%= hospitalName(prescription.hospitalID) %></td>
-      <td><%= phoneStatus(prescription) %></td>
+      <td><%= prescription.hospital_name %></td>
       <td><%= prescription.drug_range %></td>
+      <td><%= prescription.obtain_status_text %></td>
+    <td>
+      <%= link_to "查看", prescription_path(prescription), class: "btn btn-primary" %>
+    </td>
+    <% if current_user.auth == 'pharmacist' %>
+      <% if !(prescription.obtainStatus) %>
+      <td>
+        <%= link_to "處理", deal_prescription_path(prescription), method: :patch, class: "btn btn-primary" %>
+      </td>
+      <% else %>
+      <td>
+        <%= link_to "已處理", deal_prescription_path(prescription), method: :patch, class: "btn btn-info" %>
+      <% end %>
+      </td>
+    <% end %>
 
     <td>
-      <%= link_to "查看", prescription_path(prescription), :class => "btn btn-primary" %>
+    <% unless current_user.auth == 'pharmacist'%>
+      <%= link_to "編輯", edit_prescription_path(prescription), class: "btn btn-primary" %>
+    <% end %>
     </td>
+
     <td>
-      <%= link_to "刪除", prescription_path(prescription), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
+      <%= link_to "刪除", prescription_path(prescription), method: :delete, class: "btn btn-danger", data: { confirm: "你確定要刪除嗎" } %>
     </td>
   </tr>
   <% end %>
@@ -52,6 +62,9 @@
 </table>
 </ul>
 
-<%= link_to "新增處方箋", new_prescription_path, :class => "btn btn-info" %>
+<% if current_user.auth == 'customer' || current_user.auth == 'nurse' %>
+  <%= link_to '申請處方箋', new_prescription_path, class: "btn btn-info" %>
+<% end %>
+
 <br \>
-<%= paginate @prescriptions, :remote => true %>
+<%= paginate @prescriptions %>

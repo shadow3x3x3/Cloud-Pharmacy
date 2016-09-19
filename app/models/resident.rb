@@ -1,14 +1,23 @@
+# Redisent Model
 class Resident < ActiveRecord::Base
   self.table_name   = 'resident'
   self.primary_key  = 'residentID'
 
+  has_many :assessment_form, foreign_key: 'residentID'
+  has_many :prescription, -> { where(owner: 'resident') },
+           foreign_key: 'ownerID'
+
   attr_accessor :age
 
   def age
-    Time.now.year - self.birthday.year
+    Time.now.year - birthday.year
   end
 
-  def bedNumber_with_resident
-    self.bedNumber.to_s + " - " + self.name.to_s
+  def bednumber_with_resident
+    bedNumber.to_s + ' - ' + name.to_s
+  end
+
+  def agency_name
+    Agency.find(agencyID).name
   end
 end

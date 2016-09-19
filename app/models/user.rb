@@ -1,3 +1,4 @@
+# User Model
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,5 +6,37 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   # validates_presence_of :name, :email, :phone, :idNumber
 
-  has_many :fits
+  def member
+    Member.find(id) if auth == 'customer'
+  end
+
+  def nurse_af
+    agency_id = Agency.find_by_name(name).id
+    residents = Resident.where(agencyID: agency_id).pluck(:residentID)
+    AssessmentForm.where(residentID: residents)
+  end
+
+  # process status
+  def af_notification
+    afs =
+      if auth == 'nurse'
+        nurse_af
+      else
+        AssessmentForm.all.select('status').uniq
+      end
+    !afs.where(status: auth).empty?
+  end
+
+  def prescription_notification
+    !Prescription.where(obtainStatus: false).empty?
+  end
+
+  def undeal_num
+    Prescription.where(obtainStatus: false).size
+  end
+
+  def residents_of_agency
+    agency_id = Agency.find_by_name(name)
+    Resident.where(agencyID: agency_id)
+  end
 end

@@ -1,13 +1,14 @@
+# Fits Controller
 class FitsController < ApplicationController
-
-  before_action :set_fit, :only => [ :edit, :update, :destroy]
+  before_action :find_member
+  before_action :find_fit, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
-    redirect_to root_path unless current_user &.auth == "pharmacist"
+    redirect_to root_path unless current_user &.auth == 'pharmacist' || 'customer'
   end
 
   def index
-    @fits = Fit.page(params[:page]).per(5)
+    @fits = @member.fits
   end
 
   def new
@@ -15,12 +16,12 @@ class FitsController < ApplicationController
   end
 
   def create
-    @fit = Fit.new(fit_params)
+    @fit = @member.fits.build(fit_params)
     if @fit.save
       redirect_to fits_url
       flash[:notice] = "已成功新增散客資料"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -29,29 +30,32 @@ class FitsController < ApplicationController
 
   def update
     if @fit.update(fit_params)
-      redirect_to fits_url
+      redirect_to fits_url(@member)
       flash[:notice] = "已成功更新散客資料"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
   def destroy
-
     @fit.destroy
 
-    redirect_to :action => :index
+    redirect_to action: :index
     flash[:alert] = "已成功刪除散客資料"
   end
 
   private
 
-  def set_fit
-    @fit = Fit.find(params[:id])
+  def find_member
+    @member = current_user.member
+  end
+
+  def find_fit
+    @fit = @member.fits.find(params[:id])
   end
 
   def fit_params
-    params.require(:fit).permit(:fitIdNumber, :name, :phoneOffice, :phoneHome, :cellphone,
-                                :address, :birthday)
+    params.require(:fit).permit(:fitIdNumber, :name, :phoneOffice, :phoneHome,
+                                :cellphone, :address, :birthday)
   end
 end

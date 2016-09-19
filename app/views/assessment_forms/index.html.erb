@@ -6,18 +6,25 @@
     <th>評估記錄表編號</th>
     <th>住民姓名</th>
     <th>建立時間</th>
+    <th>處理狀態</th>
   </tr>
-  <% @assessmentForms.each do |assessmentForm| %>
+  <% @assessment_forms.each do |assessmentForm| %>
   <tr>
       <td><%= assessmentForm.afID %></td>
-      <td><%= residentName(assessmentForm.residentID) %></td>
+      <td><%= assessmentForm.resident_name %></td>
       <td><%= assessmentForm.timestamp %></td>
+      <td><%= assessmentForm.process %></td>
     <td>
       <%= link_to "PDF", assessment_form_path(assessmentForm.afID, :format => "pdf"),
                        :class => "btn btn-default", :target => "_blank" %>
     </td>
+
     <td>
+      <%  if assessmentForm.process?(current_user.auth)%>
       <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary" %>
+      <% else %>
+      <%= link_to "編輯", edit_assessment_form_path(assessmentForm), :class => "btn btn-primary", :disabled => "disabled" %>
+      <% end %>
     </td>
     <td>
       <%= link_to "刪除", assessment_form_path(assessmentForm), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
@@ -27,7 +34,8 @@
 
 </table>
 </ul>
-
-<%= link_to "新增評估記錄表", new_assessment_form_path, :class => "btn btn-info" %>
+<% if current_user.auth == 'nurse' %>
+  <%= link_to "新增評估記錄表", new_assessment_form_path, :class => "btn btn-info" %>
+<% end %>
 <br \>
-<%= paginate @assessmentForms %>
+<%= paginate @assessment_forms %>

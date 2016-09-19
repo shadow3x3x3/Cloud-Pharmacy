@@ -1,4 +1,4 @@
-<h1>處方箋 - <%= identityCheck(@prescription) %>- <%= identityCheckName(@prescription) %>  </h1>
+<h1>處方箋 - <%= @prescription.identity_check_text %> - <%= @prescription.identity_check_name %>  </h1>
 
 </br>
 <ul>
@@ -21,8 +21,8 @@
   </tr>
   <tr>
       <td><%= @prescription.prescriptionID %></td>
-      <td><%= identityCheck(@prescription) %></td>
-      <td><%= identityCheckName(@prescription) %></td>
+      <td><%= @prescription.identity_check_text %></td>
+      <td><%= @prescription.identity_check_name %></td>
       <td><%= @prescription.days %></td>
       <td><%= @prescription.deliveryTimes %></td>
       <td><%= @prescription.doctorDate %></td>
@@ -31,31 +31,40 @@
       <td><%= @prescription.secondDate %></td>
       <td><%= @prescription.personAdded %></td>
       <td><%= @prescription.lastModifier %></td>
-      <td><%= hospitalName(@prescription.hospitalID) %></td>
-      <td><%= phoneStatus(@prescription) %></td>
+      <td><%= @prescription.hospital_name %></td>
+      <td><%= @prescription.phone_status_text %></td>
       <td><%= @prescription.drug_range %></td>
 </table>
 
-<h2>處方箋藥品</h2>
-<table class="table table-condensed table-hover">
-  <tr>
-    <th>藥品編號</th>
-    <th>藥品原名</th>
-    <th>藥品譯名</th>
-    <th>藥品劑量</th>
-    <th>一天幾次</th>
-  </tr>
-  <% @prescriptionOfDrugs.each do |prescriptionOfDrug| %>
-  <tr>
-    <td><%= prescriptionOfDrug.drugID %></td>
-    <td><%= prescriptionOfDrug.drugOriName %></td>
-    <td><%= prescriptionOfDrug.drugChiName %></td>
-    <td><%= prescriptionOfDrug.measure %></td>
-    <td><%= prescriptionOfDrug.perDay %></td>
-  </tr>
-  <% end %>
+
+<% unless current_user.auth == 'nurse' %>
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>編號</th>
+      <th>聯絡人</th>
+      <th>聯絡電話</th>
+      <th>外送地址</th>
+      <th>外送日期</th>
+      <th>外送時段</th>
+    </tr>
+    <tr>
+        <td><%= @delivery.deliveryID %></td>
+        <td><%= @delivery.contactPerson %></td>
+        <td><%= @delivery.contactPhone %></td>
+        <td><%= @delivery.address %></td>
+        <td><%= @delivery.date %></td>
+        <td><%= @delivery.session %></td>
+  </table>
+<% end %>
+
+
+
+<h2>處方箋照片</h2>
 </table>
+  <%= image_tag @prescription.image.url %>
+  <br />
 </ul>
 
-<%= link_to "返回處方箋", prescriptions_path, :class => "btn btn-info" %>
+
+<%= link_to "返回處方箋", prescriptions_path, class: "btn btn-info" %>
 <br \>

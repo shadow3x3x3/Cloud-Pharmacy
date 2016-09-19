@@ -12,8 +12,8 @@
     <th>藥品原名</th>
     <th>藥品譯名</th>
     <th>適應症</th>
-    <th>形狀</th>
-    <th>顏色</th>
+    <th>給付</th>
+    <th>供應</th>
   </tr>
   <% @drugs.each do |drug| %>
   <tr>
@@ -21,13 +21,10 @@
     <td><%= drug.oriName %></td>
     <td><%= drug.chiName %></td>
     <td><%= drug.indication %></td>
-    <td><%= drug.shape %></td>
-    <td><%= drug.color %></td>
+    <td width="60px"><%= drug.payment ? "給付" : "未給付" %></td>
+    <td width="60px"><%= drug.production ? "未停產" : "停產" %></td>
     <td>
       <%= link_to "查看", drug_path(drug), :class => "btn btn-info" %>
-    </td>
-    <td>
-      <%= link_to "刪除", drug_path(drug), :method => :delete, :class => "btn btn-danger", :data => { :confirm => "你確定要刪除嗎" } %>
     </td>
   </tr>
   <% end %>

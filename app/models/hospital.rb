@@ -3,4 +3,8 @@ class Hospital < ActiveRecord::Base
   self.primary_key  = 'hospitalID'
 
   validates_presence_of :name, :address
+
+  def isDrugID_text
+    isDrugID == true ? '有健保碼' : '無健保碼'
+  end
 end

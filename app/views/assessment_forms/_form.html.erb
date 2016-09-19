@@ -10,8 +10,12 @@
   end
   %>
   <h2>基本資料</h2>
+  <% if auth_of_form == "nurse" %>
+    <%= f.collection_select :residentID, current_user.residents_of_agency, :id, :bednumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
+  <% else %>
+    <%= f.collection_select :residentID, Resident.all, :id, :bednumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
+  <% end %>
 
-  <%= f.collection_select :residentID, Resident.all, :id, :bedNumber_with_resident, {label: "住民"}, {disabled: nurse_auth} %>
   <%= f.select :afLiverFunction, [["正常", "正常"], ["異常", "異常"]], {label: "肝功能"}, {disabled: nurse_auth} %>
   <%= f.select :afKidneyFunction, [["正常", "正常"], ["異常", "異常"]], {label: "腎功能"}, {disabled: nurse_auth} %>
   <%= f.select :afDruguse, [["需管灌", "需管灌"], ["需磨碎", "需磨碎"], ["可直接吞服固體", "可直接吞服固體"]], {label: "用藥狀況"}, {disabled: nurse_auth} %>
@@ -37,9 +41,15 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName1, label: "醫院名稱", disabled: nurse_auth %>
         <%= content_form.text_field :division1, label: "科別", disabled: nurse_auth %>
-        <%= content_form.date_select :doctorDate1, label: "看診日", :include_blank => true, :default => nil, disabled: nurse_auth %>
-        <%= content_form.number_field :days1, :min => 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :remark1, :size => "20x5", label: "備註", disabled: nurse_auth %>
+        <%= content_form.date_select :doctorDate1, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
+        <%= content_form.number_field :days1, min: 0, label: "天數", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug1, size: "20x5", label: "藥品", disabled: nurse_auth %>
+        <!-- <div class="form-group">
+          <label class="control-label col-sm-2">藥品</label>
+          <div class="col-sm-4">
+            <select class="form-control" type="hidden" style="width:100%" id="afDrug"></select>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -55,9 +65,9 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName2, label: "醫院名稱", disabled: nurse_auth %>
         <%= content_form.text_field :division2, label: "科別", disabled: nurse_auth %>
-        <%= content_form.date_select :doctorDate2, label: "看診日", :include_blank => true, :default => nil, disabled: nurse_auth %>
-        <%= content_form.number_field :days2, :min => 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :remark2, :size => "20x5", label: "備註", disabled: nurse_auth %>
+        <%= content_form.date_select :doctorDate2, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
+        <%= content_form.number_field :days2, min: 0, label: "天數", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug2, size: "20x5", label: "藥品", disabled: nurse_auth %>
       </div>
     </div>
   </div>
@@ -73,9 +83,9 @@
       <div class="panel-body">
         <%= content_form.text_field :hospitalName3, label: "醫院名稱", disabled: nurse_auth %>
         <%= content_form.text_field :division3, label: "科別", disabled: nurse_auth %>
-        <%= content_form.date_select :doctorDate3, label: "看診日", :include_blank => true, :default => nil, disabled: nurse_auth %>
-        <%= content_form.number_field :days3, :min => 0, label: "天數", disabled: nurse_auth %>
-        <%= content_form.text_area :remark3, :size => "20x5", label: "備註", disabled: nurse_auth %>
+        <%= content_form.date_select :doctorDate3, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
+        <%= content_form.number_field :days3, min: 0, label: "天數", disabled: nurse_auth %>
+        <%= content_form.text_area :afDrug3, size: "20x5", label: "備註", disabled: nurse_auth %>
       </div>
     </div>
   </div>
@@ -85,24 +95,29 @@
 
 
 <blockquote>
-  <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
-    <h2>藥師評估結果</h2>
-    <% br_flag = 1 %>
+  <div disabled="true">
+    <%= f.fields_for :af_pharmacist_assess do |assess_form| %>
+      <h2>藥師評估結果</h2>
+      <% br_flag = 1 %>
+
+      <div class="col-md-offset-2">
+        <% @result_array.each do |result| %>
+          <%= render partial: 'result_checkbox', locals: { result: result, pharmacist_auth: pharmacist_auth } %>
+          <% br_flag += 1 %>
+
+          <% if br_flag % 4 == 1 %>
+            <br ><br >
+          <% end %>
+        <% end %>
+      </div>
 
 
-    <% @result_array.each do |result| %>
-      <%= render :partial => 'result_checkbox', :locals => { :result => result, :pharmacist_auth => pharmacist_auth } %>
-      <% br_flag += 1 %>
-
-      <% if br_flag % 4 == 1 %>
-        <br ><br >
-      <% end %>
+      <%= assess_form.text_area :suggestion, size: "20x5", label: "藥師建議內容", disabled: pharmacist_auth, value: "藥師請填寫建議" %>
+      <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], {label: "參考資料"}, {disabled: pharmacist_auth} %>
+      <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], {label: "參考書籍"}, {disabled: pharmacist_auth} %>
     <% end %>
+  </div>
 
-    <%= assess_form.text_area :suggestion, :size => "20x5", label: "藥師建議內容", disabled: pharmacist_auth %>
-    <%= assess_form.select :referenceData, [["仿單", "仿單"], ["藥物治療手冊", "藥物治療手冊"]], {label: "參考資料"}, {disabled: pharmacist_auth} %>
-    <%= assess_form.select :referenceBooks, [["Micromedex", "Micromedex"], ["PubMed", "PubMed"], ["UpToDate", "UpToDate"], ["其他", "其他"]], {label: "參考書籍"}, {disabled: pharmacist_auth} %>
-  <% end %>
 </blockquote>
 
 <blockquote>
@@ -110,46 +125,52 @@
     <h2>護理人員處置方式</h2>
     <%= handling_form.select :mode, [["持續觀察住民臨床症狀", "持續觀察住民臨床症狀"], ["持續觀察住民是否有藥物引發之副作用", "持續觀察住民是否有藥物引發之副作用"], ["照會醫師", "照會醫師"], ["其他", "其他"]],
         {label: "處置方式"}, {disabled: nurse_auth} %>
-    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式", :disabled => true %>
+    <%= handling_form.select :doctorDo, [["醫師接受藥師建議", "醫師接受藥師建議"], ["醫師未接受建議", "醫師未接受建議"]], label: "醫師處置方式", disabled: true %>
 
     <%= handling_form.text_field :residentFollow, label: "住民療效追蹤", disabled: nurse_auth %>
 
   <% end %>
 </blockquote>
 
-<script type="text/javascript">
-  $("value").css("color", "darkgray");
-  $("label").css("color", "darkgray");
-  $("blockquote").css("color", "darkgray");
-
-  $("label").click(function () {
-    $(this).css("color", "black");
-  });
-
-  $("input").click(function() {
-    if (this.checked) {
-        var response = $('label[for="' + this.id + '"]').html();
-        response.css("color", "black");
-    }
-  });
-
-
-  $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', true);
-  doctorDo_able();
-
-  $('#assessment_form_af_nurse_handling_attributes_mode').change(function() {
-    doctorDo_able();
-  });
-
-  function doctorDo_able() {
-    if ($('#assessment_form_af_nurse_handling_attributes_mode').val() != "照會醫師")  {
-      $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', true);
-    } else {
-      $('#assessment_form_af_nurse_handling_attributes_doctorDo').attr('disabled', false);
-    }
-  }
-
-
-</script>
+<%= f.select :status, [["送往藥師", "pharmacist"], ["送往護士", "nurse"]], {label: "處理流程"} %>
 
 <br /><br />
+
+<script type="text/javascript">
+  // $("#afDrug").select2({
+  //   ajax: {
+  //     url: "<%= drugs_path(format: 'json') %>",
+  //     dataType: 'jsonp',
+  //     type: 'GET',
+  //     delay: 250,
+  //     data: function (params) {
+  //       console.log(params.term);
+  //       return {
+  //         q: params.term // search term
+  //       };
+  //     },
+  //     results: function (data, page) {
+  //       return {
+  //         results: data
+  //       }
+  //     },
+  //     cache: true
+  //   },
+  //   escapeMarkup: function (markup) { return markup; },
+  //   multiple: true,
+  //   minimumInputLength: 1,
+  //   placeholder: "請輸入藥品名稱",
+  //   templateResult: formatRepo,
+  //   theme: "bootstrap",
+  //   templateSelection: formatRepoSelection
+  // });
+  //
+  // function formatRepo (drug) {
+  //   if (drug.loading) return "Reading...";
+  //   return drug.text;
+  // }
+  //
+  // function formatRepoSelection (drug) {
+  //   return drug.id;
+  // }
+</script>
