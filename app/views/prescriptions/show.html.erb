@@ -11,6 +11,7 @@
     <th>外送次數</th>
     <th>看診日期</th>
     <th>可調配次數</th>
+    <th>第一次領藥日期</th>
     <th>第二次領藥日期</th>
     <th>第三次領藥日期</th>
     <th>新增人</th>
@@ -37,6 +38,7 @@
           third_date  = second_date + 28.days
         end
       %>
+      <td><%= @prescription.doctorDate %></td>
       <td><%= second_date %></td>
       <td><%= third_date %></td>
       <td><%= @prescription.personAdded %></td>
