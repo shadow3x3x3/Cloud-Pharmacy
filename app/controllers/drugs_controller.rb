@@ -1,5 +1,4 @@
 class DrugsController < ApplicationController
-
   before_action :set_drug, :only => [ :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action do
@@ -26,7 +25,7 @@ class DrugsController < ApplicationController
       redirect_to drugs_url
       flash[:notice] = "已成功新增藥品資料"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -38,7 +37,7 @@ class DrugsController < ApplicationController
       redirect_to drugs_url
       flash[:notice] = "已成功更新藥品資料"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
@@ -47,10 +46,9 @@ class DrugsController < ApplicationController
   end
 
   def destroy
-
     @drug.destroy
 
-    redirect_to :action => :index
+    redirect_to action: :index
     flash[:alert] = "已成功刪除藥品資料"
   end
 
