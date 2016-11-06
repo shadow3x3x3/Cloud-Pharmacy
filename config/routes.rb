@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   end
   root to: 'welcome#index'
 
-  get 'welcome/say_hello' => 'welcome#say'
-  get 'welcome' => 'welcome#index'
+  get 'welcome/say_hello', to: 'welcome#say'
+  get 'welcome', to: 'welcome#index'
 end
