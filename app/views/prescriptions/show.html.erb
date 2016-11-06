@@ -28,19 +28,9 @@
       <td><%= @prescription.deliveryTimes %></td>
       <td><%= @prescription.doctorDate %></td>
       <td><%= @prescription.compoundingTimes %></td>
-      <%=
-        case @prescription.compoundingTimes
-        when 1
-          second_date = @prescription.doctorDate + 28.days
-          third_date  = ""
-        when 2
-          second_date = @prescription.doctorDate + 28.days
-          third_date  = second_date + 28.days
-        end
-      %>
-      <td><%= @prescription.doctorDate %></td>
-      <td><%= second_date %></td>
-      <td><%= third_date %></td>
+      <% @prescription.take_dates.each do |date| %>
+        <td><%= date %></td>
+      <% end %>
       <td><%= @prescription.personAdded %></td>
       <td><%= @prescription.lastModifier %></td>
       <td><%= @prescription.hospital_name %></td>

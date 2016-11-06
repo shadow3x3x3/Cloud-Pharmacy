@@ -45,4 +45,11 @@ class Prescription < ActiveRecord::Base
   def hospital_name
     Hospital.find(hospitalID).name
   end
+
+  def take_dates
+    no_text = "無"
+    second_date = compoundingTimes > 0 ? doctorDate + 28.days : no_text
+    third_date  = compoundingTimes > 1 ? second_date + 28.days : no_text
+    [doctorDate, second_date, third_date]
+  end
 end
