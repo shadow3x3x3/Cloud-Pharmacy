@@ -48,7 +48,6 @@ class AssessmentFormsController < ApplicationController
       params[:assessment_form]['af_pharmacist_assess_attributes']['assessmentResult'] = @result unless @result.nil?
     end
     @assessment_form = AssessmentForm.new(assessment_form_params)
-    #  = AfPharmacistAssess.new
     if @assessment_form.save
       af_pharmacist_assess = AfPharmacistAssess.new(pharmacistAssessID: @assessment_form.afID)
       af_pharmacist_assess.save
