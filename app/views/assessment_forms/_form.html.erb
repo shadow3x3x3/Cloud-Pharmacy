@@ -44,12 +44,13 @@
         <%= content_form.date_select :doctorDate1, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
         <%= content_form.number_field :days1, min: 0, label: "天數", disabled: nurse_auth %>
         <%= content_form.text_area :afDrug1, size: "20x5", label: "藥品", disabled: nurse_auth %>
-        <!-- <div class="form-group">
-          <label class="control-label col-sm-2">藥品</label>
+        <div class="form-group">
           <div class="col-sm-4">
-            <select class="form-control" type="hidden" style="width:100%" id="afDrug"></select>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#drug1">
+            藥品
+            </button>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -134,43 +135,80 @@
 
 <%= f.select :status, [["送往藥師", "pharmacist"], ["送往護士", "nurse"]], {label: "處理流程"} %>
 
-<br /><br />
 
-<script type="text/javascript">
-  // $("#afDrug").select2({
-  //   ajax: {
-  //     url: "<%= drugs_path(format: 'json') %>",
-  //     dataType: 'jsonp',
-  //     type: 'GET',
-  //     delay: 250,
-  //     data: function (params) {
-  //       console.log(params.term);
-  //       return {
-  //         q: params.term // search term
-  //       };
-  //     },
-  //     results: function (data, page) {
-  //       return {
-  //         results: data
-  //       }
-  //     },
-  //     cache: true
-  //   },
-  //   escapeMarkup: function (markup) { return markup; },
-  //   multiple: true,
-  //   minimumInputLength: 1,
-  //   placeholder: "請輸入藥品名稱",
-  //   templateResult: formatRepo,
-  //   theme: "bootstrap",
-  //   templateSelection: formatRepoSelection
-  // });
-  //
-  // function formatRepo (drug) {
-  //   if (drug.loading) return "Reading...";
-  //   return drug.text;
-  // }
-  //
-  // function formatRepoSelection (drug) {
-  //   return drug.id;
-  // }
+<!-- drug1 Modal -->
+<div class="modal fade" id="drug1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">處方內容一藥品</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form role="form" id="drugs-form">
+            <div class="form-group" id="drugs_extender">
+              <div class="drug-container">
+                <div class="col-md-8">
+                  <input type="text" class="form-control drugs-search-txt" id="drug1.1">
+                </div>
+                <div class="col-md-2">
+                  <input type="text" class="form-control" id="drug1-status">
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-default" id="add-btn" onclick="addNewDrug()">加入新藥品</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary">儲存藥品內容</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  console.log('query');
+  $('.drugs-search-txt').autocomplete({
+    source: "/drugs/search",
+    minLength: 2
+  });
+});
+
+var drug_nums = $('#drugs-form :input').length / 2;
+
+function addNewDrug() {
+  drug_nums ++;
+  $('<div class="drug-container">\
+      <div class="col-md-8">\
+        <input type="text" class="form-control drugs-search-txt" id="drug1.' +
+        drug_nums + '" autofocus>\
+      </div>\
+      <div class="col-md-2">\
+        <input type="text" class="form-control" id="drug1-status">\
+      </div>\
+      <div class="col-md-2">\
+        <button type="button" class="close remove-drug">\
+          <span aria-hidden="true">&times;</span>\
+          <span class="sr-only">Close</span>\
+        </button>\
+      </div>\
+    </div>')
+    .fadeIn("fast")
+    .appendTo('#drugs_extender');
+  return false;
+}
+
+$('div').on('click', '.remove-drug', function() {
+  $(this).parents('.drug-container').fadeOut(300, function() {
+    $(this).empty();
+    drug_nums --;
+    return false;
+  });
+});
 </script>

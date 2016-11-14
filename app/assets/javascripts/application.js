@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require_tree .
 //= require moment
 //= require bootstrap-datetimepicker
+//= require jquery-ui/autocomplete
+//= require_tree .
