@@ -45,10 +45,11 @@
         <%= content_form.number_field :days1, min: 0, label: "天數", disabled: nurse_auth %>
         <%= content_form.text_area :afDrug1, size: "20x5", label: "藥品", disabled: nurse_auth %>
         <div class="form-group">
-          <div class="col-sm-4">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#drug1">
-            藥品
-            </button>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#drug1">
+          藥品
+          </button>
+          <div id="durg1-text">
+
           </div>
         </div>
       </div>
@@ -138,5 +139,21 @@
 
 <!-- drug1 Modal -->
 <%= render "drug_modal" %>
+
+<script>
+function drug2text() {
+  var durgs = $('input[name^=drugs]').map(function(i, e) {
+    return $(e).val();
+  }).get();
+
+  var status = $('input[name^=status]').map(function(i, e) {
+    return $(e).val();
+  }).get();
+
+  console.log(durgs);
+  console.log(status);
+}
+
+</script>
 
 

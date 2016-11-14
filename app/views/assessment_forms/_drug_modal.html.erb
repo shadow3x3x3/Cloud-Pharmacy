@@ -13,10 +13,10 @@
             <div class="form-group" id="drugs_extender">
               <div class="drug-container">
                 <div class="col-md-8">
-                  <input type="text" class="form-control drugs-search-txt" id="drug1.1">
+                  <input type="text" class="form-control drugs-search-txt" name="drugs[]" id="drug1.1">
                 </div>
                 <div class="col-md-2">
-                  <input type="text" class="form-control" id="drug1-status">
+                  <input type="text" class="form-control" id="drug1-status" name="status[]">
                 </div>
               </div>
             </div>
@@ -26,7 +26,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">儲存藥品內容</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="drug2text()">儲存藥品內容</button>
       </div>
     </div>
   </div>
@@ -34,24 +34,25 @@
 
 <script>
 $(function() {
-  console.log('query');
   $('.drugs-search-txt').autocomplete({
     source: "/drugs/search",
     minLength: 2
   });
 });
 
-var drug_nums = $('#drugs-form :input').length / 2;
+var drug_nums = $('#drugs-form :input').length / 2 + 1;
 
 function addNewDrug() {
   drug_nums ++;
   $('<div class="drug-container">\
       <div class="col-md-8">\
-        <input type="text" class="form-control drugs-search-txt" id="drug1.' +
-        drug_nums + '" autofocus>\
+        <input type="text" class="form-control drugs-search-txt ui-autocomplete-input" \
+        autocomplete="off" name="drugs[]" id="drug1.' +
+        drug_nums + '">\
       </div>\
       <div class="col-md-2">\
-        <input type="text" class="form-control" id="drug1-status">\
+        <input type="text" class="form-control" id="drug1.' +
+        drug_nums + '-status" name="status[]">\
       </div>\
       <div class="col-md-2">\
         <button type="button" class="close remove-drug">\
@@ -62,13 +63,13 @@ function addNewDrug() {
     </div>')
     .fadeIn("fast")
     .appendTo('#drugs_extender');
+  console.log(drug_nums);
   return false;
 }
 
 $('div').on('click', '.remove-drug', function() {
   $(this).parents('.drug-container').fadeOut("fast", function() {
     $(this).empty();
-    drug_nums --;
     return false;
   });
 });
