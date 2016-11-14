@@ -44,14 +44,6 @@
         <%= content_form.date_select :doctorDate1, label: "看診日", include_blank: true, default: nil, disabled: nurse_auth %>
         <%= content_form.number_field :days1, min: 0, label: "天數", disabled: nurse_auth %>
         <%= content_form.text_area :afDrug1, size: "20x5", label: "藥品", disabled: nurse_auth %>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#drug1">
-          藥品
-          </button>
-          <div id="durg1-text">
-
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -141,17 +133,31 @@
 <%= render "drug_modal" %>
 
 <script>
+$(function() {
+  $('#assessment_form_af_prescription_content_attributes_afDrug1').click(
+    function() {
+      $('#drug1modal').modal();
+    }
+  )
+});
+
 function drug2text() {
-  var durgs = $('input[name^=drugs]').map(function(i, e) {
+  var drugs = $('input[name^=drugs]').map(function(i, e) {
     return $(e).val();
   }).get();
-
   var status = $('input[name^=status]').map(function(i, e) {
     return $(e).val();
   }).get();
+  renderDrugs(drugs, status)
+}
 
-  console.log(durgs);
-  console.log(status);
+function renderDrugs(drugs, status) {
+  var drugLists = "";
+  $('#assessment_form_af_prescription_content_attributes_afDrug1').val('');
+  for(var i = 0; i < drugs.length; i++) {
+    drugLists = drugLists.concat(drugs[i] + ' / ' + status[i] + '\n');
+  }
+  $('#assessment_form_af_prescription_content_attributes_afDrug1').val(drugLists);
 }
 
 </script>
