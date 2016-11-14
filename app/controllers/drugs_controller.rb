@@ -12,7 +12,7 @@ class DrugsController < ApplicationController
     else
       @drugs = Drug.page(params[:page]).per(10)
     end
-    @json_drugs = Drug.select("drugID, oriName")
+
   end
 
   def new
@@ -50,6 +50,13 @@ class DrugsController < ApplicationController
 
     redirect_to action: :index
     flash[:alert] = "已成功刪除藥品資料"
+  end
+
+  def search
+    respond_to do |format|
+      format.html
+      format.json { @drugs = Drug.search(params[:term]) }
+    end
   end
 
   private
