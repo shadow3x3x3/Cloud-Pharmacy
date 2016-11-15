@@ -136,6 +136,13 @@
 $(function() {
   $('#assessment_form_af_prescription_content_attributes_afDrug1').click(
     function() {
+      var lines = $(this).val().split('\n');
+      var drugLists = []
+      lines.forEach(function(element) {
+        drugLists.push(element.split(' / '));
+      });
+      drugLists.pop();
+      console.log(drugLists);
       $('#drug1modal').modal();
     }
   )
@@ -153,9 +160,12 @@ function drug2text() {
 
 function renderDrugs(drugs, status) {
   var drugLists = "";
+  console.log(drugs);
   $('#assessment_form_af_prescription_content_attributes_afDrug1').val('');
-  for(var i = 0; i < drugs.length; i++) {
-    drugLists = drugLists.concat(drugs[i] + ' / ' + status[i] + '\n');
+  if (drugs[0] != "") {
+    for(var i = 0; i < drugs.length; i++) {
+      drugLists = drugLists.concat(drugs[i] + ' / ' + status[i] + '\n');
+    }
   }
   $('#assessment_form_af_prescription_content_attributes_afDrug1').val(drugLists);
 }
