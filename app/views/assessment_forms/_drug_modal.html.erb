@@ -40,6 +40,17 @@ $(function() {
   });
 });
 
+function renderModal(drugLists) {
+  drugLists.forEach(function (drugList, index) {
+    var selectId = '#drug1.' + index
+    if (selectId === null) {
+      addNewDrug();
+    }
+    $(selectId).val(drugLists[0]);
+    $(selectId + 'status').val(drugLists[1]);
+  });
+}
+
 var drug_nums = $('#drugs-form :input').length / 2 + 1;
 
 function addNewDrug() {
@@ -55,7 +66,7 @@ function addNewDrug() {
         drug_nums + '-status" name="status[]">\
       </div>\
       <div class="col-md-2">\
-        <button type="button" class="close remove-drug">\
+        <button type="button" class="close remove-drug" onclick="removeDrug(this)">\
           <span aria-hidden="true">&times;</span>\
           <span class="sr-only">Close</span>\
         </button>\
@@ -63,14 +74,15 @@ function addNewDrug() {
     </div>')
     .fadeIn("fast")
     .appendTo('#drugs_extender');
-  console.log(drug_nums);
   return false;
 }
 
-$('div').on('click', '.remove-drug', function() {
-  $(this).parents('.drug-container').fadeOut("fast", function() {
-    $(this).empty();
+function removeDrug(i) {
+  drug_nums --;
+  console.log("remove");
+  $(i).parents('.drug-container').fadeOut("fast", function() {
+    $(i).empty();
     return false;
   });
-});
+}
 </script>

@@ -142,7 +142,9 @@ $(function() {
         drugLists.push(element.split(' / '));
       });
       drugLists.pop();
-      console.log(drugLists);
+      if (drugLists.length != 0) {
+        renderModal(drugLists);
+      }
       $('#drug1modal').modal();
     }
   )
@@ -155,7 +157,7 @@ function drug2text() {
   var status = $('input[name^=status]').map(function(i, e) {
     return $(e).val();
   }).get();
-  renderDrugs(drugs, status)
+  renderDrugs(drugs, status);
 }
 
 function renderDrugs(drugs, status) {
