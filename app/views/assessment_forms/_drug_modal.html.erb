@@ -66,7 +66,8 @@ function addNewDrug() {
         drug_nums + '-status" name="status[]">\
       </div>\
       <div class="col-md-2">\
-        <button type="button" class="close remove-drug" onclick="removeDrug(this)">\
+        <button type="button" class="close remove-drug"\
+         onclick="removeDrug(this, ' + drug_nums +')">\
           <span aria-hidden="true">&times;</span>\
           <span class="sr-only">Close</span>\
         </button>\
@@ -77,11 +78,12 @@ function addNewDrug() {
   return false;
 }
 
-function removeDrug(i) {
-  drug_nums --;
-  console.log("remove");
+function removeDrug(i, drugIndex) {
+  console.log(i);
   $(i).parents('.drug-container').fadeOut("fast", function() {
-    $(i).empty();
+    $(i).remove();
+    document.getElementById('drug1.' + drugIndex).remove();
+    document.getElementById('drug1.' + drugIndex + '-status').remove();
     return false;
   });
 }
