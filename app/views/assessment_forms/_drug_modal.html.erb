@@ -33,12 +33,13 @@
 </div>
 
 <script>
-$(function() {
+function addDrugsComplete() {
   $('.drugs-search-txt').autocomplete({
     source: "/drugs/search",
-    minLength: 2
+    minLength: 2,
+    appendTo: '.modal-body',
   });
-});
+}
 
 function renderModal(drugLists) {
   drugLists.forEach(function (drugList, index) {
@@ -75,6 +76,7 @@ function addNewDrug() {
     </div>')
     .fadeIn("fast")
     .appendTo('#drugs_extender');
+  addDrugsComplete()
   return false;
 }
 
