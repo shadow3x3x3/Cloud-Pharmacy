@@ -54,7 +54,6 @@ class DrugsController < ApplicationController
 
   def search
     respond_to do |format|
-      format.html
       format.json { @drugs = Drug.search(params[:term]) }
     end
   end

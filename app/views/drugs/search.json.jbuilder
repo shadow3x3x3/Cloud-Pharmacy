@@ -1,3 +1,4 @@
 json.array!(@drugs) do |drug|
-  json.id  drug.drugID
+  json.value     drug.id
+  json.label     drug.id + ':' + drug.chiName
 end
